@@ -2,7 +2,7 @@ program GaussElimination
 	implicit none
 	! Declare Variables
 	real(8)::SourceValue
-	real(8)::Fvalue,x,StepSize,x0,e
+	real(8)::x,StepSize,x0,e
 	integer, parameter :: NumGridPoints = 10
 	real(8), Dimension(NumGridPoints+1) :: u,d,f
 	integer:: i
@@ -11,18 +11,19 @@ program GaussElimination
 	StepSize = 1.d0/(NumGridPoints)
 	u(1)=0
 	u(NumGridPoints+1)=0
-	d(1)=2
-	d(NumGridPoints+1)=2
+	d(2)=2
+	d(NumGridPoints)=2
 	e=-1.d0
 	do i=1,NumGridPoints+1
 		f(i)=SourceValue((i-1)*StepSize)*StepSize**2.d0
-		print *, (i-1)*StepSize, f(i)
+		!print *, (i-1)*StepSize, f(i)
 	end do
 
 	!Forward Substitution
-	do i=2, NumGridPoints
-		d(i)=d(i) - (e * e)/ d(i-1)
+	do i=3, NumGridPoints
+		d(i)= 2 - (e * e)/ d(i-1)
 		f(i)=f(i) - (e * f(i-1))/ d(i-1)
+		print *, f(i)
 	end do
 
 	!Backward Substitution

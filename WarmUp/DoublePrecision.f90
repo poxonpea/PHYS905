@@ -1,4 +1,4 @@
-program precisiondouble
+gprogram precisiondouble
   implicit none
   ! The program calculates the limits on step size for 2 and 3 point formulas
   real(8)::taninv,f2c,f3c,calcepsilon

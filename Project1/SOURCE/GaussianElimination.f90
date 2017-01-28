@@ -4,7 +4,7 @@ program GaussElimination
   real(8)::SourceValue, ExactValue
   real(8)::StepSize
   integer:: NumGridPoints,Power
-  real(8), Dimension(:),Allocatable :: u,d,f,e,error
+  real(8), Dimension(:),Allocatable :: u,d,f,e,error,exact
   integer:: i,NumPower
 
   !Ask user for sizes of matrix and allocate Matricies
@@ -21,6 +21,7 @@ program GaussElimination
     Allocate(f(NumGridPoints+1))
     Allocate(e(NumGridPoints+1))
     Allocate(error(NumGridPoints+1))
+    Allocate(exact(NumGridPoints+1))
   
    !Initialize Variables
     StepSize = 1.d0/(NumGridPoints)
@@ -50,10 +51,11 @@ program GaussElimination
 
     !Calculate relative error
     do i=1, NumGridPoints+1
-      error(i)= log10( abs( u(i) - ExactValue((i-1)*StepSize)) / ExactValue((i-1)*StepSize))
+      exact(i)=ExactValue((i-1)*StepSize)
+      error(i)= log10( abs( u(i) - exact(i)) / exact(i))
     end do
 
-    call printing(power,u,error,NumGridPoints)
+    call printing(NumPower,u,error,exact,NumGridPoints)
 
 
     Deallocate(u)
@@ -61,6 +63,7 @@ program GaussElimination
     Deallocate(f)
     Deallocate(e)  
     Deallocate(error)
+    Deallocate(exact)
 
     end do
 
@@ -84,19 +87,26 @@ function ExactValue(x)
 
 end function ExactValue
 
-subroutine printing(power, u, error,NumGridPoints)
+subroutine printing(power, u, error, exact,NumGridPoints)
   implicit none
   ! The program prints the results of the above calculations
-  integer::i
-  integer::power, NumGridPoints
-  real(8), dimension(NumGridPoints+1)::u,error
-  character(len=8) :: filename
-  
-do i=1, power
-  write (filename, '("myfile" i ".txt")' ) 
-  open (file=filename,unit=16)
-  write (16,'(5E12.4)') u(i),error(i)
-  close (16)
-end do
+  character(len=10) :: fmt 
+  character(len=10) ::x1
+  integer::power, NumGridPoints,i
+  real(8), dimension(NumGridPoints+1)::u,error,exact
+  character(len=25)::solnfile
+  character(len=4)::number
+
+  fmt = '(I1.1)' ! an integer of width 5 with zeros at the left
+
+  write (x1,fmt) power ! converting integer to string using a 'internal file'
+  solnfile='solution'//trim(x1)//'.dat' 
+  open(power,file=solnfile)
+  do i=1,NumGridPoints+1
+    write(power,*) exact(i),u(i)
+  end do
+  close(power)
+  print *, solnfile
+
 
 end subroutine printing

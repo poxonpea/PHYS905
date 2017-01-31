@@ -2,14 +2,57 @@
   !     decomposed one, where the matrix elements are stored in the same 
   !     matrix A. The array indx is  an output vector which records the row
   !     permutation effected by the partial pivoting. d is the determinant
-  !
+!
+
+program LUDecomposition
+  implicit none
+  integer, parameter :: N=5
+  real(8), dimension(N+1,N+1)::a
+  integer, dimension(N+1)::indx
+  real(8)::d,SourceValue,Stepsize
+  integer:: i,j
+  real(8), dimension(N+1)::b
+
+  StepSize=1.d0/N
+  
+  do i =1,N+1
+     do j=1,N+1
+        if (i==j) then
+           a(i,j)=2.d0
+        else if (i==j+1) then
+           a(i,j)=-1.d0
+        else if (i==j-1) then
+           a(i,j)=-1.d0
+        else
+           a(i,j)=0.d0
+        end if
+     end do      
+     b(i)=SourceValue((i-1)*StepSize)*StepSize**2.d0
+  end do
+
+  do i=1,N+1
+     do j=1,N+1
+        print*,a(i,j)
+     end do
+  end do
+  
+  
+  call lu_decompose(a,n+1,indx,d)
+  call lu_linear_equation(a,n+1,indx,b)
+
+  do i=1,N
+     print *,b(i)
+  end do
+  
+  end program LUDecomposition
+  
   SUBROUTINE lu_decompose(a,n,indx,d)
     IMPLICIT NONE
     INTEGER :: n, i, j, k, imax
-    REAL(DP) :: sum , tiny, aamax, dum, d
-    REAL(DP), DIMENSION(n,n) :: a
+    REAL(8) :: sum , tiny, aamax, dum, d
+    REAL(8), DIMENSION(n,n) :: a
     INTEGER, DIMENSION(n) :: indx
-    REAL(DP), ALLOCATABLE :: vv(:)
+    REAL(8), ALLOCATABLE :: vv(:)
 
     tiny=1.0e-20
     ALLOCATE ( vv(n) )
@@ -91,9 +134,9 @@
   SUBROUTINE lu_linear_equation(a,n,indx,b)
     IMPLICIT NONE
     INTEGER :: n, ii, ll, i, j
-    REAL(DP) :: sum 
-    REAL(DP), DIMENSION(n,n) :: a
-    REAL(DP), DIMENSION(n) :: b
+    REAL(8) :: sum 
+    REAL(8), DIMENSION(n,n) :: a
+    REAL(8), DIMENSION(n) :: b
     INTEGER, DIMENSION(n) :: indx
 
     ii=0
@@ -124,3 +167,12 @@
     ENDDO
 
   END SUBROUTINE lu_linear_equation
+
+function SourceValue(x)
+  implicit none
+  real(8)::SourceValue, x
+
+  SourceValue = 100.d0 * Exp(- 10.d0 * x)
+  return
+
+end function SourceValue

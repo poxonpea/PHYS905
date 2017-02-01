@@ -6,42 +6,43 @@
 
 program LUDecomposition
   implicit none
-  integer, parameter :: N=5
-  real(8), dimension(N+1,N+1)::a
-  integer, dimension(N+1)::indx
+  integer, parameter :: N=100
+  real(8), dimension(N,N)::a
+  integer, dimension(N)::indx
   real(8)::d,SourceValue,Stepsize
   integer:: i,j
-  real(8), dimension(N+1)::b
+  real(8), dimension(N)::b
 
   StepSize=1.d0/N
   
-  do i =1,N+1
-     do j=1,N+1
+  do i =1,N
+     do j=1,N
         if (i==j) then
-           a(i,j)=2.d0
-        else if (i==j+1) then
-           a(i,j)=-1.d0
-        else if (i==j-1) then
-           a(i,j)=-1.d0
+           a(j,i)=2.d0
+        else if (j==i+1) then
+           a(j,i)=-1.d0
+        else if (j==i-1) then
+           a(j,i)=-1.d0
         else
-           a(i,j)=0.d0
+           a(j,i)=0.d0
         end if
      end do      
-     b(i)=SourceValue((i-1)*StepSize)*StepSize**2.d0
+     !b(i)=SourceValue(i*StepSize)*StepSize**2.d0
+     print*,i*Stepsize, b(i)
   end do
 
-  do i=1,N+1
-     do j=1,N+1
-        print*,a(i,j)
-     end do
-  end do
+ ! do i=1,N+1
+ !    do j=1,N+1
+ !       print*,a(j,i)
+ !    end do
+ ! end do
   
   
-  call lu_decompose(a,n+1,indx,d)
-  call lu_linear_equation(a,n+1,indx,b)
+  call lu_decompose(a,n,indx,d)
+  call lu_linear_equation(a,n,indx,b)
 
   do i=1,N
-     print *,b(i)
+     print *,i*stepsize,b(i)
   end do
   
   end program LUDecomposition

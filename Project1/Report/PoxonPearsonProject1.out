@@ -1,0 +1,11 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Methods}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Poisson's Equation in Differential Form}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Poisson's Equation in Matrix Form}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{General Tridiagonal Matrix Solver}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{FLOPS in }{section.2}% 6
+\BOOKMARK [1][-]{section.3}{Code and Implementation}{}% 7
+\BOOKMARK [1][-]{section.4}{Results and Discussion}{}% 8
+\BOOKMARK [1][-]{section.5}{Conclusions}{}% 9
+\BOOKMARK [1][-]{section.6}{Appendices}{}% 10
+\BOOKMARK [1][-]{section*.2}{References}{}% 11

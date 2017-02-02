@@ -6,24 +6,23 @@ program GaussElimination
   integer:: NumGridPoints,Power
   real(8), Dimension(:),Allocatable :: u,d,f,e,error,exact
   integer:: i,NumPower
-  real(8):: start, finish
-  
+  real(8):: finish,start
+ 
   !Ask user for sizes of matrix and allocate Matricies
   print*,"What is the maximum power (base 10) of the matrix dimension you want?"
   read (*,*) Power
-
+  
   do NumPower=1, Power
     NumGridPoints=10**NumPower
 
     !print*,NumGridPoints
-    
     Allocate(u(NumGridPoints+1))
     Allocate(d(NumGridPoints+1))
     Allocate(f(NumGridPoints+1))
     Allocate(e(NumGridPoints+1))
     Allocate(error(NumGridPoints+1))
     Allocate(exact(NumGridPoints+1))
-  
+    
    !Initialize Variables
     StepSize = 1.d0/(NumGridPoints)
     u(1)=0.d0
@@ -33,6 +32,7 @@ program GaussElimination
        d(i)=2.d0
        e(i)=-1.d0
     end do
+
 
     call cpu_time(start)
     
@@ -52,8 +52,9 @@ program GaussElimination
    !    print*,i
     end do
 
+
     call cpu_time(finish)
-    print*, power, finish-start
+
     
     !Calculate relative error
     do i=1, NumGridPoints+1
@@ -61,8 +62,8 @@ program GaussElimination
       error(i)= log10( abs( u(i) - exact(i)) / exact(i))
     end do
 
-    call printing(NumPower,u,stepsize,error,exact,NumGridPoints)
-
+    call printing(NumPower,u,stepsize,exact,NumGridPoints)
+    print*, numpower, finish-start, error(3)
 
     Deallocate(u)
     Deallocate(d)
@@ -93,7 +94,7 @@ function ExactValue(x)
 
 end function ExactValue
 
-subroutine printing(power, u,stepsize, error, exact,NumGridPoints)
+subroutine printing(power, u,stepsize, exact,NumGridPoints)
   implicit none
   ! The program prints the results of the above calculations
   character(len=10) :: fmt 

@@ -6,10 +6,10 @@
 
 program LUDecomposition
   implicit none
-  integer, parameter :: N=100
+  integer, parameter :: N=10000
   real(8), dimension(N,N)::a
   integer, dimension(N)::indx
-  real(8)::d,SourceValue,Stepsize
+  real(8)::d,SourceValue,Stepsize,start,finish
   integer:: i,j
   real(8), dimension(N)::b
 
@@ -27,8 +27,8 @@ program LUDecomposition
            a(j,i)=0.d0
         end if
      end do      
-     !b(i)=SourceValue(i*StepSize)*StepSize**2.d0
-     print*,i*Stepsize, b(i)
+     b(i)=SourceValue(i*StepSize)*StepSize**2.d0
+     !print*,i*Stepsize, b(i)
   end do
 
  ! do i=1,N+1
@@ -37,13 +37,16 @@ program LUDecomposition
  !    end do
  ! end do
   
-  
+  call cpu_time(start)
   call lu_decompose(a,n,indx,d)
   call lu_linear_equation(a,n,indx,b)
+  call cpu_time(finish)
 
-  do i=1,N
-     print *,i*stepsize,b(i)
-  end do
+  print*,start-finish
+  
+ ! do i=1,N
+ !    print *,i*stepsize,b(i)
+ ! end do
   
   end program LUDecomposition
   

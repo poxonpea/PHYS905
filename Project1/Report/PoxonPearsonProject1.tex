@@ -13,11 +13,11 @@ final,                   % draft: marks overfull hboxes, figures with paths
 10pt]{article}
 
 \listfiles               %  print all files needed to compile this document
-
+\usepackage{mathtools}
 \usepackage{relsize,makeidx,color,setspace,amsmath,amsfonts,amssymb}
 \usepackage[table]{xcolor}
 \usepackage{bm,ltablex,microtype}
-
+\usepackage{float}
 \usepackage[pdftex]{graphicx}
 
 \usepackage{fancyvrb} % packages needed for verbatim environments
@@ -26,7 +26,7 @@ final,                   % draft: marks overfull hboxes, figures with paths
 %\usepackage[latin1]{inputenc}
 \usepackage{ucs}
 \usepackage[utf8x]{inputenc}
-
+\usepackage[ngerman]{babel}
 \usepackage{lmodern}         % Latin Modern fonts derived from Computer Modern
 
 % Hyperlinks in PDF:
@@ -259,23 +259,96 @@ These new diagonal elements are will be renamed $\tilde{d}_i$ and the new sorce 
 Where the general expressions for the matrix elements are:
 
 
-\begin{align*}
-\tilde{d}_i = d_i - \frac{e^2_{i-1}}{\tilde{d}_{i-1}} &\qquad\text{and}\qquad \tilde{b}^*_i = \tilde{b}_i - \tilde{b}_{i-1}^* \frac{e_{i-1}}{\tilde{d}_{i-1}} &\qquad\text{for}\qquad i=2,3,...n
-\end{align*}
+\begin{equation} \label{eqn:General12}
+\tilde{d}_i = d_i - \frac{e^2_{i-1}}{\tilde{d}_{i-1}}
+\qquad \text{and} \qquad
+\tilde{b}^*_i = \tilde{b}_i - \tilde{b}_{i-1}^* \frac{e_{i-1}}{\tilde{d}_{i-1}} 
+\qquad \text{for} \qquad i=2,3,...n
+\end{equation}
 
-Next, we can do a backward substitution begining with the final row of the matrix equation.  Solving the the unknown function, we get that $v_n=\tilde{b}^*_n/\tilde{d}_n$.  Now that $v_n$ is knows, we substitute this value into the equation from the second to last row and solve for $v_{n-1}$.  We can continue this backward substitution until all values $v_i$ are know.  The general formula for these elements are
 
-\begin{align*}
-v_i=\frac{\tilde{b}^*_i - e_i u_{i+1}}{\tilde{d}_i} &\qquad\text{for}\qquad i=n-2,n-1,...1.
-\end{align*}
+
+Next, we can do a backward substitution beginning with the final row of the matrix equation.  Solving the the unknown function, we get that $v_n=\tilde{b}^*_n/\tilde{d}_n$.  Now that $v_n$ is knows, we substitute this value into the equation from the second to last row and solve for $v_{n-1}$.  We can continue this backward substitution until all values $v_i$ are know.  The general formula for these elements are
+
+\begin{equation}\label{eqn:General3}
+v_i=\frac{\tilde{b}^*_i - e_i u_{i+1}}{\tilde{d}_i}  \qquad\text{for} \qquad i=n-2,n-1,...1.
+\end{equation}
 
 In the next section we will explore the efficiency of an algorithm which uses this method.
 
 \subsection{FLOPS in General Algorithm}
 
-The FLOPS for the algorithm are determined by the operations from the matrix decomposition, substitution, and backwards substitution.  This does not include the initalazation of variables.
+The FLOPS for the algorithm are determined by the operations from the matrix decomposition, substitution, and backwards substitution.  This does not include the initialization of variables.  For the general algorithm there are three expressions which contribute to the floating point operations: The two equations in \ref{eqn:General12} and Equation \ref{eqn:General3}.  Each of these expressions have 3 operations which is repeated in each loop of the algorithm.  The first equations loop from $i=2-n$ and the third loops from $i=(n-1)-1$, for a total of n-1 loops for each.  This leaves us with $9(n-1)$ total floating point operations.
+
+\subsection{Tailoring General Algorithm}
+
+There are several steps that can be done to improve the algorithm's efficiency by taking advantage of the specific features of this matrix.  First, we know that all of diagonal elements will be 2 and all of the nonzero off diagonal elements will be -1.  Taking advantage of all $e_i=1$ lets us simplify the \ref{eqn:General12} and \ref{eqn:General3} to
+
+\begin{equation} \label{eqn:Specific12}
+\tilde{d}_i = d_i - \frac{1}{\tilde{d}_{i-1}}
+\qquad \text{and} \qquad
+\tilde{b}^*_i = \tilde{b}_i + \frac{ \tilde{b}_{i-1}^*}{\tilde{d}_{i-1}} 
+\qquad \text{for} \qquad i=2,3,...n
+\end{equation}
+
+\begin{equation}\label{eqn:Specific3}
+v_i=\frac{\tilde{b}^*_i + u_{i+1}}{\tilde{d}_i}  \qquad\text{for} \qquad i=n-2,n-1,...1.
+\end{equation}
+
+which leaves us with $6(n-1)$ operations.  Finally, we can precalculate $\tilde{d}_i$  with the observation that 
+
+\begin{equation*}
+\tilde{d}_i=\frac{i+1}{i}
+\end{equation*}
+
+Finally we are left with $4(n-1)$ floating point operations.
+
+\subsection{LU Decomposition}
+
+The third method we use for solving Poisson's equation is LU Decomposition.  This method is much more general than the past two and it is not necessary for the matrix to be tridiagonal. The process decomposes the initial matrix $\mathbf{A}$ into a product of and upper and lower triangular matrices $\mathbf{L} \cdot \mathbf{U}$.  Then if we want to solve the equation
+
+\begin{equation*}
+\begin{split}
+&\mathbf{A} \cdot \mathbf{x} = \mathbf{y} \\
+&\mathbf{L} \cdot \mathbf{U} \cdot \mathbf{x} = \mathbf{y}\\
+& \mathbf{L} \cdot \mathbf{z} = \mathbf{y}
+\end{split}
+\end{equation*}
+
+where $\mathbf{z}=\mathbf{U} \cdot \mathbf{x}$.  Then we can use a similar gaussian elimination method to solve this, simpler, matrix equation.  This is a commonly used method and a full explanation of the procedure for decomposing and solving the matrix equation can be found in \cite{LectureNotes}.
+
+Because this algorithm does not take advantage of the sparse nature of the tridiagonal matrix, it is much more computationally intensive and scales as $(2/3) n^3$.  The details of this scaling are given in \cite{Chiarandini}
+
 
 \section{Code and Implementation}
+
+All of the programs, results, and benchmarks for this work can be found in my GIT repository (https://github.com/poxonpea/PHYS905).  All codes for this project were written in FORTRAN.
+
+\subsection{Implementing General Algorithm}
+
+The code containing the main algorithm for solving the general tridiagonal matrix is shown here.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=1.2\textwidth]{GeneralAlgorithm}
+\end{figure}
+
+This does not include any of the initialization, but has the implementation of Equations \ref{eqn:General12} and Equation \ref{eqn:General3}.  This code also includes a function for producing the source term, calculating the exact solution and producing the relative error for the calculations.
+
+\subsection{Implementing Tailored Algorithm}
+
+The code containing the main algorithm for solving the tailored tridiagonal matrix is shown here.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=1.2\textwidth]{SpecificAlgorithm}
+\end{figure}
+
+This code has almost the same structure as the general case, except for the section shown above and with different initializations.
+
+\subsection{Implementing LU Decomposition}
+
+For this calculation, I used the subroutines "lu_decompose" and "lu_linear_equation" from the FORTRAN library provided for this course.  I just had to write a few lines which filled the tridiagonal matrix before feeding it into these subroutines.
 
 \section{Results and Discussion}
 
@@ -289,67 +362,13 @@ The FLOPS for the algorithm are determined by the operations from the matrix dec
 Hjorth-Jensen, Mortehn. 
 Computational Physics, Lecture Notes Fall 2015. 
 August 2015.
- 
+
+\bibitem{Chiarandini} 
+Chiarandini, Marco. 
+LU Factorization, Linear and Integer Programming. 
+http://www.imada.sdu.dk/~marco/DM554/Slides/dm554-lu.pdf.
+
 \end{thebibliography}
-
-
-
-In our case we will assume  that the source term is 
-$f(x) = 100e^{-10x}$, and keep the same interval and boundary 
-conditions. Then the above differential equation
-has a closed-form  solution given by $u(x) = 1-(1-e^{-10})x-e^{-10x}$ (convince yourself that this is correct by inserting the
-solution in the Poisson equation).  We will compare
-our numerical solution with this result in the next exercise. 
-
-\paragraph{Project 1 b):}
-We can rewrite our matrix $\mathbf{A}$ in terms of one-dimensional vectors $a,b,c$  
-of length $1:n$. 
-Our linear equation reads
-
-\[
-    \mathbf{A} = \begin{bmatrix}
-                           b_1& c_1 & 0 &\dots   & \dots &\dots \\
-                           a_1 & b_2 & c_2 &\dots &\dots &\dots \\
-                           & a_2 & b_3 & c_3 & \dots & \dots \\
-                           & \dots   & \dots &\dots   &\dots & \dots \\
-                           &   &  &a_{n-2}  &b_{n-1}& c_{n-1} \\
-                           &    &  &   &a_{n-1} & b_n \\
-                      \end{bmatrix}\begin{bmatrix}
-                           v_1\\
-                           v_2\\
-                           \dots \\
-                          \dots  \\
-                          \dots \\
-                           v_n\\
-                      \end{bmatrix}
-  =\begin{bmatrix}
-                           \tilde{b}_1\\
-                           \tilde{b}_2\\
-                           \dots \\
-                           \dots \\
-                          \dots \\
-                           \tilde{b}_n\\
-                      \end{bmatrix}.
-\]
-Note well that we do not include the endpoints since the boundary conditions are used resulting in a fixed value for $v_i$.
-A tridiagonal matrix is a special form of banded matrix where all the elements are zero except for 
-those on and immediately above and below the leading diagonal.
-Develop a general algorithm first which does not assume that we have a matrix with the same elements along the diagonal and the non-diagonal elements.
-The algorithm for solving this set of equations is rather simple and requires two steps only, a decomposition 
-and forward substitution and finally a backward substitution. 
-
-
-Your first task is to set up the general algorithm (assuming different values for the matrix elements) for solving this set of linear equations.
-Find also the precise number of floating point 
-operations needed to solve the above equations. 
-
-
-Then you should code the above algorithm and solve the problem for matrices of the size
-$10\times 10$, $100\times 100$ and $1000\times 1000$.  That means that you select $n=10$, $n=100$ and
-$n=1000$ grid points. 
-
-Compare your results (make plots) with the closed-form solution for the different number of grid points  in the 
-interval $x\in(0,1)$.  The different number of grid points corresponds to different step lengths $h$.
 
 \paragraph{Project 1 c):}
 Use thereafter the fact that the matrix has identical matrix elements along the diagonal and identical (but different) values for the non-diagonal elements. Specialize your algorithm to the special case and find the number of floating point operations
@@ -381,42 +400,6 @@ Can you run the standard LU decomposition
 for a matrix of the size $10^5\times 10^5$?
 Comment your results.
 
-
-To compute the elapsed time in c++ you can use the following statements
-\begin{verbatim}
-...
-#include "time.h"   //  you have to include the time.h header
-int main()
-{
-    // declarations of variables 
-    ...
-    clock_t start, finish;  //  declare start and final time
-    start = clock();
-    // your code is here, do something and then get final time
-    finish = clock();
-    ( (finish - start)/CLOCKS_PER_SEC );
-...
-\end{verbatim}
-Similarly, in Fortran, this simple example shows how to compute the elapsed time.
-\begin{verbatim}
-PROGRAM time
- REAL :: etime          ! Declare the type of etime()
- REAL :: elapsed(2)     ! For receiving user and system time
- REAL :: total          ! For receiving total time
- INTEGER :: i, j
-
- WRITE(*,*) 'Start'
-
- DO i = 1, 5000000  
-      j = j + 1
- ENDDO
-
- total = ETIME(elapsed)
- WRITE(*,*) 'End: total=', total, ' user=', elapsed(1), &
-              ' system=', elapsed(2)
-
-END PROGRAM time
-\end{verbatim}
 
 
 

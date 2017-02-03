@@ -1,9 +1,3 @@
-  !     Given an NxN matrix A(N,N), this routine replaces it by the LU 
-  !     decomposed one, where the matrix elements are stored in the same 
-  !     matrix A. The array indx is  an output vector which records the row
-  !     permutation effected by the partial pivoting. d is the determinant
-!
-
 program LUDecomposition
   implicit none
   integer, parameter :: N=10000
@@ -15,6 +9,7 @@ program LUDecomposition
 
   StepSize=1.d0/N
   
+  !Fill Matrix
   do i =1,N
      do j=1,N
         if (i==j) then
@@ -28,28 +23,25 @@ program LUDecomposition
         end if
      end do      
      b(i)=SourceValue(i*StepSize)*StepSize**2.d0
-     !print*,i*Stepsize, b(i)
   end do
 
- ! do i=1,N+1
- !    do j=1,N+1
- !       print*,a(j,i)
- !    end do
- ! end do
-  
+! Call LU functions from FORTRAN library  
   call cpu_time(start)
   call lu_decompose(a,n,indx,d)
   call lu_linear_equation(a,n,indx,b)
   call cpu_time(finish)
 
-  print*,start-finish
+  print*,N,finish-start
   
- ! do i=1,N
- !    print *,i*stepsize,b(i)
- ! end do
   
   end program LUDecomposition
   
+!     Given an NxN matrix A(N,N), this routine replaces it by the LU 
+!     decomposed one, where the matrix elements are stored in the same 
+!     matrix A. The array indx is  an output vector which records the row
+!     permutation effected by the partial pivoting. d is the determinant
+!  
+
   SUBROUTINE lu_decompose(a,n,indx,d)
     IMPLICIT NONE
     INTEGER :: n, i, j, k, imax

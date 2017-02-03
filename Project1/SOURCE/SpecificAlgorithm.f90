@@ -1,4 +1,4 @@
-program GaussElimination
+program SpecificGaussElimination
   implicit none
   ! Declare Variables
   real(8)::SourceValue, ExactValue
@@ -44,7 +44,6 @@ program GaussElimination
 
     do i=NumGridPoints-1, 2, -1
        u(i)= (f(i) + u(i+1) )/ d(i)
-   !    print*,i
     end do
 
     call cpu_time(finish)
@@ -67,9 +66,10 @@ program GaussElimination
 
     end do
 
-end program GaussElimination
+end program SpecificGaussElimination
 
 function SourceValue(x)
+! Calculates Source term value
   implicit none
   real(8)::SourceValue, x
 
@@ -79,6 +79,7 @@ function SourceValue(x)
 end function SourceValue	
 
 function ExactValue(x)
+! Calculates Analytic Solution
   implicit none
   real(8)::ExactValue, x
 
@@ -88,6 +89,7 @@ function ExactValue(x)
 end function ExactValue
 
 subroutine printing(power, u,stepsize, error, exact,NumGridPoints)
+!Prints results to file
   implicit none
   ! The program prints the results of the above calculations
   character(len=10) :: fmt 
@@ -101,7 +103,7 @@ subroutine printing(power, u,stepsize, error, exact,NumGridPoints)
   fmt = '(I1.1)' ! an integer of width 5 with zeros at the left
 
   write (x1,fmt) power ! converting integer to string using a 'internal file'
-  solnfile='solution'//trim(x1)//'.dat' 
+  solnfile='tailorsolution'//trim(x1)//'.dat' 
   open(power,file=solnfile)
   if (power == 3) then
      do i=1,NumGridPoints+1

@@ -26,7 +26,7 @@ final,                   % draft: marks overfull hboxes, figures with paths
 %\usepackage[latin1]{inputenc}
 \usepackage{ucs}
 \usepackage[utf8x]{inputenc}
-\usepackage[ngerman]{babel}
+\usepackage[english]{babel}
 \usepackage{lmodern}         % Latin Modern fonts derived from Computer Modern
 
 % Hyperlinks in PDF:
@@ -348,13 +348,73 @@ This code has almost the same structure as the general case, except for the sect
 
 \subsection{Implementing LU Decomposition}
 
-For this calculation, I used the subroutines "lu_decompose" and "lu_linear_equation" from the FORTRAN library provided for this course.  I just had to write a few lines which filled the tridiagonal matrix before feeding it into these subroutines.
+For this calculation, I used the subroutines \texttt{lu\_decompose} and \texttt{lu\_linear\_equation} from the FORTRAN library provided for this course.  I just had to write a few lines which filled the tridiagonal matrix before feeding it into these subroutines.
+
+\subsection{Calculating Relative Error}
+
+The results from these algorithms can be compared to the analytic solution to understand the error in our calculations.  In this work, we study the log of the relative error which is defined by
+
+\[
+   \epsilon_i=log_{10}\left(\left|\frac{v_i-u_i}
+                 {u_i}\right|\right),
+\]
+
+In the code, we calculated this value for each step size.  We can use this value to measure how well our calculation is reproducing the analytical solution and to keep track of our numerical precision.  This will be discussed in more detail in the following section.
 
 \section{Results and Discussion}
 
-\section{Conclusions}
+\subsection{Convergence}
 
-\section{Appendices}
+The Figure \ref{fig:comp} below shows the convergence of our different methods.  The analytic solution is plotted in black and solutions using different choices of step sizes are compared.  It is worth noting that this plot should be the same for each method because all of these algorithms approximate the differential equation as a tridiagonal matrix equation.  These methods converge quickly, with 10 gridpoints giving a rough description of the exact solution and 100 grid points being almost indistinguishable from the exact solution on this scale.
+
+\begin{figure}[H]\label{fig:comp}
+  \centering
+    \includegraphics[width=1.2\textwidth]{comp.eps}
+    \caption{Convergence for different choices of step sizes compared to the analytic solution.}
+\end{figure}
+
+Figure \ref{fig:compzoom} shows a zoomed in view of the results to we can distinguish between $n=100$ and $n=1000$ results.  In this view we can see that the $n=100$ result slightly underpredicts the exact solution. 
+
+\begin{figure}[H]\label{fig:compzoom}
+  \centering
+    \includegraphics[width=1.2\textwidth]{compzoom.eps}
+    \caption{A zoomed in view of the convergence to the exact solution}
+\end{figure}
+
+\subsection{Computational Speeds}
+
+Table \ref{table:test}, below, compares the speeds of the three different methods used in this study.  All times are reported in seconds. 
+
+\begin{center} 
+\begin{tabular}{ |c|c|c|c| }
+\hline
+Size of Matrix ($10^n$) & General & Tailored & LU \\
+\hline
+1& 3.00 E -6 & 3.00 E -6 & 2.40 E -5\\ 
+2 & 4.00 E -6 & 4.00 E -6 & 1.71 E -3 \\ 
+3 & 3.90 E -5 & 1.90 E -5 & 1.93\\ 
+4 & 3.79 E -4 & 2.09 E -4 & N/A\\ 
+5 & 3.38 E -3 & 1.51 E -3  & N/A\\ 
+6 & 2.87 E -2 & 1.53 E -2 & N/A\\ 
+7 & 3.16 E -1 & 1.73 E -1& N/A\\ 
+\hline
+\end{tabular}
+\label{table:test}
+\end{center}
+
+When we created the tailored algorithm, we saw a reduction of $9(n-1)$ floating point operations in the general algorithm to just $4(n-1)$.  As expected, this corresponded to a significant decrease in the computation time.  The tailored algorithm takes roughly half the time as the general algorithm.  It is worth noting that this is not evident for small n.  That is because the run time is so short, it runs into the limit of the clock's granularity.
+
+As we would expect, the computation time for the LU decomposition method is much longer, even for small n.  This is because this algorithm does not take into account the sparse nature of the tridiagonal matrix and tries to diagonalize the full matrix.  My computer was not able to calculate the $n=10^4$ matrix.
+
+\subsection{Error Analysis}
+
+\begin{figure}[H]\label{fig:error}
+  \centering
+    \includegraphics[width=1.2\textwidth]{RelativeError.eps}
+    \caption{Log-Log Plot of the relative error for different stepsizes}
+\end{figure}
+
+\section{Conclusions}
 
 \begin{thebibliography}{9}
 
@@ -369,90 +429,6 @@ LU Factorization, Linear and Integer Programming.
 http://www.imada.sdu.dk/~marco/DM554/Slides/dm554-lu.pdf.
 
 \end{thebibliography}
-
-\paragraph{Project 1 c):}
-Use thereafter the fact that the matrix has identical matrix elements along the diagonal and identical (but different) values for the non-diagonal elements. Specialize your algorithm to the special case and find the number of floating point operations
-for this specific tri-diagonal matrix. Compare the CPU time with the general algorithm from the previous point for matrices up to  $n=10^6$ grid points. 
-
-\paragraph{Project 1 d):}
-Compute the relative error  in the data set $i=1,\dots, n$,by setting up
-
-\[
-   \epsilon_i=log_{10}\left(\left|\frac{v_i-u_i}
-                 {u_i}\right|\right),
-\]
-as function of $log_{10}(h)$ for the function values $u_i$ and $v_i$.
-For each step length extract the max value of the relative error.  
-Try to increase $n$ to $n=10^7$ or higher.  Make a table of the results and 
-comment your results. 
-
-\paragraph{Project 1 e):}
-Compare your results with those from the LU decomposition codes for the matrix of sizes $10\times 10$, $100\times 100$ and
-$1000\times 1000$. Here you should use the library functions provided  on the webpage of the course. Alternatively, if you use armadillo as a library, you can use the similar function for LU decomposition.  The armadillo function for the LU decomposition is called $LU$ while the function for solving linear sets of equations is called $solve$.
-Use for example the unix function \emph{time} when you run your codes 
-and compare the time usage between LU decomposition and  your
-tridiagonal solver.   Alternatively, you can use the functions in C++, Fortran or Python that measure the time used. 
-
-Make a table of the results and comment the differences
-in execution time
-How many floating point operations does the LU decomposition use to solve the set of linear equations?
-Can you run the standard LU decomposition
-for a matrix of the size $10^5\times 10^5$?
-Comment your results.
-
-
-
-
-
-
-
-\subsection*{Introduction to numerical projects}
-
-Here follows a brief recipe and recommendation on how to write a report for each
-project.
-
-\begin{itemize}
-  \item Give a short description of the nature of the problem and the eventual  numerical methods you have used.
-
-  \item Describe the algorithm you have used and/or developed. Here you may find it convenient to use pseudocoding. In many cases you can describe the algorithm in the program itself.
-
-  \item Include the source code of your program. Comment your program properly.
-
-  \item If possible, try to find analytic solutions, or known limits in order to test your program when developing the code.
-
-  \item Include your results either in figure form or in a table. Remember to        label your results. All tables and figures should have relevant captions        and labels on the axes.
-
-  \item Try to evaluate the reliabilty and numerical stability/precision of your results. If possible, include a qualitative and/or quantitative discussion of the numerical stability, eventual loss of precision etc.
-
-  \item Try to give an interpretation of you results in your answers to  the problems.
-
-  \item Critique: if possible include your comments and reflections about the  exercise, whether you felt you learnt something, ideas for improvements and  other thoughts you've made when solving the exercise. We wish to keep this course at the interactive level and your comments can help us improve it.
-
-  \item Try to establish a practice where you log your work at the  computerlab. You may find such a logbook very handy at later stages in your work, especially when you don't properly remember  what a previous test version  of your program did. Here you could also record  the time spent on solving the exercise, various algorithms you may have tested or other topics which you feel worthy of mentioning.
-\end{itemize}
-
-\noindent
-\subsection*{Format for electronic delivery of report and programs}
-
-The preferred format for the report is a PDF file. You can also use DOC or postscript formats or as an ipython notebook file.  As programming language we prefer that you choose between C/C++, Fortran2008 or Python. The following prescription should be followed when preparing the report:
-
-
-\begin{itemize}
-  \item Use your github repository to upload your report. Indicate where the report is by creating for example a \textbf{Report} folder. Please send us as soon as possible your github username.
-
-  \item Place your programs in a folder called for example \textbf{Programs} or \textbf{src}, in order to indicate where your programs are. You can use a README file to tell us how your github folders are organized. 
-
-  \item In your git repository, please include a folder which contains selected results. These can be in the form of output from your code for a selected set of runs and input parameters.
-
-  \item In this and all later projects, you should include tests (for example unit tests) of your code(s).
-
-  \item Comments  from us on your projects, with score and detailed feedback will be emailed to you. 
-\end{itemize}
-
-\noindent
-Finally, 
-we encourage you to work two and two together. Optimal working groups consist of 
-2-3 students. You can then hand in a common report. 
 
 
 

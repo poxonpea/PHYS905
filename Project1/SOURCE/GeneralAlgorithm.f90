@@ -1,5 +1,6 @@
-program GaussElimination
+program GeneralGaussElimination
   implicit none
+
   ! Declare Variables
   real(8)::SourceValue, ExactValue
   real(8)::StepSize
@@ -15,7 +16,6 @@ program GaussElimination
   do NumPower=1, Power
     NumGridPoints=10**NumPower
 
-    !print*,NumGridPoints
     Allocate(u(NumGridPoints+1))
     Allocate(d(NumGridPoints+1))
     Allocate(f(NumGridPoints+1))
@@ -49,7 +49,6 @@ program GaussElimination
 
     do i=NumGridPoints-1, 2, -1
        u(i)= (f(i) - e(i-1) * u(i+1) )/ d(i)
-   !    print*,i
     end do
 
 
@@ -62,6 +61,7 @@ program GaussElimination
       error(i)= log10( abs( u(i) - exact(i)) / exact(i))
     end do
 
+    !print outputs and computation times
     call printing(NumPower,u,stepsize,exact,NumGridPoints)
     print*, numpower, finish-start, error(3)
 
@@ -74,9 +74,10 @@ program GaussElimination
 
     end do
 
-end program GaussElimination
+end program GeneralGaussElimination
 
 function SourceValue(x)
+!Function to calculate source term value
   implicit none
   real(8)::SourceValue, x
 
@@ -86,6 +87,7 @@ function SourceValue(x)
 end function SourceValue	
 
 function ExactValue(x)
+!Function to calculate exact solutions
   implicit none
   real(8)::ExactValue, x
 
@@ -95,6 +97,7 @@ function ExactValue(x)
 end function ExactValue
 
 subroutine printing(power, u,stepsize, exact,NumGridPoints)
+!Function to print results to file
   implicit none
   ! The program prints the results of the above calculations
   character(len=10) :: fmt 
@@ -107,8 +110,8 @@ subroutine printing(power, u,stepsize, exact,NumGridPoints)
 
   fmt = '(I1.1)' ! an integer of width 5 with zeros at the left
 
-  write (x1,fmt) power ! converting integer to string using a 'internal file'
-  solnfile='solution'//trim(x1)//'.dat' 
+  write (x1,fmt) power
+  solnfile='gensolution'//trim(x1)//'.dat' 
   open(power,file=solnfile)
   if (power == 3) then
      do i=1,NumGridPoints+1

@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.19)  3 FEB 2017 10:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.19)  3 FEB 2017 12:54
 entering extended mode
-**H:/Documents/Computational/PHYS905/PHYS905/Project1/Report/PoxonPearsonProjec
+**H:/Documents/Computational/PHYS905/PHYS905/Project1/REPORT/PoxonPearsonProjec
 t1.tex
 
-(H:/Documents/Computational/PHYS905/PHYS905/Project1/Report/PoxonPearsonProject
+(H:/Documents/Computational/PHYS905/PHYS905/Project1/REPORT/PoxonPearsonProject
 1.tex
 LaTeX2e <2015/10/01> patch level 2
 Babel <3.9m> and hyphenation patterns for 69 languages loaded.
@@ -989,11 +989,11 @@ Package rerunfilecheck Info: File `PoxonPearsonProject1.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 474.
  ) 
 Here is how much of TeX's memory you used:
- 11119 strings out of 493634
- 168806 string characters out of 3141305
+ 11123 strings out of 493634
+ 168848 string characters out of 3141305
  324637 words of memory out of 3000000
  14104 multiletter control sequences out of 15000+200000
- 62437 words of font info for 101 fonts, out of 3000000 for 9000
+ 62603 words of font info for 103 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  42i,15n,38p,1076b,484s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program F
@@ -1010,7 +1010,7 @@ lic/lm/lmr5.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr7.p
 fb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Prog
 ram Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy7.pfb><C:/Program Files (x
 86)/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb>
-Output written on PoxonPearsonProject1.pdf (12 pages, 309816 bytes).
+Output written on PoxonPearsonProject1.pdf (12 pages, 309596 bytes).
 PDF statistics:
  264 PDF objects out of 1000 (max. 8388607)
  43 named destinations out of 1000 (max. 500000)

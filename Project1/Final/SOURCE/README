@@ -16,4 +16,6 @@ Note that for both of these solutions, the printed error may be stored in fort,6
 
 LUDecomposition.f90 which solves the matrix equation using LU decomposition.  The program
 runs for a matrix of given dimension (N).  This paramter can be adjusted mannually in the
-initial variable declaration.
+initial variable declaration. This program creates an output file, LU.dat, which holds the solution.
+
+Benchmarks for these programs can be found in the BENCHMARK folder.

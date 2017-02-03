@@ -112,9 +112,9 @@ In this project we solved Poisson's equation via a tridiagonal matrix equation u
 \tableofcontents
  
 \section{Introduction}
-In this report we study different algorithms which can be used to solve linear, second order, differential equations.  As as example, we look at the example of Poisson's equation with Dirichlet boundary conditions.  For each method used, we cast Poisson's equation as a tridiagonal matrix equations.  First we employ a general algorithm for solving tridiagonal matrices.  Next, we specialize this algorithm to the specific features of this problem and study the effect on the number of Floating Point Operations per Second (FLOPS) which manifests in the CPU time.  Finally, we use a an algorithm for LU decomposition, a much more general method which does not require a tridiagonal form of the matrix.  We study how this powerful algorithm scales with matrix size.
+In this report we study different algorithms which can be used to solve linear, second order, differential equations.  As as example, we look at Poisson's equation with Dirichlet boundary conditions.  For each method used, we cast Poisson's equation as a tridiagonal matrix equations.  First we employ a general algorithm for solving tridiagonal matrices.  Next, we specialize this algorithm to the specific features of this problem and study the effect on the number of Floating Point Operations per Second (FLOPS) which manifests in the CPU time.  Finally, we use an algorithm for LU decomposition, a much more general method which does not require a tridiagonal form of the matrix.  We study how this powerful algorithm scales with matrix size.
 
-In the following report, we introduce the matrix equation we solve, outine the general algorithm for solving tridiagonal matrices, and discuss how this algorithm can be tailored for our specific case.  These discussions will include discussions of the FLOPS required for each calculation.  We will end the Methods portion of this report with a brief introduction to the LU decomposition algorithm.  Then we wil discuss the implementation of these algorithms and the codes we used for our calculations.  We will then present our results which include a study of convergence to the analytical solutions, a comparison of computational speeds between different algorithms, and a detailed discussion of errors in the calculation.   Finally, we will present some conclusions and perspectives. 
+In the following report, we introduce the matrix equation, outline the general algorithm for solving tridiagonal matrices, and discuss how this algorithm can be tailored for our specific case.  These discussions will include discussions of the FLOPS required for each calculation.  We will end the Methods portion of this report with a brief introduction to the LU decomposition algorithm.  Then we will discuss the implementation of these algorithms and the codes we used for our calculations.  We will then present our results which includes a study of convergence to the analytical solution, a comparison of computational speeds between different algorithms, and a detailed discussion of errors in the calculation.   Finally, we will present some conclusions and perspectives. 
 
 \section{Methods}
 
@@ -142,7 +142,7 @@ In our case, we will assume that sources term is $f(x) = 100e^{-10x}$, giving th
 
 \subsection{Poisson's Equation in Matrix Form}
 
-In order to solve the differential equations, the functions must be discretized.  In this work, $u$ will be approximated byt $v_i$ where $x_i=ih$.  The discretized second derivative can be approximated using the three point formula
+In order to solve the differential equation, the function must be discretized.  In this work, $u$ will be approximated by $v_i$ where $x_i=ih$.  The discretized second derivative can be approximated using the three point formula
 
 \begin{equation*}
 \frac{d^2u}{dx^2} \approx \frac{v_{i+1} + v_{i-1} - 2v_i}{h^2} + O(h^2).
@@ -175,7 +175,7 @@ and $\tilde{b}_i=h^2f_i$.
 
 \subsection{General Tridiagonal Matrix Solver}
 
-We can re-write the matrix expression in terms vectors $a,b,c$ of length $n$.  These vectors will not include the endpoints, as those values are already fixed by the boundary conditions. The equation becomes
+We can re-write the matrix expression in terms vectors $d,e$ of length $n$.  These vectors will not include the endpoints, as those values are already fixed by the boundary conditions. The equation becomes
 
 \[
     \mathbf{A} = \begin{bmatrix}
@@ -203,7 +203,7 @@ We can re-write the matrix expression in terms vectors $a,b,c$ of length $n$.  T
                       \end{bmatrix}.
 \]
 
-This equation can be solved using a simplified form of Gaussian elimination which involves two steps: a decomposition and forward substitution, followed by a backward substitution.  In the case of our matrix, we want to first eliminate the $e_1$ from the second row.  To do this, we multiply the first equation by $e_1/e_1$ and subtract it from the second equation.  This leaves us with
+This equation can be solved using a simplified form of Gaussian elimination which involves two steps: a decomposition and forward substitution, followed by a backward substitution.  In the case of our matrix, we want to first eliminate the $e_1$ from the second row.  To do this, we multiply the first equation by $e_1/d_1$ and subtract it from the second equation.  This leaves us with
 
 \[
     \mathbf{A} = \begin{bmatrix}
@@ -271,7 +271,7 @@ Where the general expressions for the matrix elements are:
 
 
 
-Next, we can do a backward substitution beginning with the final row of the matrix equation.  Solving the the unknown function, we get that $v_n=\tilde{b}^*_n/\tilde{d}_n$.  Now that $v_n$ is knows, we substitute this value into the equation from the second to last row and solve for $v_{n-1}$.  We can continue this backward substitution until all values $v_i$ are know.  The general formula for these elements are
+Next, we can do a backward substitution beginning with the final row of the matrix equation.  Solving the the unknown function, we get that $v_n=\tilde{b}^*_n/\tilde{d}_n$.  Now that $v_n$ is known, we substitute this value into the equation from the second to last row and solve for $v_{n-1}$.  We can continue this backward substitution until all values $v_i$ are know.  The general formula for these elements are
 
 \begin{equation}\label{eqn:General3}
 v_i=\frac{\tilde{b}^*_i - e_i u_{i+1}}{\tilde{d}_i}  \qquad\text{for} \qquad i=n-2,n-1,...1.
@@ -285,7 +285,7 @@ The FLOPS for the algorithm are determined by the operations from the matrix dec
 
 \subsection{Tailoring General Algorithm}
 
-There are several steps that can be done to improve the algorithm's efficiency by taking advantage of the specific features of this matrix.  First, we know that all of diagonal elements will be 2 and all of the nonzero off diagonal elements will be -1.  Taking advantage of all $e_i=1$ lets us simplify the \ref{eqn:General12} and \ref{eqn:General3} to
+There are several steps that can be done to improve the algorithm's efficiency by taking advantage of the specific features of this matrix.  First, we know that all of diagonal elements will be 2 and all of the nonzero off diagonal elements will be -1.  Taking advantage of all $e_i=-1$ lets us simplify the \ref{eqn:General12} and \ref{eqn:General3} to
 
 \begin{equation} \label{eqn:Specific12}
 \tilde{d}_i = d_i - \frac{1}{\tilde{d}_{i-1}}
@@ -301,7 +301,7 @@ v_i=\frac{\tilde{b}^*_i + u_{i+1}}{\tilde{d}_i}  \qquad\text{for} \qquad i=n-2,n
 which leaves us with $6(n-1)$ operations.  Finally, we can precalculate $\tilde{d}_i$  with the observation that 
 
 \begin{equation*}
-\tilde{d}_i=\frac{i+1}{i}
+\tilde{d}_i=\frac{i+1}{i}.
 \end{equation*}
 
 Finally we are left with $4(n-1)$ floating point operations.
@@ -325,7 +325,7 @@ Because this algorithm does not take advantage of the sparse nature of the tridi
 
 \section{Code and Implementation}
 
-All of the programs, results, and benchmarks for this work can be found in my GIT repository (https://github.com/poxonpea/PHYS905).  All codes for this project were written in FORTRAN.
+All of the programs, results, and benchmarks for this work can be found in my GIT repository (https://github.com/poxonpea/PHYS905/Project1/Final).  All codes for this project were written in FORTRAN.
 
 \subsection{Implementing General Algorithm}
 
@@ -432,7 +432,7 @@ and the expected round off error is
 \epsilon_{ro}\approx \frac{2 \epsilon_M}{h^2}.
 \end{equation*}
 
-For a full derivation of these error sources, see \cite{ClassNotes}.  For this report, all work was done using double precision variables, so $\epsilon_M$ is $10^{-15}$.  The total error is just the sum of these two terms.  If we take the derivative of that total with respect to step size, $h$, and set it equal to 0, we can solve for the step size that minimizes the error.  That would give us 
+For a full derivation of these error sources, see \cite{ClassNotes}.  For this report, all work used double precision variables, so $\epsilon_M$ is $10^{-15}$.  The total error is just the sum of these two terms.  If we take the derivative of that total with respect to step size, $h$, and set it equal to 0, we can solve for the step size that minimizes the error.  That would give us 
 
 \begin{equation*}
 h= \Bigg( \frac{24 \epsilon_M}{u_0^{(4)}} \Bigg)^{1/4}.

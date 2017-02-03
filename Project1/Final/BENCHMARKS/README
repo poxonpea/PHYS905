@@ -1,0 +1,9 @@
+In this folder you will find benchmark tests for the programs used in the project.
+
+The gensolutionx.dat files result from running the GeneralAlgorithm.f90 program with a max power of 3.
+The x in the file names correlates to the power (10^x) of the matrix dimension (1=10, 2=100, etc).
+
+The tailorsolutionx.dat files result from running the SpecificAlgorithm.f90 program with a max power of 3.
+The x in the file names correlates to the power (10^x) of the matrix dimension (1=10, 2=100, etc).
+
+The LU.dat file results from running the LUDecomposition.f90 program with a 10x10 matrix.

@@ -1,6 +1,6 @@
 program LUDecomposition
   implicit none
-  integer, parameter :: N=10000
+  integer, parameter :: N=10
   real(8), dimension(N,N)::a
   integer, dimension(N)::indx
   real(8)::d,SourceValue,Stepsize,start,finish
@@ -33,6 +33,11 @@ program LUDecomposition
 
   print*,N,finish-start
   
+  open(12,file="LU.dad")
+  do i=1,N
+     write(12,*)i*Stepsize, b(i)
+  end do
+  close(12)
   
   end program LUDecomposition
   

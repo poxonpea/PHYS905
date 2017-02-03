@@ -26,10 +26,9 @@ program SpecificGaussElimination
     StepSize = 1.d0/(NumGridPoints)
     u(1)=0.d0
     u(NumGridPoints+1)=0.d0
-    do i=3,NumGridPoints
+    do i=2,NumGridPoints+1
        f(i)=SourceValue((i-1)*StepSize)*StepSize**2.d0
-       d(i)=(i+3.d0)/(i+2.d0)
-       !print*,d(i)
+       d(i)=(i)/(i-1.d0)
     end do
 
     call cpu_time(start)
@@ -100,14 +99,14 @@ subroutine printing(power, u,stepsize, error, exact,NumGridPoints)
   character(len=25)::solnfile
   character(len=4)::number
 
-  fmt = '(I1.1)' ! an integer of width 5 with zeros at the left
+  fmt = '(I1.1)'
 
-  write (x1,fmt) power ! converting integer to string using a 'internal file'
+  write (x1,fmt) power
   solnfile='tailorsolution'//trim(x1)//'.dat' 
   open(power,file=solnfile)
   if (power == 3) then
      do i=1,NumGridPoints+1
-        write(power,*) (i-1)*stepsize, exact(i),u(i)
+        write(power,*) (i-1)*stepsize ,exact(i),u(i)
      end do
   else if (power /= 3) then
      do i=1,NumGridPoints+1

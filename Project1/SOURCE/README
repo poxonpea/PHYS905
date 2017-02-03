@@ -1,0 +1,21 @@
+This Folder contains the 3 codes used in this project:
+
+GeneralAlgorithm.f90 which solves the matrix equation using a general tridiagonal solver.
+This creates output files gensolutionx.dat where x is the power (10^x) of the matrix size.
+It also prints the relative error for each power, and therefore stepsize, to the screen.
+To run, compile the file and run without inputs.  The program will prompt the user for a
+maximum power of the matrix size (x), and then loop through all values from 1 to x.
+
+SpecificAlgorithm.f90 which solves the matrix equation using a general tridiagonal solver.
+This creates output files tailorsolutionx.dat where x is the power (10^x) of the matrix size.
+It also prints the relative error for each power, and therefore stepsize, to the screen.
+To run, compile the file and run without inputs.  The program will prompt the user for a
+maximum power of the matrix size (x), and then loop through all values from 1 to x.
+
+Note that for both of these solutions, the printed error may be stored in fort,6 for large x.
+
+LUDecomposition.f90 which solves the matrix equation using LU decomposition.  The program
+runs for a matrix of given dimension (N).  This paramter can be adjusted mannually in the
+initial variable declaration. This program creates an output file, LU.dat, which holds the solution.
+
+Benchmarks for these programs can be found in the BENCHMARK folder.

@@ -1,0 +1,246 @@
+%%
+%% Automatically generated file from DocOnce source
+%% (https://github.com/hplgit/doconce/)
+%%
+%%
+
+
+%-------------------- begin preamble ----------------------
+
+\documentclass[%
+oneside,                 % oneside: electronic viewing, twoside: printing
+final,                   % draft: marks overfull hboxes, figures with paths
+10pt]{article}
+
+\listfiles               %  print all files needed to compile this document
+\usepackage{mathtools}
+\usepackage{relsize,makeidx,color,setspace,amsmath,amsfonts,amssymb}
+\usepackage[table]{xcolor}
+\usepackage{bm,ltablex,microtype}
+\usepackage{float}
+\usepackage[pdftex]{graphicx}
+\usepackage{epstopdf}
+\usepackage{verbatim}
+
+\usepackage{fancyvrb} % packages needed for verbatim environments
+
+\usepackage[T1]{fontenc}
+%\usepackage[latin1]{inputenc}
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}         % Latin Modern fonts derived from Computer Modern
+
+% Hyperlinks in PDF:
+\definecolor{linkcolor}{rgb}{0,0,0.4}
+\usepackage{hyperref}
+\hypersetup{
+    breaklinks=true,
+    colorlinks=true,
+    linkcolor=linkcolor,
+    urlcolor=linkcolor,
+    citecolor=black,
+    filecolor=black,
+    %filecolor=blue,
+    pdfmenubar=true,
+    pdftoolbar=true,
+    bookmarksdepth=3   % Uncomment (and tweak) for PDF bookmarks with more levels than the TOC
+    }
+%\hyperbaseurl{}   % hyperlinks are relative to this root
+
+\setcounter{tocdepth}{2}  % levels in table of contents
+
+
+
+% prevent orhpans and widows
+\clubpenalty = 10000
+\widowpenalty = 10000
+
+% --- end of standard preamble for documents ---
+
+
+% insert custom LaTeX commands...
+
+\raggedbottom
+\makeindex
+\usepackage[totoc]{idxlayout}   % for index in the toc
+\usepackage[nottoc]{tocbibind}  % for references/bibliography in the toc
+
+%-------------------- end preamble ----------------------
+
+\begin{document}
+
+% matching end for #ifdef PREAMBLE
+
+\newcommand{\exercisesection}[1]{\subsection*{#1}}
+
+
+% ------------------- main content ----------------------
+
+
+
+% ----------------- title -------------------------
+
+\thispagestyle{empty}
+
+\begin{center}
+{\LARGE\bf
+\begin{spacing}{1.25}
+PHYS 905 - Project 2
+\end{spacing}
+}
+\end{center}
+
+% ----------------- author(s) -------------------------
+
+\begin{center}
+{\bf Terri Poxon-Pearson}
+\end{center}
+
+    
+% ----------------- end author(s) -------------------------
+
+% --- begin date ---
+\begin{center}
+February 27, 2017
+\end{center}
+% --- end date ---
+
+\vspace{1cm}
+
+INSERT ABSTRACT HERE
+
+\tableofcontents
+ 
+\section{Introduction}
+In this project we will be solving Schroedinger's equation for the case of electrons in a 3D harmonic oscillator. First, we will first solve the simpler, non-interacting case with just one electron in the harmonic oscillator potential using Jacobi's method. Next, we will add a second electron with interacts via a repulsive, Coulomb potential.  This will involve a change into center of mass coordinates.  Both problems will be solved for l=0 case.  Additionally, we will explore our calculation's sensitivity to parameters such as the number of mesh points and maximum integration radius.
+
+This report will begin with a brief introduction to the physical system we are studying in this project, as well as a description of how these equations are discretized.  Next I will describe the method used to solve this eigenvalue problem.  I will discuss the implementation of this algorithm, including a discussion of sensitivity to various integration variables and tests used to check the code's validity.  Finally, I will present the results of my calculations, followed by some conclusions and perspectives for future calculations.
+
+\section{Methods}
+
+\subsection{Physics of Single Electron in 3D Oscillator}
+\subsection{Discretization of Schroedinger's Equation}
+\subsection{Jacobi's Rotation Algorithm}
+\subsection{Physics of Interacting Electrons in 3D Oscillator}
+
+
+\section{Code and Implementation}
+
+All of the programs, results, and benchmarks for this work can be found in my GIT repository ( https://github.com/poxonpea/PHYS905 ).  All codes for this project were written in FORTRAN.
+
+\subsection{Implementing Single Electron Case}
+
+\subsection{Implementing Interacting Electron Case}
+
+
+\subsection{Tests of Code}
+
+
+\section{Results and Discussion}
+
+
+\subsection{Exploring Dependence of Integration Parameters}
+
+\subsection{Convergence}
+
+
+\subsection{Computational Speeds}
+
+
+\section{Conclusions}
+
+
+
+\section{Appendices}
+
+\subsection{Appendix A}
+
+Consider a basis of orthogonal basis vectors $\mathbf{v}_i$,
+\[
+\mathbf{v}_i = \begin{bmatrix} v_{i1} \\ \dots \\ \dots \\v_{in} \end{bmatrix}
+\]
+
+Orthogonality requires that 
+
+\[
+\mathbf{v}_j^T\mathbf{v}_i = \delta_{ij}.
+\]
+
+We can apply an orthogonal or unitary transformation such that
+
+\[
+\mathbf{w}_i=\mathbf{U}\mathbf{v}_i.
+\]
+
+Unitarity enforces that the product of a matrix with its conjugate transpose is the identity matrix.  Orthogonal matrices are a subset of real, unitary matrices.  This condition implies that the product of a matrix with its transpose is the identity matrix.  These two conditions can be expressed as
+
+\[
+\mathbf{U}^* \mathbf{U} = \mathbf{U} \mathbf{U}^* = \mathbb{I}
+\]
+
+\[
+\mathbf{U}^T \mathbf{U} = \mathbf{U} \mathbf{U}^T = \mathbb{I}.
+\]
+
+If we now look at the product of our transformed matrix with its transpose, we find
+
+\[
+\mathbf{w}^T_j\mathbf{w}_i = (\mathbf{U}\mathbf{v}_i)^T(\mathbf{U}\mathbf{v}_j)= \mathbf{v}_i^T\mathbf{U}^T\mathbf{U}\mathbf{v}_j=\mathbf{v}_i^T\mathbf{U}\mathbf{U}^T\mathbf{v}_j =\mathbf{v}_j^T\mathbf{v}_i = \delta_{ij}.
+\]
+
+Therefore, the dot product is preserved.
+
+\begin{comment}
+
+\begin{figure}[H]\label{fig:compzoom}
+  \centering
+    \includegraphics[width=1.2\textwidth]{compzoom.eps}
+    \caption{A zoomed in view of the convergence to the exact solution}
+\end{figure}
+
+\begin{center} 
+\begin{tabular}{ |c|c|c|c| }
+\hline
+Size of Matrix ($10^n$) & General & Tailored & LU \\
+\hline
+1& 3.00 E -6 & 3.00 E -6 & 2.40 E -5\\ 
+2 & 4.00 E -6 & 4.00 E -6 & 1.71 E -3 \\ 
+3 & 3.90 E -5 & 1.90 E -5 & 1.93\\ 
+4 & 3.79 E -4 & 2.09 E -4 & N/A\\ 
+5 & 3.38 E -3 & 1.51 E -3  & N/A\\ 
+6 & 2.87 E -2 & 1.53 E -2 & N/A\\ 
+7 & 3.16 E -1 & 1.73 E -1& N/A\\ 
+\hline
+\end{tabular}
+\label{table:test}
+\end{center}
+
+\end{comment}
+
+\begin{thebibliography}{9}
+
+\bibitem{LectureNotes} 
+Hjorth-Jensen, Mortehn. 
+Computational Physics, Lecture Notes Fall 2015. 
+August 2015.
+
+\bibitem{Chiarandini} 
+Chiarandini, Marco. 
+LU Factorization, Linear and Integer Programming. 
+http://www.imada.sdu.dk/~marco/DM554/Slides/dm554-lu.pdf.
+
+\bibitem{ClassNotes} 
+Hjorth-Jensen, Mortehn. 
+Introduction to Programming. 
+Computational Physics.
+https://compphysics.github.io/ComputationalPhysicsMSU/doc/pub/languages/pdf/languages-minted.pdf.
+
+\end{thebibliography}
+
+
+
+% ------------------- end of main content ---------------
+
+\end{document}
+

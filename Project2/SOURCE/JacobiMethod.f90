@@ -1,9 +1,9 @@
-program LUDecomposition
+program LUsoln
   implicit none
   integer, parameter :: N=10
   real(8), dimension(N-1,N-1)::a
   integer, dimension(N-1)::indx
-  real(8)::d,SourceValue,Stepsize,start,finish
+  real(8)::d,SourceValue,Stepsize,start,finish,potential
   integer:: i,j
   real(8), dimension(N-1)::b
 
@@ -39,7 +39,7 @@ program LUDecomposition
   end do
   close(12)
   
-  end program LUDecomposition
+  end program LUsoln
   
 !     Given an NxN matrix A(N,N), this routine replaces it by the LU 
 !     decomposed one, where the matrix elements are stored in the same 
@@ -177,3 +177,12 @@ function SourceValue(x)
   return
 
 end function SourceValue
+
+function potential(x)
+  implicit none
+  real(8)::Potential,x
+
+  Potential = x**2
+  return
+
+end function potential

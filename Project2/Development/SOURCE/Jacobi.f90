@@ -12,13 +12,23 @@ program Jacobi
   real(8), dimension((num-1)*(2+(num-1)/2)) :: work
   real(8), dimension(3,3)::testmat
 
-  do i=1,testnum
-    do j=1,testnum
-      testmat(j,i)=(1.d0+j)/i
-      print*,testmat(j,i)
-    end do
-  end do
+!  do i=1,testnum
+!    do j=1,testnum
+!      testmat(j,i)=(1.d0+j)/i
+!      print*,testmat(j,i)
+!    end do
+!  end do
 
+  testmat(1,1)=-2.d0
+  testmat(2,1)=-2.d0
+  testmat(3,1)=4.d0
+  testmat(1,2)=-4.d0
+  testmat(2,2)=1.d0
+  testmat(3,2)=2.d0
+  testmat(1,3)=2.d0
+  testmat(2,3)=2.d0
+  testmat(3,3)=5.d0
+  
   StepSize=rhoMax/Num
   lwork=(num-1)*(2+(num-1)/2)
   

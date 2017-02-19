@@ -2,6 +2,7 @@ program Jacobi
 
   implicit none
   integer, parameter :: Num=300
+  integer, parameter :: testnum=3
   real(8), parameter :: rhoMax= 10.d0
   real(8), dimension(Num-1,Num-1)::a
   real(8)::Stepsize,start,finish,potential,testmax,max,tau,c,s,t
@@ -11,8 +12,8 @@ program Jacobi
   real(8), dimension((num-1)*(2+(num-1)/2)) :: work
   real(8), dimension(3,3)::testmat
 
-  do i=1,2
-    do j=1,2
+  do i=1,testnum
+    do j=1,testnum
       testmat(j,i)=(1.d0+j)/i
       print*,testmat(j,i)
     end do
@@ -39,21 +40,21 @@ program Jacobi
 
 count = 0
 test = 1
-do while (test .gt. 1.d-10)
+do while (abs(test) .gt. 1.d-10)
 count=count+1
   print*,count
 
 ! First find largest offdiagonal matrix element
-  max=testmat(2,1)
+  max=0.d0
 
-  do i=1,2
-    do j=1,2
+  do i=1,testnum
+    do j=1,testnum
       if (j/=i) then
-        print *,"testing",j,i,testmat(j,i),max
         testmax = testmat(j,i)
         if (abs(testmax) .ge. abs(max)) then
           max=testmax
           test = max
+          !print *,"j",j,"i",i,"testmat(j,i)",testmat(j,i),"test",test,"max",max
           maxj=j
           maxi=i
 !          print *, maxi, maxj
@@ -65,10 +66,10 @@ count=count+1
 
 ! calculate tau and tangent, sine, and cosine
   tau = (testmat(maxi,maxi) - testmat(maxj,maxj))/(2 * testmat(maxj,maxi))
-!  print*,tau,maxi,maxj
+!  print*,tau,maxi,maxj,testmat(maxi,maxi)
 
   if (tau .gt. 0.d0) then
-    t = 1.d0/(tau + sqrt(1.d0+tau**2))
+     t = 1.d0/(tau + sqrt(1.d0+tau**2))
   else
     t = 1.d0/(-tau + sqrt(1.d0+tau**2))
   end if
@@ -76,32 +77,38 @@ count=count+1
 !  print *, 't is', t
 
   c = 1.d0/(sqrt(1.d0 + t**2))
+!  print*,"c", c
   s = t * c
-
+!  print*,"s",s
   ! redefine matrix elements using temperary matrix elements
   tempii = testmat(maxi,maxi)
   tempjj = testmat(maxj,maxj)
   tempij = testmat(maxi,maxj)
   tempji = testmat(maxj,maxi)
 
-  do q=1,2
+  do q=1,testnum
     if (q /= maxj .and. q /=maxi) then
-      testmat(q,maxj)= a(q,maxj)*c - a(q,maxi)*s
-      testmat(q,maxi)= a(q,maxi)*c + a(q,maxj)*s
+      testmat(q,maxj)= testmat(q,maxj)*c - testmat(q,maxi)*s
+      testmat(q,maxi)= testmat(q,maxi)*c + testmat(q,maxj)*s
     end if
   end do
 
-  testmat(maxj,maxj) = tempjj*c**2 - 2*tempji*c*s + tempii*s**2
-  testmat(maxi,maxi) = tempii*s**2 + 2*tempji*c*s + tempii*c**2
+  testmat(maxj,maxj) = tempjj*(c**2.d0) - 2.d0*tempji*c*s + tempii*(s**2.d0)
+  testmat(maxi,maxi) = tempii*(s**2.d0) + 2.d0*tempji*c*s + tempjj*(c**2.d0)
+  print*, "checking", maxj,maxi,tempjj, tempji, tempii,c,s, testmat(maxj,maxj)
   testmat(maxj,maxi) = 0.d0
 
+  
+  do i=1,testnum
+     do j=1,testnum
+        print *, testmat(j,i)
+     end do
+  end do
+
+  maxj=0
+  maxi=0
 end do
 
-do i=1,2
-  do j=1,2
-    print *, testmat(j,i)
-  end do
-end do
 
   open(12,file="Eigen.dat")
   do i=1,Num-1

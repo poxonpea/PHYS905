@@ -2,42 +2,33 @@ program Jacobi
 
   implicit none
   integer, parameter :: Num=300
-  integer, parameter :: testnum=4
+  integer, parameter :: testnum=3
   real(8), parameter :: rhoMax= 10.d0
   real(8), dimension(Num-1,Num-1)::a
-  real(8)::Stepsize,start,finish,potential,testmax,max,tau,c,s,t
-  real(8)::tempii, tempjj, tempij, tempji, tolerance,test,tempqi,tempqj
-  integer:: i,j,info,lwork,maxi,maxj,p,q,count
+  real(8)::Stepsize,start,finish,potential,testmax,max,tolerance
+  integer:: i,j,maxi,maxj,count
   real(8), dimension(Num-1)::b
   real(8), dimension((num-1)*(2+(num-1)/2)) :: work
   real(8), dimension(testnum,testnum)::testmat
 
-!  do i=1,testnum
-!    do j=1,testnum
-!      testmat(j,i)=(1.d0+j)/i
-!      print*,testmat(j,i)
-!    end do
-!  end do
-
   testmat(1,1)=1.d0
-  testmat(2,1)=5.d0
-  testmat(3,1)=9.d0
-  testmat(4,1)=13.d0
   testmat(1,2)=2.d0
-  testmat(2,2)=6.d0
-  testmat(3,2)=10.d0
-  testmat(4,2)=14.d0
   testmat(1,3)=3.d0
-  testmat(2,3)=7.d0
-  testmat(3,3)=11.d0
-  testmat(4,3)=15.d0
-  testmat(1,4)=4.d0
-  testmat(2,4)=8.d0
-  testmat(3,4)=12.d0
-  testmat(4,4)=16.d0
+  testmat(2,1)=4.d0
+  testmat(2,2)=5.d0
+  testmat(2,3)=6.d0
+  testmat(3,1)=7.d0
+  testmat(3,2)=8.d0
+  testmat(3,3)=9.d0
+
+
+  do j=1,testnum
+     do i=1, testnum
+        print*, testmat(j,i)
+     end do
+  end do
   
   StepSize=rhoMax/Num
-  lwork=(num-1)*(2+(num-1)/2)
   
   !Fill Matrix
 !  do i =1,Num-1
@@ -66,48 +57,7 @@ count=count+1
   call findmax(testnum,testmat,maxj,maxi,max)
   print*, max
 
-
-! calculate tau and tangent, sine, and cosine
-  tau = (testmat(maxi,maxi) - testmat(maxj,maxj))/(2 * testmat(maxj,maxi))
-!  print*,tau,maxi,maxj,testmat(maxi,maxi)
-
-  if (testmat(maxj,maxi) /=0) then
-     if (tau .gt. 0.d0) then
-        t = 1.d0/(tau + sqrt(1.d0+tau**2.d0))
-     else
-        t = -1.d0/(-tau + sqrt(1.d0+tau**2.d0))
-     end if
-  else
-     c=1.d0
-     s=0.d0
-  end if 
-!  print *, 't is', t
-
-  c = 1.d0/(sqrt(1.d0 + t**2.d0))
-!  print*,"c", c
-  s = t * c
-!  print*,"s",s
-  ! redefine matrix elements using temperary matrix elements
-  tempii = testmat(maxi,maxi)
-  tempjj = testmat(maxj,maxj)
-  tempij = testmat(maxi,maxj)
-  tempji = testmat(maxj,maxi)
-
-  do q=1,testnum
-     if (q /= maxj .and. q /=maxi) then
-       tempqj=testmat(q,maxj)
-       tempqi=testmat(q,maxi) 
-       testmat(q,maxj)= tempqj*c - tempqi*s
-       testmat(maxj,q)= testmat(q,maxj)
-       testmat(q,maxi)= tempqi*c + tempqj*s
-       testmat(maxi,q)= testmat(q,maxi)
-    end if
-  end do
-
-  testmat(maxj,maxj) = tempjj*(c**2.d0) - 2.d0*tempji*c*s + tempii*(s**2.d0)
-  testmat(maxi,maxi) = tempjj*(s**2.d0) + 2.d0*tempji*c*s + tempii*(c**2.d0)
-  testmat(maxj,maxi) = 0.d0
-  testmat(maxi,maxj) = 0.d0
+  call rotate(testnum,testmat,maxj,maxi)
 
   
   do i=1,testnum
@@ -163,4 +113,47 @@ Subroutine findmax(testnum,testmat,maxj,maxi,max)
  print*, "max is inside ", max
  return
 end subroutine findmax
-!  print*, max
+
+
+subroutine rotate(testnum,testmat,maxj,maxi)
+  implicit none
+  integer::i,j,maxi,maxj,testnum,q
+  real(8), dimension(testnum,testnum)::testmat
+  real(8)::tau,t,s,c,tempii,tempjj,tempqj,tempqi
+! calculate tau and tangent, sine, and cosine
+  if (testmat(maxj,maxi) /=0) then
+     tau = (testmat(maxi,maxi) - testmat(maxj,maxj))/(2 * testmat(maxj,maxi))
+     if (tau .gt. 0.d0) then
+        t = 1.d0/(tau + sqrt(1.d0+tau**2.d0))
+     else
+        t = -1.d0/(-tau + sqrt(1.d0+tau**2.d0))
+     end if
+     c = 1.d0/(sqrt(1.d0 + t**2.d0))
+     s = t * c
+  else
+     c=1.d0
+     s=0.d0
+  end if 
+
+  ! redefine matrix elements using temperary matrix elements
+  tempii = testmat(maxi,maxi)
+  tempjj = testmat(maxj,maxj)
+
+  testmat(maxj,maxj) = tempjj*(c**2.d0) - 2.d0*testmat(maxj,maxi)*c*s + tempii*(s**2.d0)
+  testmat(maxi,maxi) = tempjj*(s**2.d0) + 2.d0*testmat(maxj,maxi)*c*s + tempii*(c**2.d0)
+  testmat(maxj,maxi) = 0.d0
+  testmat(maxi,maxj) = 0.d0
+  
+  do q=1,testnum
+     if (q /= maxj .and. q /=maxi) then
+       tempqj=testmat(q,maxj)
+       tempqi=testmat(q,maxi) 
+       testmat(q,maxj)= tempqj*c - tempqi*s
+       testmat(maxj,q)= testmat(q,maxj)
+       testmat(q,maxi)= tempqi*c + tempqj*s
+       testmat(maxi,q)= testmat(q,maxi)
+    end if
+  end do
+
+  return
+end subroutine rotate

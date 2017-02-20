@@ -2,15 +2,15 @@ program Jacobi
 
   implicit none
   integer, parameter :: Num=300
-  integer, parameter :: testnum=3
+  integer, parameter :: testnum=4
   real(8), parameter :: rhoMax= 10.d0
   real(8), dimension(Num-1,Num-1)::a
   real(8)::Stepsize,start,finish,potential,testmax,max,tau,c,s,t
-  real(8)::tempii, tempjj, tempij, tempji, tolerance,test
+  real(8)::tempii, tempjj, tempij, tempji, tolerance,test,tempqi,tempqj
   integer:: i,j,info,lwork,maxi,maxj,p,q,count
   real(8), dimension(Num-1)::b
   real(8), dimension((num-1)*(2+(num-1)/2)) :: work
-  real(8), dimension(3,3)::testmat
+  real(8), dimension(testnum,testnum)::testmat
 
 !  do i=1,testnum
 !    do j=1,testnum
@@ -19,15 +19,22 @@ program Jacobi
 !    end do
 !  end do
 
-  testmat(1,1)=-2.d0
-  testmat(2,1)=-2.d0
-  testmat(3,1)=4.d0
-  testmat(1,2)=-4.d0
-  testmat(2,2)=1.d0
-  testmat(3,2)=2.d0
-  testmat(1,3)=2.d0
-  testmat(2,3)=2.d0
-  testmat(3,3)=5.d0
+  testmat(1,1)=1.d0
+  testmat(2,1)=5.d0
+  testmat(3,1)=9.d0
+  testmat(4,1)=13.d0
+  testmat(1,2)=2.d0
+  testmat(2,2)=6.d0
+  testmat(3,2)=10.d0
+  testmat(4,2)=14.d0
+  testmat(1,3)=3.d0
+  testmat(2,3)=7.d0
+  testmat(3,3)=11.d0
+  testmat(4,3)=15.d0
+  testmat(1,4)=4.d0
+  testmat(2,4)=8.d0
+  testmat(3,4)=12.d0
+  testmat(4,4)=16.d0
   
   StepSize=rhoMax/Num
   lwork=(num-1)*(2+(num-1)/2)
@@ -49,44 +56,34 @@ program Jacobi
 !  end do
 
 count = 0
-test = 1
-do while (abs(test) .gt. 1.d-6)
+max = 1.d0
+tolerance=1.d-10
+
+do while (abs(max) .gt. tolerance)
 count=count+1
   print*,count
 
-! First find largest offdiagonal matrix element
-  max=0.d0
+  call findmax(testnum,testmat,maxj,maxi,max)
+  print*, max
 
-  do i=1,testnum
-    do j=1,testnum
-      if (j/=i) then
-        testmax = testmat(j,i)
-        if (abs(testmax) .ge. abs(max)) then
-          max=testmax
-          test = max
-          !print *,"j",j,"i",i,"testmat(j,i)",testmat(j,i),"test",test,"max",max
-          maxj=j
-          maxi=i
-!          print *, maxi, maxj
-        end if
-      end if
-    end do
-  end do
-!  print*, max
 
 ! calculate tau and tangent, sine, and cosine
   tau = (testmat(maxi,maxi) - testmat(maxj,maxj))/(2 * testmat(maxj,maxi))
 !  print*,tau,maxi,maxj,testmat(maxi,maxi)
 
-  if (tau .gt. 0.d0) then
-     t = 1.d0/(tau + sqrt(1.d0+tau**2))
+  if (testmat(maxj,maxi) /=0) then
+     if (tau .gt. 0.d0) then
+        t = 1.d0/(tau + sqrt(1.d0+tau**2.d0))
+     else
+        t = -1.d0/(-tau + sqrt(1.d0+tau**2.d0))
+     end if
   else
-    t = 1.d0/(-tau + sqrt(1.d0+tau**2))
-  end if
-
+     c=1.d0
+     s=0.d0
+  end if 
 !  print *, 't is', t
 
-  c = 1.d0/(sqrt(1.d0 + t**2.d0ß))
+  c = 1.d0/(sqrt(1.d0 + t**2.d0))
 !  print*,"c", c
   s = t * c
 !  print*,"s",s
@@ -97,16 +94,20 @@ count=count+1
   tempji = testmat(maxj,maxi)
 
   do q=1,testnum
-    if (q /= maxj .and. q /=maxi) then
-      testmat(q,maxj)= testmat(q,maxj)*c - testmat(q,maxi)*s
-      testmat(q,maxi)= testmat(q,maxi)*c + testmat(q,maxj)*s
+     if (q /= maxj .and. q /=maxi) then
+       tempqj=testmat(q,maxj)
+       tempqi=testmat(q,maxi) 
+       testmat(q,maxj)= tempqj*c - tempqi*s
+       testmat(maxj,q)= testmat(q,maxj)
+       testmat(q,maxi)= tempqi*c + tempqj*s
+       testmat(maxi,q)= testmat(q,maxi)
     end if
   end do
 
   testmat(maxj,maxj) = tempjj*(c**2.d0) - 2.d0*tempji*c*s + tempii*(s**2.d0)
-  testmat(maxi,maxi) = tempii*(s**2.d0) + 2.d0*tempji*c*s + tempjj*(c**2.d0)
-  print*, "checking", maxj,maxi,tempjj, tempji, tempii,c,s, testmat(maxj,maxj)
+  testmat(maxi,maxi) = tempjj*(s**2.d0) + 2.d0*tempji*c*s + tempii*(c**2.d0)
   testmat(maxj,maxi) = 0.d0
+  testmat(maxi,maxj) = 0.d0
 
   
   do i=1,testnum
@@ -136,3 +137,30 @@ function Potential(x)
   return
 
 end function Potential
+
+
+Subroutine findmax(testnum,testmat,maxj,maxi,max)
+  ! First find largest offdiagonal matrix element
+  implicit none
+  integer:: testnum, maxj,maxi,i,j
+  real(8)::max
+  real(8),dimension(testnum,testnum)::testmat
+  
+  max=0.d0
+
+  do i=1,testnum
+    do j=1,testnum
+      if (j/=i) then
+        if (abs(testmat(j,i)) .gt. abs(max)) then
+          max=testmat(j,i)
+          maxj=j
+          maxi=i
+        end if
+      end if
+    end do
+ end do
+
+ print*, "max is inside ", max
+ return
+end subroutine findmax
+!  print*, max

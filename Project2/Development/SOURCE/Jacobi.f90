@@ -33,24 +33,24 @@ program Jacobi
   lwork=(num-1)*(2+(num-1)/2)
   
   !Fill Matrix
-  do i =1,Num-1
-     do j=1,Num-1
-        if (i==j) then
-           a(j,i)=2.d0/(stepsize**2) + Potential(i*StepSize)
-        else if (j==i+1) then
-           a(j,i)=-1.d0/(stepsize**2)
-        else if (j==i-1) then
-           a(j,i)=-1.d0/(stepsize**2)
-        else
-           a(j,i)=0.d0
-        end if
-     end do      
+!  do i =1,Num-1
+!     do j=1,Num-1
+!        if (i==j) then
+!           a(j,i)=2.d0/(stepsize**2) + Potential(i*StepSize)
+!        else if (j==i+1) then
+!           a(j,i)=-1.d0/(stepsize**2)
+!        else if (j==i-1) then
+!           a(j,i)=-1.d0/(stepsize**2)
+!        else
+!           a(j,i)=0.d0
+!        end if
+!     end do      
 !     b(i)=SourceValue(i*StepSize)*StepSize**2.d0
-  end do
+!  end do
 
 count = 0
 test = 1
-do while (abs(test) .gt. 1.d-10)
+do while (abs(test) .gt. 1.d-6)
 count=count+1
   print*,count
 
@@ -86,7 +86,7 @@ count=count+1
 
 !  print *, 't is', t
 
-  c = 1.d0/(sqrt(1.d0 + t**2))
+  c = 1.d0/(sqrt(1.d0 + t**2.d0ß))
 !  print*,"c", c
   s = t * c
 !  print*,"s",s
@@ -120,11 +120,11 @@ count=count+1
 end do
 
 
-  open(12,file="Eigen.dat")
-  do i=1,Num-1
-     write(12,*), b(i)
-  end do
-  close(12)
+!  open(12,file="Eigen.dat")
+!  do i=1,Num-1
+!     write(12,*), b(i)
+! end do
+!  close(12)
   
   end program Jacobi
 

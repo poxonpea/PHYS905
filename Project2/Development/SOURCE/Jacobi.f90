@@ -2,24 +2,29 @@ program Jacobi
 
   implicit none
   integer, parameter :: Num=300
-  integer, parameter :: testnum=3
+  integer, parameter :: testnum=4
   real(8), parameter :: rhoMax= 10.d0
-  real(8), dimension(Num-1,Num-1)::a
-  real(8)::Stepsize,start,finish,potential,testmax,max,tolerance
+  real(8), dimension(Num-1,Num-1)::a,r
+  real(8)::Stepsize,start,finish,potential,testmax,max,tolerance,test
   integer:: i,j,maxi,maxj,count
-  real(8), dimension(Num-1)::b
-  real(8), dimension((num-1)*(2+(num-1)/2)) :: work
-  real(8), dimension(testnum,testnum)::testmat
+  real(8), dimension(testnum,testnum)::testmat,testr
 
   testmat(1,1)=1.d0
   testmat(1,2)=2.d0
   testmat(1,3)=3.d0
-  testmat(2,1)=4.d0
-  testmat(2,2)=5.d0
-  testmat(2,3)=6.d0
-  testmat(3,1)=7.d0
-  testmat(3,2)=8.d0
-  testmat(3,3)=9.d0
+  testmat(1,4)=4.d0
+  testmat(2,1)=2.d0
+  testmat(2,2)=6.d0
+  testmat(2,3)=7.d0
+  testmat(2,4)=8.d0
+  testmat(3,1)=3.d0
+  testmat(3,2)=7.d0
+  testmat(3,3)=11.d0
+  testmat(3,4)=12.d0
+  testmat(4,1)=4.d0
+  testmat(4,2)=8.d0
+  testmat(4,3)=12.d0
+  testmat(4,4)=16.d0
 
 
   do j=1,testnum
@@ -27,7 +32,7 @@ program Jacobi
         print*, testmat(j,i)
      end do
   end do
-  
+
   StepSize=rhoMax/Num
   
   !Fill Matrix
@@ -43,47 +48,58 @@ program Jacobi
 !           a(j,i)=0.d0
 !        end if
 !     end do      
-!     b(i)=SourceValue(i*StepSize)*StepSize**2.d0
 !  end do
 
+  do i=1,testnum
+     do j=1,testnum
+        if (i == j) then
+           testr(j,i)=1.d0
+        else
+           testr(j,i)=0.d0
+        end if
+     end do
+  end do
+  
+  
 count = 0
 max = 1.d0
-tolerance=1.d-10
+tolerance=1.d-8
 
 do while (abs(max) .gt. tolerance)
 count=count+1
-  print*,count
+  !print*,count
 
   call findmax(testnum,testmat,maxj,maxi,max)
-  print*, max
+  !print*, max
 
-  call rotate(testnum,testmat,maxj,maxi)
+  call rotate(testnum,testmat,testr,maxj,maxi)
+end do
 
-  
   do i=1,testnum
      do j=1,testnum
         print *, testmat(j,i)
      end do
   end do
 
-  maxj=0
-  maxi=0
-end do
-
+  print*, 'vec'
+  
+  do j=1,testnum
+     print*, testr(j,1)
+  end do
 
 !  open(12,file="Eigen.dat")
 !  do i=1,Num-1
 !     write(12,*), b(i)
 ! end do
 !  close(12)
-  
-  end program Jacobi
+print*, count  
+end program Jacobi
 
 function Potential(x)
   implicit none
-  real(8)::Potential,x
+  real(8)::Potential,x,omega
 
-  Potential = x**2
+  Potential = omega*omega*x*x + 1.d0/x
   return
 
 end function Potential
@@ -110,16 +126,16 @@ Subroutine findmax(testnum,testmat,maxj,maxi,max)
     end do
  end do
 
- print*, "max is inside ", max
+ !print*, "max is inside ", max
  return
 end subroutine findmax
 
 
-subroutine rotate(testnum,testmat,maxj,maxi)
+subroutine rotate(testnum,testmat,testr,maxj,maxi)
   implicit none
   integer::i,j,maxi,maxj,testnum,q
-  real(8), dimension(testnum,testnum)::testmat
-  real(8)::tau,t,s,c,tempii,tempjj,tempqj,tempqi
+  real(8), dimension(testnum,testnum)::testmat,testr
+  real(8)::tau,t,s,c,tempii,tempjj,tempqj,tempqi,temprqi,temprqj
 ! calculate tau and tangent, sine, and cosine
   if (testmat(maxj,maxi) /=0) then
      tau = (testmat(maxi,maxi) - testmat(maxj,maxj))/(2 * testmat(maxj,maxi))
@@ -143,7 +159,7 @@ subroutine rotate(testnum,testmat,maxj,maxi)
   testmat(maxi,maxi) = tempjj*(s**2.d0) + 2.d0*testmat(maxj,maxi)*c*s + tempii*(c**2.d0)
   testmat(maxj,maxi) = 0.d0
   testmat(maxi,maxj) = 0.d0
-  
+
   do q=1,testnum
      if (q /= maxj .and. q /=maxi) then
        tempqj=testmat(q,maxj)
@@ -153,7 +169,11 @@ subroutine rotate(testnum,testmat,maxj,maxi)
        testmat(q,maxi)= tempqi*c + tempqj*s
        testmat(maxi,q)= testmat(q,maxi)
     end if
+    temprqj=testr(q,maxj)
+    temprqi=testr(q,maxi)
+    testr(q,maxj)=c*temprqj - s*temprqi
+    testr(q,maxi)=c*temprqi + s*temprqj
   end do
-
+  
   return
 end subroutine rotate

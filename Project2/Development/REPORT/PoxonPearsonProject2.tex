@@ -120,10 +120,207 @@ This report will begin with a brief introduction to the physical system we are s
 \section{Methods}
 
 \subsection{Physics of Single Electron in 3D Oscillator}
+
+If we assume spherical symmetry, the radial part of Shroedinger's equation for a single electron in a harmonic oscillator can be writen as
+
+\begin{equation*}
+  -\frac{\hbar^2}{2 m} \left ( \frac{1}{r^2} \frac{d}{dr} r^2
+  \frac{d}{dr} - \frac{l (l + 1)}{r^2} \right )R(r) 
+     + V(r) R(r) = E R(r).
+\end{equation*}
+
+where $V(r)$ is the harmonic oscillator potential.  The energies $E$ for the 3D harmonic oscilator are well know and given by
+
+\begin{equation*}
+E_{nl}=  \hbar \omega \left(2n+l+\frac{3}{2}\right).
+\end{equation*}
+
+To simplify the expression, we can make the common substitution $R(r) = (1/r) u(r)$, leaving us with
+% 
+
+\begin{equation*}
+  -\frac{\hbar^2}{2 m} \frac{d^2}{dr^2} u(r) 
+       + \left ( V(r) + \frac{l (l + 1)}{r^2}\frac{\hbar^2}{2 m}
+                                    \right ) u(r)  = E u(r) .
+\end{equation*}
+% 
+
+We have two boundary conditions to constrain this differential equations.  First, we want the wave function to disappear at the origin, so $u(0)=0$.  Second, the wave function should be localized to the oscillator well, so we want $u(\infty)=0$.  Here, we will only consider $l=0$ states, which eliminates one term of the equation.  Finally, we can indroduce a dimensionless variable $\rho = (1/\alpha) r$ and insert  $V(\rho) = (1/2) k \alpha^2\rho^2$, leaving us with
+
+\begin{equation*}
+  -\frac{\hbar^2}{2 m \alpha^2} \frac{d^2}{d\rho^2} u(\rho) 
+       + \frac{k}{2} \alpha^2\rho^2u(\rho)  = E u(\rho) .
+\end{equation*}
+
+Multiplying through my the leading factors leaves us with
+
+\begin{equation*}
+  -\frac{d^2}{d\rho^2} u(\rho) 
+       + \frac{mk}{\hbar^2} \alpha^4\rho^2u(\rho)  = \frac{2m\alpha^2}{\hbar^2}E u(\rho) .
+\end{equation*}
+
+Now we can choose that
+
+\begin{equation*}
+\frac{mk}{\hbar^2} \alpha^4 = 1
+\end{equation*}
+
+and define
+
+\begin{equation*}
+\lambda = \frac{2m\alpha^2}{\hbar^2}E.
+\end{equation*}
+
+That leaves us with the final expression
+
+\begin{equation*}
+  -\frac{d^2}{d\rho^2} u(\rho) + \rho^2u(\rho)  = \lambda u(\rho) .
+\end{equation*}
+
+This is the equation that we must solve numerically.  There are analytic solutions in the case of $l=0$ and the three lowest eigen values are $\lambda_0=3,\lambda_1=7,\lambda_2=11$. We can compare the accuracy of our results to these exact solutions.
+
 \subsection{Discretization of Schroedinger's Equation}
+
+As in Project 1, we will discretize the differential equation and use the three point formula to express the second derivative.  This expression is given by
+ 
+\begin{equation*}
+    u''=\frac{u(\rho+h) -2u(\rho) +u(\rho-h)}{h^2} +O(h^2).
+    \label{eq:diffoperation}
+\end{equation*}
+
+A full derivation of this expression can be found in \cite{LectureNotes}.  Here, $h$ is the step size where 
+
+\begin{equation*}
+  h=\frac{\rho_N-\rho_0 }{N}
+\end{equation*}
+
+and the value of $\rho$ at a point $i$ is then 
+
+\[
+    \rho_i= \rho_0 + ih \hspace{1cm} i=1,2,\dots , N.
+\]
+
+$N$ defines the number of grid points. Because this is a radial integral, the define minimum value for $\rho$ is 0 and  $\rho_{\mathrm{max}}=\rho_N$,
+
+Using the compact notation from project one, we can rewrite the Schroedinger equation as
+
+\[
+-\frac{u_{i+1} -2u_i +u_{i-1}}{h^2}+\rho_i^2u_i=-\frac{u_{i+1} -2u_i +u_{i-1} }{h^2}+V_iu_i  = \lambda u_i,
+\]
+where $V_i=\rho_i^2$ is the harmonic oscillator potential.
+
+This expression can also be cast as a matrix equation.  The left hand side takes the form of a modified tridiagonal matrix.  Instead of just having 2 in the diagonal and -1 in the off diagonal, non-zero elements, we now have 
+
+\begin{equation*}
+   d_i=\frac{2}{h^2}+V_i
+\end{equation*}
+and 
+\begin{equation*}
+   e_i=-\frac{1}{h^2}.
+\end{equation*}
+
+Instead of having some known function $f$ on the right hand side, we instead have $\lambda \cdot u$.  Now, for each point on the wavefuntion $u_i$, we can define the Schroedinger equation takes the following form
+
+\begin{equation*}
+d_iu_i+e_{i-1}u_{i-1}+e_{i+1}u_{i+1}  = \lambda u_i,
+\end{equation*}
+
+This is, of course, the form of an eigenvalue problem and the entire matrix can be written as
+\begin{equation}
+ \begin{bmatrix} \frac{2}{h^2}+V_1 & -\frac{1}{h^2} & 0   & 0    & \dots  &0     & 0 \\
+                                -\frac{1}{h^2} & \frac{2}{h^2}+V_2 & -\frac{1}{h^2} & 0    & \dots  &0     &0 \\
+                                0   & -\frac{1}{h^2} & \frac{2}{h^2}+V_3 & -\frac{1}{h^2}  &0       &\dots & 0\\
+                                \dots  & \dots & \dots & \dots  &\dots      &\dots & \dots\\
+                                0   & \dots & \dots & \dots  &-\frac{1}{h^2}  &\frac{2}{h^2}+V_{N-2} & -\frac{1}{h^2}\\
+                                0   & \dots & \dots & \dots  &\dots       &-\frac{1}{h^2} & \frac{2}{h^2}+V_{N-1}
+             \end{bmatrix}  \begin{bmatrix} u_{0} \\
+                                                              u_{1} \\
+                                                              \dots\\ \dots\\ \dots\\
+                                                              u_{N}
+             \end{bmatrix}=\lambda \begin{bmatrix} u_{0} \\
+                                                              u_{1} \\
+                                                              \dots\\ \dots\\ \dots\\
+                                                              u_{N}
+             \end{bmatrix}.  
+      \label{eq:sematrix}
+\end{equation}
+Since the values of $u$ at the two endpoints are known via the boundary conditions, we can skip the rows and columns that involve these values.
+
 \subsection{Jacobi's Rotation Algorithm}
+
+In this project we implement Jacobi's method to solve the eigenvalue problem.  I will briefly explain the method here, but a full explaination of the method can be found in \cite{LectureNotes}.  The method is based on a series of rotations preformed on the matrix which eliminates the off diagonal matrix elements.  These rotations are allowable because unitary transformations preserve orthogonality.  For a proof of this property, see \ref{A}.
+
+MORE HERE
+
 \subsection{Physics of Interacting Electrons in 3D Oscillator}
 
+If we now add a second electron to the harmonic oscillator, they will interact through the Coulomb force.  If there was no interaction, we would just have the sum of two single particle Schroedinger equations, which can be written as 
+
+\begin{equation*}
+\left(  -\frac{\hbar^2}{2 m} \frac{d^2}{dr_1^2} -\frac{\hbar^2}{2 m} \frac{d^2}{dr_2^2}+ \frac{1}{2}k r_1^2+ \frac{1}{2}k r_2^2\right)u(r_1,r_2)  = E^{(2)} u(r_1,r_2) 
+\end{equation*}
+
+
+where $u(r_1,r_2)$ is a two electron wave function and $E^{(2)}$ is the two electron energy.
+
+To simplify this problem, we can perform a change of variables.  We will use the relative coordinate $\mathbf{r} = \mathbf{r}_1-\mathbf{r}_2$
+and the center-of-mass coordinate $\mathbf{R} = 1/2(\mathbf{r}_1+\mathbf{r}_2)$.  This gives us
+
+\begin{equation*}
+\left(  -\frac{\hbar^2}{m} \frac{d^2}{dr^2} -\frac{\hbar^2}{4 m} \frac{d^2}{dR^2}+ \frac{1}{4} k r^2+  kR^2\right)u(r,R)  = E^{(2)} u(r,R).
+\end{equation*}
+
+As shown in \cite{Broida}, the equations for $r$ and $R$ can be separated via the ansatz for the 
+wave function $u(r,R) = \psi(r)\phi(R)$ and the energy is given by
+
+\begin{equation*}
+E^{(2)}=E_r+E_R.
+\end{equation*}
+
+Now if we add the Coulomb term,
+
+\begin{equation*}
+V(r_1,r_2) =\frac{\beta e^2}{r},
+\end{equation*}
+with $\beta e^2=1.44$ eVnm, we get
+
+\begin{equation*}
+\left(  -\frac{\hbar^2}{m} \frac{d^2}{dr^2}+ \frac{1}{4}k r^2+\frac{\beta e^2}{r}\right)\psi(r)  = E_r \psi(r).
+\end{equation*}
+
+If we preform a similar process of multiplying through by leading coefficients and reintroduce the dimensionless variable $\rho = r/\alpha$, we get
+\begin{equation*}
+  -\frac{d^2}{d\rho^2} \psi(\rho) 
+       + \frac{1}{4}\frac{mk}{\hbar^2} \alpha^4\rho^2\psi(\rho)+\frac{m\alpha \beta e^2}{\rho\hbar^2}\psi(\rho)  = 
+\frac{m\alpha^2}{\hbar^2}E_r \psi(\rho) .
+\end{equation*}
+
+Now wi will massage this equation to create an analogue to the non-interacting case.  To do this, we define a new 'frequency'
+
+\begin{equation*}
+\omega_r^2=\frac{1}{4}\frac{mk}{\hbar^2} \alpha^4,
+\end{equation*}
+and fix $\alpha$ by 
+\begin{equation*}
+\frac{m\alpha \beta e^2}{\hbar^2}=1
+\end{equation*}
+
+and define
+
+\begin{equation*}
+\lambda = \frac{m\alpha^2}{\hbar^2}E.
+\end{equation*}
+
+Now, we can rewrite Schroedinger's equation as
+
+\begin{equation*}
+  -\frac{d^2}{d\rho^2} \psi(\rho) + \omega_r^2\rho^2\psi(\rho) +\frac{1}{\rho} = \lambda \psi(\rho).
+\end{equation*}
+
+In this form, $\omega_r$ reflects the strength of the oscillator potential.
+
+Here we studied the cases $\omega_r = 0.01$, $\omega_r = 0.5$, $\omega_r =1$,
+and $\omega_r = 5$ for the ground state. Again, we only study $l=0$ states and we omit the center-of-mass energy.
 
 \section{Code and Implementation}
 
@@ -154,7 +351,7 @@ All of the programs, results, and benchmarks for this work can be found in my GI
 
 \section{Appendices}
 
-\subsection{Appendix A}
+\subsection{Appendix A} \label{A}
 
 Consider a basis of orthogonal basis vectors $\mathbf{v}_i$,
 \[
@@ -225,10 +422,12 @@ Hjorth-Jensen, Mortehn.
 Computational Physics, Lecture Notes Fall 2015. 
 August 2015.
 
-\bibitem{Chiarandini} 
-Chiarandini, Marco. 
-LU Factorization, Linear and Integer Programming. 
-http://www.imada.sdu.dk/~marco/DM554/Slides/dm554-lu.pdf.
+
+\bibitem{Broida}
+Broida, J.
+PHYS 130B, Quantum Mechanics II Class Notes.
+Fall 2009.
+http://www.physics.ucsd.edu/students/courses/fall2009/physics130b/IdentParts.pdf
 
 \bibitem{ClassNotes} 
 Hjorth-Jensen, Mortehn. 

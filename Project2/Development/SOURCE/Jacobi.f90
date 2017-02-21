@@ -1,61 +1,87 @@
 program Jacobi
 
   implicit none
-  integer, parameter :: Num=300
+  integer:: Num
   integer, parameter :: testnum=4
-  real(8), parameter :: rhoMax= 10.d0
-  real(8), dimension(Num-1,Num-1)::a,r
-  real(8)::Stepsize,start,finish,potential,testmax,max,tolerance,test
-  integer:: i,j,maxi,maxj,count
-  real(8), dimension(testnum,testnum)::testmat,testr
+  real(8) ::rhoMax
+  real(8), dimension(:,:),Allocatable::a,r
+  real(8)::Stepsize,start,finish,potential,testmax,max,tolerance,test,omega
+  integer:: i,j,maxi,maxj,count,case,NumElectrons
 
-  testmat(1,1)=1.d0
-  testmat(1,2)=2.d0
-  testmat(1,3)=3.d0
-  testmat(1,4)=4.d0
-  testmat(2,1)=2.d0
-  testmat(2,2)=6.d0
-  testmat(2,3)=7.d0
-  testmat(2,4)=8.d0
-  testmat(3,1)=3.d0
-  testmat(3,2)=7.d0
-  testmat(3,3)=11.d0
-  testmat(3,4)=12.d0
-  testmat(4,1)=4.d0
-  testmat(4,2)=8.d0
-  testmat(4,3)=12.d0
-  testmat(4,4)=16.d0
-
-
-  do j=1,testnum
-     do i=1, testnum
-        print*, testmat(j,i)
-     end do
-  end do
-
-  StepSize=rhoMax/Num
+  !Ask the user for information
+  print *, "Do you want to run for a test matrix, or electrons in well? 1)test 2)electrons"
+  read(*,*) case
+  if (case == 2) then
+     print*, "Are you interested in the case of one electron or two interacting electrons? 1) one 2) two"
+     read(*,*) NumElectrons
+     if (NumElectrons == 2) then
+        print*,"what value do you want for omega?"
+        read(*,*) omega
+     else
+        omega = 0.d0
+     end if
   
-  !Fill Matrix
-!  do i =1,Num-1
-!     do j=1,Num-1
-!        if (i==j) then
-!           a(j,i)=2.d0/(stepsize**2) + Potential(i*StepSize)
-!        else if (j==i+1) then
-!           a(j,i)=-1.d0/(stepsize**2)
-!        else if (j==i-1) then
-!           a(j,i)=-1.d0/(stepsize**2)
-!        else
-!           a(j,i)=0.d0
-!        end if
-!     end do      
-!  end do
-
-  do i=1,testnum
+     print*, "what is rho max?"
+     read(*,*) rhoMax
+     print*, "what is N?"
+     read(*,*)Num
+  end if
+  
+  if (case==1) then
+     Num = testnum + 1
+  end if
+  
+  Allocate(a(Num-1,Num-1))
+  Allocate(r(Num-1,Num-1))
+  
+  if (case==1) then
+     a(1,1)=1.d0
+     a(1,2)=2.d0
+     a(1,3)=3.d0
+     a(1,4)=4.d0
+     a(2,1)=2.d0
+     a(2,2)=6.d0
+     a(2,3)=7.d0
+     a(2,4)=8.d0
+     a(3,1)=3.d0
+     a(3,2)=7.d0
+     a(3,3)=11.d0
+     a(3,4)=12.d0
+     a(4,1)=4.d0
+     a(4,2)=8.d0
+     a(4,3)=12.d0
+     a(4,4)=16.d0
+     print *, "The test matrix is "
      do j=1,testnum
+        print*, a(j,1), a(j,2), a(j,3), a(j,4)
+     end do
+  end if
+  
+  if (case==2) then
+     StepSize=rhoMax/Num
+  
+     !Fill Matrix
+     do i =1,Num-1
+        do j=1,Num-1
+           if (i==j) then
+              a(j,i)=2.d0/(stepsize**2) + Potential(i*StepSize,NumElectrons,omega)
+           else if (j==i+1) then
+              a(j,i)=-1.d0/(stepsize**2)
+           else if (j==i-1) then
+              a(j,i)=-1.d0/(stepsize**2)
+           else
+              a(j,i)=0.d0
+           end if
+        end do
+     end do
+  end if
+  
+  do i=1,Num-1
+     do j=1,Num-1
         if (i == j) then
-           testr(j,i)=1.d0
+           r(j,i)=1.d0
         else
-           testr(j,i)=0.d0
+           r(j,i)=0.d0
         end if
      end do
   end do
@@ -69,22 +95,23 @@ do while (abs(max) .gt. tolerance)
 count=count+1
   !print*,count
 
-  call findmax(testnum,testmat,maxj,maxi,max)
-  !print*, max
+  call findmax(Num-1,a,maxj,maxi,max)
 
-  call rotate(testnum,testmat,testr,maxj,maxi)
+  print*, max
+
+  call rotate(Num-1,a,r,maxj,maxi)
 end do
 
-  do i=1,testnum
-     do j=1,testnum
-        print *, testmat(j,i)
+  do i=1,Num-1
+     do j=1,Num-1
+        print *, a(j,i)
      end do
   end do
 
   print*, 'vec'
   
-  do j=1,testnum
-     print*, testr(j,1)
+  do j=1,Num-1
+     print*, r(j,1)
   end do
 
 !  open(12,file="Eigen.dat")
@@ -95,11 +122,17 @@ end do
 print*, count  
 end program Jacobi
 
-function Potential(x)
+function Potential(x,NumElectrons,omega)
   implicit none
   real(8)::Potential,x,omega
+  integer:: NumElectrons
 
-  Potential = omega*omega*x*x + 1.d0/x
+  if (NumElectrons == 1) then
+     Potential = x*x
+  else if (NumElectrons ==2) then
+     Potential = omega*omega*x*x + 1.d0/x
+  end if
+  
   return
 
 end function Potential

@@ -396,7 +396,7 @@ Depending on the user choice, the code will either select the simpler, one elect
 \section{Results and Discussion}
 
 
-\subsection{Exploring Dependence of Integration Parameters}
+\subsection{Exploring Dependence on Parameters}
 
 The results of the calculation will be sensitive to the choice of $\rho_{max}$ and $N$.  Both of these parameters can be defined by the user while running the program.  I explored the sensitivity to these parameters for the case of the non-interacting electron.  In three dimension, we know the eigenvalues for the three lowest lying, $l=0$ states should be $\lambda_0=3$, $\lambda_1=7$, and $\lambda_2=11$.  Below is a table of convergence for these results for different choices of  $\rho_{max}$ and $N$.
 
@@ -418,8 +418,22 @@ As you can see from the results, $\rho_{max}=6$ and $N=200$ is sufficient for co
   \centering
     \includegraphics[width=1.1\textwidth]{11.png}
 \end{figure}
+
+\subsection{Number of Iterations}
+
+Jacobi's algorithm does not prescribe the necessary number of iterations to zero all off diagonal elements.  To get a sense for this relationship, I ran my code for the case of a single electron for many different matrix sizes, N.  The plot below shows the number of iterations necessary for all off diagonal elements to call below $10^{-8}$.
+
+\begin{figure}[H]\label{fig:iteration}
+  \centering
+    \includegraphics[width=1.1\textwidth]{iterationplot.jpg}
+    \caption{Demonstrating the behavior of Iterations v. Matrix Size}
+\end{figure}
+
+There does not appear to be a simple relationship between the necessary number of iterations and size of the matrix.  The growth is non-linear, but slower than exponential growth.  A very rough fit in excel found a relatively good fit (by eye) with the second order polynomial $y = 1.7 x^2 - 11.6 x + 116$.  Running for N=1000 took too long for me to obtain a solution, which is unsurprising because, according to this formula, it would require almost 1.7 million iterations.
+
 \subsection{Computational Speeds}
 
+The efficiency of the Jacobi algorithm can be compared to other eigenvalue solvers.  I performed the same calculation using the Linear Algebra PACKage (LAPACK).  Specifically I used the DSYEV function which produces eigenvalues and eigenvectors for real, symmetric, matrices.  For the case of a non-interacting electron I used both my solver and DSYEV with $\rho_{max}=6$ and $N=200$ and timed both calculations using the cpu\_time function.  DSYEV completed the calculation in 2.18 seconds, while my implementation of Jacobi's algorithm took 7.68 seconds to obtain similar accuracy.
 
 \section{Conclusions}
 

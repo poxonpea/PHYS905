@@ -105,6 +105,12 @@ count=count+1
   !print*, max
 
   call rotate(Num-1,a,r,maxj,maxi)
+
+
+  !Test to check orthogonality of eigenvectors after every 10th iteration
+  if (Mod(count,10) == 0) then
+     call OrthoCheck(Num-1,r,maxi,maxj,count)
+  end if
   
 end do
 
@@ -123,7 +129,13 @@ max = 1000.d0
 
   print*, "lowest",eigenval(maxi),maxi
   
-!  print*, 'vec'
+  if (case == 1) then
+     print*, "Eigenvectors from Matematica: 31.3397, 1.70691, 0.953375, 6.39959E-17"
+     print*, "Eigenvectors from Jacobi: ", eigenval(1), eigenval(2), eigenval(3), eigenval(4)
+  end if
+  
+
+  !  print*, 'vec'
  
 !  do j=1,Num-1
 !     print*, r(j,5)
@@ -131,7 +143,7 @@ max = 1000.d0
 
   open(12,file="wf.dat")
   do i=1,Num-1
-     write(12,*), i*stepsize, r(i,maxi), AnalyticSoln(i*stepsize,omega)
+     write(12,*), i*stepsize,r(i,maxi), AnalyticSoln(i*stepsize,omega)
   end do
   close(12)
   
@@ -166,8 +178,8 @@ function AnalyticSoln(x,omega)
   real(8):: AnalyticSoln, x, omega,omegae, r0, pi
   pi = 3.1415927
   omegae=sqrt(3.d0)*omega
-  r0=(2.d0*omega*omega)**(1.d0/3.d0)
-  AnalyticSoln = ((omegae/pi)**0.25)*exp(-(0.5*omegae*(x-r0)**2))
+  r0=(2.d0*omega*omega)**(-1.d0/3.d0)
+  AnalyticSoln = ((omegae/pi)**(1.d0/4.d0))*exp(-((1.d0/2.d0)*omegae*(x-r0)**2))
 
   return
 end function AnalyticSoln
@@ -250,3 +262,25 @@ subroutine rotate(testnum,testmat,testr,maxj,maxi)
   
   return
 end subroutine rotate
+
+subroutine OrthoCheck(Num,r,maxi,maxj,count)
+  implicit none
+  integer:: Num,i,maxi,maxj,count
+  real(8), dimension(Num,Num):: r
+  real(8), dimension(Num)::col1,col2
+  real(8) :: check
+
+  do i=1,Num
+     col1(i)=r(i,maxi)
+     col2(i)=r(i,maxj)
+  end do
+
+  check = dot_product(col1,col2)
+  if (mod(count,10)==0) then
+     print*,"Iteration",count,"Dot product of eigenvectors =", check
+  end if
+  if (check .gt. 1.d-8) then
+     print*, "Error: Orthogonality violated"
+     stop
+  end if
+end subroutine OrthoCheck

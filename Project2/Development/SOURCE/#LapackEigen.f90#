@@ -1,7 +1,7 @@
 program LapackEigenValue
   implicit none
   integer, parameter :: Num=200
-  real(8), parameter :: rhoMax= 10.d0
+  real(8), parameter :: rhoMax= 6.d0
   real(8), dimension(Num-1,Num-1)::a
   real(8)::Stepsize,start,finish,potential
   integer:: i,j,info,lwork
@@ -29,16 +29,12 @@ program LapackEigenValue
 
 
   !Call LAPACK Solver
-
   call cpu_time(start)
   
   call DSYEV('V','U',Num-1,A,Num-1,b,work,lwork,info)
   print*,info
 
-  call cpu_time(finish)
-  print*, finish-start
-  
-  open(12,file="Eigen.dat")
+  call copen(12,file="Eigen.dat")
   do i=1,Num-1
      write(12,*), b(i)
   end do

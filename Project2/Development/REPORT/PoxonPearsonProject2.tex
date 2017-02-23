@@ -248,9 +248,53 @@ Since the values of $u$ at the two endpoints are known via the boundary conditio
 
 \subsection{Jacobi's Rotation Algorithm}
 
-In this project we implement Jacobi's method to solve the eigenvalue problem.  I will briefly explain the method here, but a full explaination of the method can be found in \cite{LectureNotes}.  The method is based on a series of rotations preformed on the matrix which eliminates the off diagonal matrix elements.  These rotations are allowable because unitary transformations preserve orthogonality.  For a proof of this property, see \ref{A}.
+In this project we implement Jacobi's method to solve the eigenvalue problem.  I will briefly explain the method here, but a full explanation of the method can be found in \cite{LectureNotes}.  The method is based on a series of rotations performed on the matrix which eliminates the off diagonal matrix elements.  These rotations are allowable because unitary transformations preserve orthogonality.  For a proof of this property, see \ref{A}.
 
-MORE HERE
+Because we want to eliminate off diagonal elements of the array, we search the matrix for the largest off-diagonal element.  Once I identified, we need to determine the rotation angle that will bring this element to 0.  For the identified largest element, $a_{kl}$, we can find this angle through the relation
+
+\begin{equation*}
+\cot 2\theta=\tau = \frac{a_{ll}-a_{kk}}{2a_{kl}}.
+\end{equation*}
+
+We can then define the angle $\theta$ by using the relation $\cot 2\theta=1/2(\cot \theta-\tan\theta)$.  Solving for $tan(\theta)$ $(t)$ we get
+
+\begin{equation*}
+  t = -\tau \pm \sqrt{1+\tau^2}.
+\end{equation*}
+
+Finally, $t$ can be easily related to $cos(\theta) (c)$ and $sin(\theta) (s)$ by
+
+\begin{equation*}
+   c = \frac{1}{\sqrt{1+t^2}}
+\end{equation*}
+
+and
+
+\begin{equation*} 
+s=tc
+\end{equation*}
+
+Once the rotation angle is determined, we apply the transformation.  After the transformation, the matrix elements are changed so that
+
+\begin{equation*}
+\begin{split}
+& b_{ii}=a_{ii} (i \ne k, j \ne l) \\
+& b_{ik}=a_{ik}c - a_{il}s  (i \ne k, j \ne l) \\
+& b_{il}=a_{il}c + a_{ik}s  (i \ne k, j \ne l) \\
+& b_{kk}=a_{kk}c^2 -2a_{kl}cs + a_{ll}s^2 \\
+& b_{kk}=a_{ll}c^2 +2a_{kl}cs + a_{kk}s^2 \\
+& b_{kl} = 0.
+\end{split}
+\end{equation*}
+
+This process can then be repeated until all off diagonal elements are effectively 0 (less than some defined tolerance).  When the process is complete, you will have a diagonal matrix with eigenvalues along the diagonal.  Finally, the corresponding eigenvectors are easy to obtain.  Originally, we define an NXN unit matrix, $r$, which is the same size as the matrix being diagonalized.  Then, after each transformation, this matrix can be transformed using the relation
+
+\begin{equation*}
+\begin{split}
+&r_{ik} = r_{ik}c-r_{il}s \\
+&r_{il} = r_{il}c + r_{ik}s.
+\end{split}
+\end{equation*}
 
 \subsection{Physics of Interacting Electrons in 3D Oscillator}
 
@@ -326,10 +370,25 @@ and $\omega_r = 5$ for the ground state. Again, we only study $l=0$ states and w
 
 All of the programs, results, and benchmarks for this work can be found in my GIT repository ( https://github.com/poxonpea/PHYS905 ).  All codes for this project were written in FORTRAN.
 
-\subsection{Implementing Single Electron Case}
+\subsection{Implementing Single and Interacting Electron Cases}
 
-\subsection{Implementing Interacting Electron Case}
+The code containing the heart of the Jacobi algorithm is shown below
 
+\begin{figure}[H]\label{fig:Jacobi}
+  \centering
+    \includegraphics[width=1.2\textwidth]{Rotate.PNG}
+    \caption{Code from Jacobi.f90 which implements Jacobi's Algorithm}
+\end{figure}
+
+This subroutine is implementing after a separate subroutine searches the matrix to find the largest off diagonal element.  When running Jacobi.f90, the user decides whether to run for 1 or 2 electrons.  The only difference is the potential used.  That can be seen in the code below.
+
+\begin{figure}[H]\label{fig:Potential}
+  \centering
+    \includegraphics[width=0.8\textwidth]{Potential.PNG}
+    \caption{The potential implemented in Jacobi.f90}
+\end{figure}
+
+Depending on the user choice, the code will either select the simpler, one electron potential, or the potential for the interacting case.
 
 \subsection{Tests of Code}
 
@@ -339,9 +398,26 @@ All of the programs, results, and benchmarks for this work can be found in my GI
 
 \subsection{Exploring Dependence of Integration Parameters}
 
+The results of the calculation will be sensitive to the choice of $\rho_{max}$ and $N$.  Both of these parameters can be defined by the user while running the program.  I explored the sensitivity to these parameters for the case of the non-interacting electron.  In three dimension, we know the eigenvalues for the three lowest lying, $l=0$ states should be $\lambda_0=3$, $\lambda_1=7$, and $\lambda_2=11$.  Below is a table of convergence for these results for different choices of  $\rho_{max}$ and $N$.
+
+As you can see from the results, $\rho_{max}=6$ and $N=200$ is sufficient for convergence and I used this combination for my runs.
+
 \subsection{Convergence}
 
+\begin{figure}[H]\label{fig:3}
+  \centering
+    \includegraphics[width=1.1\textwidth]{3.png}
+\end{figure}
 
+\begin{figure}[H]\label{fig:7}
+  \centering
+    \includegraphics[width=1.1\textwidth]{7.png}
+\end{figure}
+
+\begin{figure}[H]\label{fig:11}
+  \centering
+    \includegraphics[width=1.1\textwidth]{11.png}
+\end{figure}
 \subsection{Computational Speeds}
 
 

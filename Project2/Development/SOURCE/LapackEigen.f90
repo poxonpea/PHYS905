@@ -29,8 +29,14 @@ program LapackEigenValue
 
 
   !Call LAPACK Solver
+
+  call cpu_time(start)
+  
   call DSYEV('V','U',Num-1,A,Num-1,b,work,lwork,info)
   print*,info
+
+  call cpu_time(finish)
+  print*, finish-start
   
   open(12,file="Eigen.dat")
   do i=1,Num-1

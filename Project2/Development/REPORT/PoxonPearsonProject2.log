@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.19)  20 FEB 2017 19:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.19)  22 FEB 2017 21:38
 entering extended mode
 **H:/Documents/Computational/PHYS905/PHYS905/Project2/Development/REPORT/PoxonP
 earsonProject2.tex
@@ -753,23 +753,69 @@ Overfull \hbox (42.05629pt too wide) detected at line 246
 [][] [] [] \OT1/lmr/m/n/10 = \OML/lmm/m/it/10  [] :
  []
 
-[4] [5] [6]
-Overfull \hbox (32.22902pt too wide) in paragraph at lines 427--431
+[4] [5] <Rotate.PNG, id=130, 485.56406pt x 469.755pt>
+File: Rotate.PNG Graphic file (type png)
+ <use Rotate.PNG>
+Package pdftex.def Info: Rotate.PNG used on input line 379.
+(pdftex.def)             Requested size: 413.99895pt x 400.51935pt.
+
+Overfull \hbox (68.99895pt too wide) in paragraph at lines 379--380
+ [][] 
+ []
+
+[6] <Potential.PNG, id=136, 245.41687pt x 162.6075pt>
+File: Potential.PNG Graphic file (type png)
+ <use Potential.PNG>
+Package pdftex.def Info: Potential.PNG used on input line 387.
+(pdftex.def)             Requested size: 276.00105pt x 182.8784pt.
+
+[7 <./Rotate.PNG>] <3.png, id=144, 386.94562pt x 124.96687pt>
+File: 3.png Graphic file (type png)
+ <use 3.png>
+Package pdftex.def Info: 3.png used on input line 409.
+(pdftex.def)             Requested size: 379.5021pt x 122.56395pt.
+
+Overfull \hbox (34.5021pt too wide) in paragraph at lines 409--410
+ [][] 
+ []
+
+[8 <./Potential.PNG>] <7.png, id=151, 386.94562pt x 109.91063pt>
+File: 7.png Graphic file (type png)
+ <use 7.png>
+Package pdftex.def Info: 7.png used on input line 414.
+(pdftex.def)             Requested size: 379.5021pt x 107.79718pt.
+
+Overfull \hbox (34.5021pt too wide) in paragraph at lines 414--415
+ [][] 
+ []
+
+<11.png, id=152, 386.94562pt x 124.96687pt>
+File: 11.png Graphic file (type png)
+ <use 11.png>
+Package pdftex.def Info: 11.png used on input line 419.
+(pdftex.def)             Requested size: 379.5021pt x 122.56395pt.
+
+Overfull \hbox (34.5021pt too wide) in paragraph at lines 419--420
+ [][] 
+ []
+
+[9 <./3.png> <./7.png> <./11.png>]
+Overfull \hbox (32.22902pt too wide) in paragraph at lines 503--507
 \T1/lmr/m/n/10 (-20) http://www.physics.ucsd.edu/students/courses/fall2009/phys
 ics130b/IdentParts.pdf 
  []
 
 
-Overfull \hbox (113.12488pt too wide) in paragraph at lines 433--437
+Overfull \hbox (113.12488pt too wide) in paragraph at lines 509--513
 \T1/lmr/m/n/10 (-20) Physics. https://compphysics.github.io/ComputationalPhysic
 sMSU/doc/pub/languages/pdf/languages-
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 444.
-[7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 444.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 520.
+[10] [11]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 520.
  (PoxonPearsonProject2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 444.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 520.
 
 
  *File List*
@@ -879,21 +925,26 @@ PoxonPearsonProject2.out
   mt-msa.cfg    2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
     umsb.fd    2013/01/14 v3.01 AMS symbols B
   mt-msb.cfg    2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+  Rotate.PNG    Graphic file (type png)
+Potential.PNG    Graphic file (type png)
+       3.png    Graphic file (type png)
+       7.png    Graphic file (type png)
+      11.png    Graphic file (type png)
  ***********
 
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 444.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 520.
 Package rerunfilecheck Info: File `PoxonPearsonProject2.out' has not changed.
-(rerunfilecheck)             Checksum: 156C21364C563516BDC0920028DF862E;1238.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 444.
+(rerunfilecheck)             Checksum: 82D1971E4D99002ECDA75C069C173103;1166.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 520.
  ) 
 Here is how much of TeX's memory you used:
- 10996 strings out of 493634
- 167033 string characters out of 3141305
- 319059 words of memory out of 3000000
- 14053 multiletter control sequences out of 15000+200000
- 54153 words of font info for 74 fonts, out of 3000000 for 9000
+ 11039 strings out of 493634
+ 167472 string characters out of 3141305
+ 319337 words of memory out of 3000000
+ 14080 multiletter control sequences out of 15000+200000
+ 54319 words of font info for 76 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 42i,8n,38p,1088b,356s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,15n,38p,1088b,356s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program F
 iles (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program Files (x86)/
 MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program Files (x86)/MiKTeX 2.9/
@@ -908,9 +959,9 @@ lic/lm/lmr5.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr7.p
 fb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Prog
 ram Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy7.pfb><C:/Program Files (x
 86)/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on PoxonPearsonProject2.pdf (7 pages, 196957 bytes).
+Output written on PoxonPearsonProject2.pdf (11 pages, 268283 bytes).
 PDF statistics:
- 196 PDF objects out of 1000 (max. 8388607)
- 31 named destinations out of 1000 (max. 500000)
- 13457 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 220 PDF objects out of 1000 (max. 8388607)
+ 36 named destinations out of 1000 (max. 500000)
+ 13474 words of extra memory for PDF output out of 14400 (max. 10000000)
 

@@ -5,7 +5,8 @@ program Jacobi
   integer, parameter :: testnum=4
   real(8) ::rhoMax
   real(8), dimension(:,:),Allocatable::a,r
-  real(8)::Stepsize,start,finish,potential,testmax,max,tolerance,test,omega
+  real(8), dimension(:),Allocatable::eigenval
+  real(8)::Stepsize,start,finish,potential,testmax,max,tolerance,test,omega,analyticsoln
   integer:: i,j,maxi,maxj,count,case,NumElectrons
 
   !Ask the user for information
@@ -33,7 +34,9 @@ program Jacobi
   
   Allocate(a(Num-1,Num-1))
   Allocate(r(Num-1,Num-1))
+  Allocate(eigenval(Num-1))
   
+  ! Fill in test Matrix
   if (case==1) then
      a(1,1)=1.d0
      a(1,2)=2.d0
@@ -60,7 +63,7 @@ program Jacobi
   if (case==2) then
      StepSize=rhoMax/Num
   
-     !Fill Matrix
+     !Fill in real Matrix
      do i =1,Num-1
         do j=1,Num-1
            if (i==j) then
@@ -91,36 +94,56 @@ count = 0
 max = 1.d0
 tolerance=1.d-8
 
+call cpu_time(start)
+
 do while (abs(max) .gt. tolerance)
 count=count+1
   !print*,count
 
   call findmax(Num-1,a,maxj,maxi,max)
 
-  print*, max
+  !print*, max
 
   call rotate(Num-1,a,r,maxj,maxi)
+  
 end do
 
+call cpu_time(finish)
+print*, 'cpu time',finish-start
+
+max = 1000.d0
+
   do i=1,Num-1
-     do j=1,Num-1
-        print *, a(j,i)
-     end do
+     eigenval(i)=a(i,i)
+     if (eigenval(i) .lt. max)then
+        max = eigenval(i)
+        maxi = i
+     end if   
   end do
 
-  print*, 'vec'
+  print*, "lowest",eigenval(maxi),maxi
   
-  do j=1,Num-1
-     print*, r(j,1)
-  end do
+!  print*, 'vec'
+ 
+!  do j=1,Num-1
+!     print*, r(j,5)
+!  end do
 
-!  open(12,file="Eigen.dat")
-!  do i=1,Num-1
-!     write(12,*), b(i)
-! end do
-!  close(12)
-print*, count  
+  open(12,file="wf.dat")
+  do i=1,Num-1
+     write(12,*), i*stepsize, r(i,maxi), AnalyticSoln(i*stepsize,omega)
+  end do
+  close(12)
+  
+  open(15,file="tes.test")
+  write(15,*), "test"
+  close(15)
+ 
+  print*, "Number of Iterations",count
+  
 end program Jacobi
+
+
 
 function Potential(x,NumElectrons,omega)
   implicit none
@@ -136,6 +159,18 @@ function Potential(x,NumElectrons,omega)
   return
 
 end function Potential
+
+
+function AnalyticSoln(x,omega)
+  implicit none
+  real(8):: AnalyticSoln, x, omega,omegae, r0, pi
+  pi = 3.1415927
+  omegae=sqrt(3.d0)*omega
+  r0=(2.d0*omega*omega)**(1.d0/3.d0)
+  AnalyticSoln = ((omegae/pi)**0.25)*exp(-(0.5*omegae*(x-r0)**2))
+
+  return
+end function AnalyticSoln
 
 
 Subroutine findmax(testnum,testmat,maxj,maxi,max)
@@ -162,6 +197,11 @@ Subroutine findmax(testnum,testmat,maxj,maxi,max)
  !print*, "max is inside ", max
  return
 end subroutine findmax
+
+
+
+
+
 
 
 subroutine rotate(testnum,testmat,testr,maxj,maxi)

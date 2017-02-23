@@ -7,7 +7,7 @@ program Jacobi
   real(8), dimension(:,:),Allocatable::a,r
   real(8), dimension(:),Allocatable::eigenval
   real(8)::Stepsize,start,finish,potential,testmax,max,tolerance,test,omega,analyticsoln
-  integer:: i,j,maxi,maxj,count,case,NumElectrons
+  integer:: i,j,maxi,maxj,count,case,NumElectrons,verbose
 
   !Ask the user for information
   print *, "Do you want to run for a test matrix, or electrons in well? 1)test 2)electrons"
@@ -27,7 +27,9 @@ program Jacobi
      print*, "what is N?"
      read(*,*)Num
   end if
-  
+  print *, "Do you want me to print the orthogonality results? 1)yes 2)no"
+  read(*,*) verbose 
+
   if (case==1) then
      Num = testnum + 1
   end if
@@ -97,19 +99,21 @@ tolerance=1.d-8
 call cpu_time(start)
 
 do while (abs(max) .gt. tolerance)
-count=count+1
+  count=count+1
   !print*,count
 
+  !Find largest matrix element in array
   call findmax(Num-1,a,maxj,maxi,max)
 
   !print*, max
 
+  !Jacobi's algorithm to rotate largest element to 0
   call rotate(Num-1,a,r,maxj,maxi)
 
 
   !Test to check orthogonality of eigenvectors after every 10th iteration
   if (Mod(count,10) == 0) then
-     call OrthoCheck(Num-1,r,maxi,maxj,count)
+     call OrthoCheck(Num-1,r,maxi,maxj,count,verbose)
   end if
   
 end do
@@ -143,7 +147,7 @@ max = 1000.d0
 
   open(12,file="wf.dat")
   do i=1,Num-1
-     write(12,*), i*stepsize,r(i,maxi), AnalyticSoln(i*stepsize,omega)
+     write(12,*), i*stepsize,r(i,maxi)
   end do
   close(12)
   
@@ -153,6 +157,10 @@ max = 1000.d0
  
   print*, "Number of Iterations",count
   
+  Deallocate(a)
+  Deallocate(r)
+  Deallocate(eigenval)
+
 end program Jacobi
 
 
@@ -171,18 +179,6 @@ function Potential(x,NumElectrons,omega)
   return
 
 end function Potential
-
-
-function AnalyticSoln(x,omega)
-  implicit none
-  real(8):: AnalyticSoln, x, omega,omegae, r0, pi
-  pi = 3.1415927
-  omegae=sqrt(3.d0)*omega
-  r0=(2.d0*omega*omega)**(-1.d0/3.d0)
-  AnalyticSoln = ((omegae/pi)**(1.d0/4.d0))*exp(-((1.d0/2.d0)*omegae*(x-r0)**2))
-
-  return
-end function AnalyticSoln
 
 
 Subroutine findmax(testnum,testmat,maxj,maxi,max)
@@ -263,9 +259,9 @@ subroutine rotate(testnum,testmat,testr,maxj,maxi)
   return
 end subroutine rotate
 
-subroutine OrthoCheck(Num,r,maxi,maxj,count)
+subroutine OrthoCheck(Num,r,maxi,maxj,count,verbose)
   implicit none
-  integer:: Num,i,maxi,maxj,count
+  integer:: Num,i,maxi,maxj,count,verbose
   real(8), dimension(Num,Num):: r
   real(8), dimension(Num)::col1,col2
   real(8) :: check
@@ -277,9 +273,11 @@ subroutine OrthoCheck(Num,r,maxi,maxj,count)
 
   check = dot_product(col1,col2)
   if (mod(count,10)==0) then
-     print*,"Iteration",count,"Dot product of eigenvectors =", check
+     if (verbose == 1) then
+      print*,"Iteration",count,"Dot product of eigenvectors =", check
+     end if
   end if
-  if (check .gt. 1.d-8) then
+  if (abs(check) .gt. 1.d-8) then
      print*, "Error: Orthogonality violated"
      stop
   end if

@@ -402,6 +402,10 @@ This code implements a number of tests to ensue the calculation is working prope
              \end{bmatrix}  
 \end{equation}
 
+I used mathematic to produce the exact eigenvalues and eigenfunctions.  After the run, it will print the exact eigenvalues, as well as the computed values.
+
+Additionally, I include a test to check the orthogonality of the transformation.  After every 10 transformation I take the dot product of the two vectors in the eigenvector matrix and check that value is below some tolerance (the value is typically around $10^{-17}$).  If the absolute value of the dot product were to exceed my tolerance, the program would terminate and an error message will print to screen.  The user can choose at runtime whether or not to print these orthogonality checks during the calculation.  The printing will significantly increase the calculation time.
+
 \section{Results and Discussion}
 
 
@@ -443,6 +447,12 @@ There does not appear to be a simple relationship between the necessary number o
 \subsection{Computational Speeds}
 
 The efficiency of the Jacobi algorithm can be compared to other eigenvalue solvers.  I performed the same calculation using the Linear Algebra PACKage (LAPACK).  Specifically I used the DSYEV function which produces eigenvalues and eigenvectors for real, symmetric, matrices.  For the case of a non-interacting electron I used both my solver and DSYEV with $\rho_{max}=6$ and $N=200$ and timed both calculations using the cpu\_time function.  DSYEV completed the calculation in 2.18 seconds, while my implementation of Jacobi's algorithm took 7.68 seconds to obtain similar accuracy.
+
+\subsection{Comparing Results to Analytic Results}
+
+For the simple case of two electrons in a harmonic oscillator with l=0, there are some analytic results available.  For this report, I compared my results with M. Taut, Phys. Rev. A, V.48 (1993).  Their expressions differ from our development by a factor of $1/2$ so in order to compare, their eigenvalues must be multiplied by two.  For $\omega=0.25$, they obtained a lowest eigenvalue of 0.6250, which should be multiplied by 2 to obtain 1.25.  For $\rho_{max}=10$ and $N=350$, my lowest eigenvalue is 1.2499.  This corresponds to a relative error of $1.28 E^{-5}$
+
+In addition, I ca
 
 \section{Conclusions}
 

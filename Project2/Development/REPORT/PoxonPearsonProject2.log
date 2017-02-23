@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  23 FEB 2017 16:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  23 FEB 2017 17:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -697,34 +697,37 @@ LaTeX Info: Redefining \nameref on input line 71.
 
 ABD: EverySelectfont initializing macros
 LaTeX Info: Redefining \selectfont on input line 71.
- (./PoxonPearsonProject2.toc
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 4.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 111.
+
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 4.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 111.
+
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 4.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 111
+.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 4.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 111
+.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 4.
+(Font)              <10> on input line 111.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 4.
+(Font)              <7> on input line 111.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 4.
-LaTeX Font Info:    Try loading font information for U+msa on input line 4.
+(Font)              <5> on input line 111.
+LaTeX Font Info:    Try loading font information for U+msa on input line 111.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -732,14 +735,15 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/local/texlive/2016/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 4.
+LaTeX Font Info:    Try loading font information for U+msb on input line 111.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 (/usr/local/texlive/2016/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-))
+)
+(./PoxonPearsonProject2.toc)
 \tf@toc=\write6
 \openout6 = `PoxonPearsonProject2.toc'.
 
@@ -747,85 +751,94 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 
 {/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
 
-Overfull \hbox (42.05629pt too wide) detected at line 246
+Overfull \hbox (42.05629pt too wide) detected at line 245
 [][] [] [] \OT1/lmr/m/n/10 = \OML/lmm/m/it/10 ^^U [] :
  []
 
-[4] [5] <Rotate.PNG, id=136, 485.56406pt x 469.755pt>
+[4] [5] <Rotate.PNG, id=140, 485.56406pt x 469.755pt>
 File: Rotate.PNG Graphic file (type png)
  <use Rotate.PNG>
-Package pdftex.def Info: Rotate.PNG used on input line 379.
+Package pdftex.def Info: Rotate.PNG used on input line 378.
 (pdftex.def)             Requested size: 413.99895pt x 400.51935pt.
 
-Overfull \hbox (68.99895pt too wide) in paragraph at lines 379--380
+Overfull \hbox (68.99895pt too wide) in paragraph at lines 378--379
  [][] 
  []
 
-[6] <Potential.PNG, id=142, 245.41687pt x 162.6075pt>
+[6] [7 <./Rotate.PNG>] <Potential.PNG, id=154, 245.41687pt x 162.6075pt>
 File: Potential.PNG Graphic file (type png)
- <use Potential.PNG>
-Package pdftex.def Info: Potential.PNG used on input line 387.
-(pdftex.def)             Requested size: 276.00105pt x 182.8784pt.
 
-[7 <./Rotate.PNG>] [8 <./Potential.PNG>]
-<3.png, id=157, 386.94562pt x 124.96687pt>
+<use Potential.PNG>
+Package pdftex.def Info: Potential.PNG used on input line 386.
+(pdftex.def)             Requested size: 276.00105pt x 182.8784pt.
+ [8 <./Potential.PNG>]
+<3.png, id=163, 386.94562pt x 124.96687pt>
 File: 3.png Graphic file (type png)
  <use 3.png>
-Package pdftex.def Info: 3.png used on input line 422.
+Package pdftex.def Info: 3.png used on input line 421.
 (pdftex.def)             Requested size: 379.5021pt x 122.56395pt.
 
-Overfull \hbox (34.5021pt too wide) in paragraph at lines 422--423
+Overfull \hbox (34.5021pt too wide) in paragraph at lines 421--422
  [][] 
  []
 
-<7.png, id=158, 386.94562pt x 109.91063pt>
+<7.png, id=164, 386.94562pt x 109.91063pt>
 File: 7.png Graphic file (type png)
  <use 7.png>
-Package pdftex.def Info: 7.png used on input line 427.
+Package pdftex.def Info: 7.png used on input line 426.
 (pdftex.def)             Requested size: 379.5021pt x 107.79718pt.
 
-Overfull \hbox (34.5021pt too wide) in paragraph at lines 427--428
+Overfull \hbox (34.5021pt too wide) in paragraph at lines 426--427
  [][] 
  []
 
-<11.png, id=159, 386.94562pt x 124.96687pt>
+<11.png, id=165, 386.94562pt x 124.96687pt>
 File: 11.png Graphic file (type png)
  <use 11.png>
-Package pdftex.def Info: 11.png used on input line 432.
+Package pdftex.def Info: 11.png used on input line 431.
 (pdftex.def)             Requested size: 379.5021pt x 122.56395pt.
 
-Overfull \hbox (34.5021pt too wide) in paragraph at lines 432--433
+Overfull \hbox (34.5021pt too wide) in paragraph at lines 431--432
  [][] 
  []
 
-[9 <./3.png> <./7.png>] <iterationplot.jpg, id=167, 794.97pt x 614.295pt>
+[9 <./3.png> <./7.png>] <iterationplot.jpg, id=172, 794.97pt x 614.295pt>
 File: iterationplot.jpg Graphic file (type jpg)
 
 <use iterationplot.jpg>
-Package pdftex.def Info: iterationplot.jpg used on input line 441.
+Package pdftex.def Info: iterationplot.jpg used on input line 440.
 (pdftex.def)             Requested size: 379.5021pt x 293.2554pt.
 
-Overfull \hbox (34.5021pt too wide) in paragraph at lines 441--442
+Overfull \hbox (34.5021pt too wide) in paragraph at lines 440--441
  [][] 
  []
 
-[10 <./11.png> <./iterationplot.jpg>] [11]
-Overfull \hbox (32.22902pt too wide) in paragraph at lines 534--538
+[10 <./11.png> <./iterationplot.jpg>]
+
+LaTeX Warning: Citation `taut' on page 11 undefined on input line 452.
+
+<wavefuntions.jpg, id=179, 794.97pt x 614.295pt>
+File: wavefuntions.jpg Graphic file (type jpg)
+ <use wavefuntions.jpg>
+Package pdftex.def Info: wavefuntions.jpg used on input line 473.
+(pdftex.def)             Requested size: 413.99895pt x 319.91327pt.
+
+Overfull \hbox (68.99895pt too wide) in paragraph at lines 473--474
+ [][] 
+ []
+
+[11] [12 <./wavefuntions.jpg>]
+Overfull \hbox (32.22902pt too wide) in paragraph at lines 560--564
 \T1/lmr/m/n/10 (-20) http://www.physics.ucsd.edu/students/courses/fall2009/phys
 ics130b/IdentParts.pdf 
  []
 
-
-Overfull \hbox (113.12488pt too wide) in paragraph at lines 540--544
-\T1/lmr/m/n/10 (-20) Physics. https://compphysics.github.io/ComputationalPhysic
-sMSU/doc/pub/languages/pdf/languages-
- []
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 551.
-[12]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 551.
+[13]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 576.
+ [14]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 576.
  (./PoxonPearsonProject2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 551.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 576.
 
 
  *File List*
@@ -941,30 +954,25 @@ Potential.PNG    Graphic file (type png)
        7.png    Graphic file (type png)
       11.png    Graphic file (type png)
 iterationplot.jpg    Graphic file (type jpg)
+wavefuntions.jpg    Graphic file (type jpg)
  ***********
 
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 551.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 576.
+Package rerunfilecheck Info: File `PoxonPearsonProject2.out' has not changed.
+(rerunfilecheck)             Checksum: 01C57F5D4E2CE8C09E56511BE1E2E032;1294.
 
-Package rerunfilecheck Warning: File `PoxonPearsonProject2.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
+LaTeX Warning: There were undefined references.
 
-Package rerunfilecheck Info: Checksums for `PoxonPearsonProject2.out':
-(rerunfilecheck)             Before: 0BD09ABF8ED238EC991796AA459C5E66;1207
-(rerunfilecheck)             After:  01C57F5D4E2CE8C09E56511BE1E2E032;1294.
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 551.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 576.
  ) 
 Here is how much of TeX's memory you used:
- 11085 strings out of 493014
- 168274 string characters out of 6133351
- 320235 words of memory out of 5000000
- 14258 multiletter control sequences out of 15000+600000
- 55066 words of font info for 85 fonts, out of 8000000 for 9000
+ 11107 strings out of 493014
+ 168545 string characters out of 6133351
+ 320372 words of memory out of 5000000
+ 14266 multiletter control sequences out of 15000+600000
+ 55481 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,15n,38p,1017b,354s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,15n,38p,1017b,482s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/
 texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/20
 16/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2016/texmf-d
@@ -979,10 +987,10 @@ ts/type1/public/lm/lmr5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/pub
 lic/lm/lmr7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmsy1
 0.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr
 /local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on PoxonPearsonProject2.pdf (12 pages, 275837 bytes).
+Output written on PoxonPearsonProject2.pdf (14 pages, 320693 bytes).
 PDF statistics:
- 240 PDF objects out of 1000 (max. 8388607)
- 201 compressed objects within 3 object streams
- 41 named destinations out of 1000 (max. 500000)
- 13487 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 256 PDF objects out of 1000 (max. 8388607)
+ 214 compressed objects within 3 object streams
+ 44 named destinations out of 1000 (max. 500000)
+ 13500 words of extra memory for PDF output out of 14400 (max. 10000000)
 

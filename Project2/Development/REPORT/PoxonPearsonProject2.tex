@@ -108,15 +108,14 @@ February 27, 2017
 
 \vspace{1cm}
 
-INSERT ABSTRACT HERE
+In this report we implement Jacobi's Algorithm to solve Shroedinger's equation for electrons in a harmonic oscillator.  We first explore the case of a single electron and are able to reproduce the lowest eigenvalues to high accuracy.  Next we explore the case of two interacting electrons in the oscillator.  For an oscillator frequency of $\omega = 0.25$ we are able to reproduce the lowest eigenvalue of 1.2499 which can be found analytically.  Jacobi's method also provides easy access to eigenvectors.  Studying these wave functions gives physical insight into the two-electron system.
 
 \tableofcontents
  
 \section{Introduction}
 In this project we will be solving Schroedinger's equation for the case of electrons in a 3D harmonic oscillator. First, we will first solve the simpler, non-interacting case with just one electron in the harmonic oscillator potential using Jacobi's method. Next, we will add a second electron with interacts via a repulsive, Coulomb potential.  This will involve a change into center of mass coordinates.  Both problems will be solved for l=0 case.  Additionally, we will explore our calculation's sensitivity to parameters such as the number of mesh points and maximum integration radius.
 
-This report will begin with a brief introduction to the physical system we are studying in this project, as well as a description of how these equations are discretized.  Next I will describe the method used to solve this eigenvalue problem.  I will discuss the implementation of this algorithm, including a discussion of sensitivity to various integration variables and tests used to check the code's validity.  Finally, I will present the results of my calculations, followed by some conclusions and perspectives for future calculations.
-
+This report will begin with a brief introduction to the physical system we are studying in this project, as well as a description of how these equations are discretized.  Next we will describe the method used to solve this eigenvalue problem.  We will discuss the implementation of this algorithm, including a discussion of sensitivity to various integration variables and tests used to check the code's validity.  Finally, I will present the results of my calculations, followed by some conclusions.
 \section{Methods}
 
 \subsection{Physics of Single Electron in 3D Oscillator}
@@ -145,7 +144,7 @@ To simplify the expression, we can make the common substitution $R(r) = (1/r) u(
 \end{equation*}
 % 
 
-We have two boundary conditions to constrain this differential equations.  First, we want the wave function to disappear at the origin, so $u(0)=0$.  Second, the wave function should be localized to the oscillator well, so we want $u(\infty)=0$.  Here, we will only consider $l=0$ states, which eliminates one term of the equation.  Finally, we can indroduce a dimensionless variable $\rho = (1/\alpha) r$ and insert  $V(\rho) = (1/2) k \alpha^2\rho^2$, leaving us with
+We have two boundary conditions to constrain this differential equations.  First, we want the wave function to disappear at the origin, so $u(0)=0$.  Second, the wave function should be localized to the oscillator well, so we want $u(\infty)=0$.  Here, we will only consider $l=0$ states, which eliminates one term of the equation.  Finally, we can introduce a dimensionless variable $\rho = (1/\alpha) r$ and insert  $V(\rho) = (1/2) k \alpha^2\rho^2$, leaving us with
 
 \begin{equation*}
   -\frac{\hbar^2}{2 m \alpha^2} \frac{d^2}{d\rho^2} u(\rho) 
@@ -177,7 +176,7 @@ That leaves us with the final expression
   -\frac{d^2}{d\rho^2} u(\rho) + \rho^2u(\rho)  = \lambda u(\rho) .
 \end{equation*}
 
-This is the equation that we must solve numerically.  There are analytic solutions in the case of $l=0$ and the three lowest eigen values are $\lambda_0=3,\lambda_1=7,\lambda_2=11$. We can compare the accuracy of our results to these exact solutions.
+This is the equation that we must solve numerically.  There are analytic solutions in the case of $l=0$ and the three lowest eigenvalues are $\lambda_0=3,\lambda_1=7,\lambda_2=11$. We can compare the accuracy of our results to these exact solutions.
 
 \subsection{Discretization of Schroedinger's Equation}
 
@@ -219,7 +218,7 @@ and
    e_i=-\frac{1}{h^2}.
 \end{equation*}
 
-Instead of having some known function $f$ on the right hand side, we instead have $\lambda \cdot u$.  Now, for each point on the wavefuntion $u_i$, we can define the Schroedinger equation takes the following form
+Instead of having some known function $f$ on the right hand side, we instead have $\lambda \cdot u$.  Now, for each point on the wave function $u_i$, we can define the Schroedinger equation takes the following form
 
 \begin{equation*}
 d_iu_i+e_{i-1}u_{i-1}+e_{i+1}u_{i+1}  = \lambda u_i,
@@ -248,9 +247,9 @@ Since the values of $u$ at the two endpoints are known via the boundary conditio
 
 \subsection{Jacobi's Rotation Algorithm}
 
-In this project we implement Jacobi's method to solve the eigenvalue problem.  I will briefly explain the method here, but a full explanation of the method can be found in \cite{LectureNotes}.  The method is based on a series of rotations performed on the matrix which eliminates the off diagonal matrix elements.  These rotations are allowable because unitary transformations preserve orthogonality.  For a proof of this property, see \ref{A}.
+In this project we implement Jacobi's method to solve the eigenvalue problem.  I will briefly explain the method here, but a full explanation of the method can be found in \cite{LectureNotes}.  The method is based on a series of rotations performed on the matrix, eliminating the off diagonal matrix elements.  These rotations are allowable because unitary transformations preserve orthogonality.  For a proof of this property, see \ref{A}.
 
-Because we want to eliminate off diagonal elements of the array, we search the matrix for the largest off-diagonal element.  Once I identified, we need to determine the rotation angle that will bring this element to 0.  For the identified largest element, $a_{kl}$, we can find this angle through the relation
+Because we want to eliminate off diagonal elements of the array, we search the matrix for the largest off-diagonal element.  Once identified, we need to determine the rotation angle that will bring this element to 0.  For the largest element, $a_{kl}$, we can find this angle through the relation
 
 \begin{equation*}
 \cot 2\theta=\tau = \frac{a_{ll}-a_{kk}}{2a_{kl}}.
@@ -339,7 +338,7 @@ If we preform a similar process of multiplying through by leading coefficients a
 \frac{m\alpha^2}{\hbar^2}E_r \psi(\rho) .
 \end{equation*}
 
-Now wi will massage this equation to create an analogue to the non-interacting case.  To do this, we define a new 'frequency'
+Now we will massage this equation to create an analogue to the non-interacting case.  To do this, we define a new 'frequency'
 
 \begin{equation*}
 \omega_r^2=\frac{1}{4}\frac{mk}{\hbar^2} \alpha^4,
@@ -402,18 +401,18 @@ This code implements a number of tests to ensue the calculation is working prope
              \end{bmatrix}  
 \end{equation}
 
-I used mathematic to produce the exact eigenvalues and eigenfunctions.  After the run, it will print the exact eigenvalues, as well as the computed values.
+We used Mathematica to produce the exact eigenvalues and eigenfunctions.  After the run, it will print the exact eigenvalues, as well as the computed values.
 
-Additionally, I include a test to check the orthogonality of the transformation.  After every 10 transformation I take the dot product of the two vectors in the eigenvector matrix and check that value is below some tolerance (the value is typically around $10^{-17}$).  If the absolute value of the dot product were to exceed my tolerance, the program would terminate and an error message will print to screen.  The user can choose at runtime whether or not to print these orthogonality checks during the calculation.  The printing will significantly increase the calculation time.
+Additionally, we include a test to check the orthogonality of the transformation.  After every 10 transformations we take the dot product of the two vectors in the eigenvector matrix and check that value is below some tolerance (the value is typically around $10^{-17}$).  If the absolute value of the dot product were to exceed my tolerance, the program would terminate and an error message will print to screen.  The user can choose at runtime whether or not to print these orthogonality checks during the calculation.  The printing will significantly increase the calculation time.
 
 \section{Results and Discussion}
 
 
 \subsection{Exploring Dependence on Parameters}
 
-The results of the calculation will be sensitive to the choice of $\rho_{max}$ and $N$.  Both of these parameters can be defined by the user while running the program.  I explored the sensitivity to these parameters for the case of the non-interacting electron.  In three dimension, we know the eigenvalues for the three lowest lying, $l=0$ states should be $\lambda_0=3$, $\lambda_1=7$, and $\lambda_2=11$.  Below is a table of convergence for these results for different choices of  $\rho_{max}$ and $N$.
+The results of the calculation will be sensitive to the choice of $\rho_{max}$ and $N$.  Both of these parameters can be defined by the user while running the program.  We explored the sensitivity to these parameters for the case of the non-interacting electron.  In three dimension, we know the eigenvalues for the three lowest lying, $l=0$ states should be $\lambda_0=3$, $\lambda_1=7$, and $\lambda_2=11$.  Below is a table of convergence for these results for different choices of  $\rho_{max}$ and $N$.
 
-As you can see from the results, $\rho_{max}=6$ and $N=200$ is sufficient for convergence and I used this combination for my runs.
+As you can see from the results, $\rho_{max}=6$ and $N=200$ is sufficient for convergence and we used this combination for our runs.
 
 \subsection{Convergence}
 
@@ -434,7 +433,7 @@ As you can see from the results, $\rho_{max}=6$ and $N=200$ is sufficient for co
 
 \subsection{Number of Iterations}
 
-Jacobi's algorithm does not prescribe the necessary number of iterations to zero all off diagonal elements.  To get a sense for this relationship, I ran my code for the case of a single electron for many different matrix sizes, N.  The plot below shows the number of iterations necessary for all off diagonal elements to call below $10^{-8}$.
+Jacobi's algorithm does not prescribe the necessary number of iterations to zero all off diagonal elements.  To get a sense for this relationship, we ran our code for the case of a single electron for many different matrix sizes, N.  The plot below shows the number of iterations necessary for all off diagonal elements to call below $10^{-8}$.
 
 \begin{figure}[H]\label{fig:iteration}
   \centering
@@ -446,17 +445,42 @@ There does not appear to be a simple relationship between the necessary number o
 
 \subsection{Computational Speeds}
 
-The efficiency of the Jacobi algorithm can be compared to other eigenvalue solvers.  I performed the same calculation using the Linear Algebra PACKage (LAPACK).  Specifically I used the DSYEV function which produces eigenvalues and eigenvectors for real, symmetric, matrices.  For the case of a non-interacting electron I used both my solver and DSYEV with $\rho_{max}=6$ and $N=200$ and timed both calculations using the cpu\_time function.  DSYEV completed the calculation in 2.18 seconds, while my implementation of Jacobi's algorithm took 7.68 seconds to obtain similar accuracy.
+The efficiency of the Jacobi algorithm can be compared to other eigenvalue solvers.  We performed the same calculation using the Linear Algebra PACKage (LAPACK).  Specifically, we used the DSYEV function which produces eigenvalues and eigenvectors for real, symmetric, matrices.  For the case of a non-interacting electron we used both our solver and DSYEV with $\rho_{max}=6$ and $N=200$ and timed both calculations using the cpu\_time function.  DSYEV completed the calculation in 2.18 seconds, while my implementation of Jacobi's algorithm took 7.68 seconds to obtain similar accuracy.
 
 \subsection{Comparing Results to Analytic Results}
 
-For the simple case of two electrons in a harmonic oscillator with l=0, there are some analytic results available.  For this report, I compared my results with M. Taut, Phys. Rev. A, V.48 (1993).  Their expressions differ from our development by a factor of $1/2$ so in order to compare, their eigenvalues must be multiplied by two.  For $\omega=0.25$, they obtained a lowest eigenvalue of 0.6250, which should be multiplied by 2 to obtain 1.25.  For $\rho_{max}=10$ and $N=350$, my lowest eigenvalue is 1.2499.  This corresponds to a relative error of $1.28 E^{-5}$
+For the simple case of two electrons in a harmonic oscillator with l=0, there are some analytic results available.  For this report, we compared my results with M. Taut, Phys. Rev. A, V.48 (1993) \cite{taut}.  Their expressions differ from our development by a factor of $1/2$ so in order to compare, their eigenvalues must be multiplied by two.  For $\omega=0.25$, they obtained a lowest eigenvalue of 0.6250, which should be multiplied by 2 to obtain 1.25.  For $\rho_{max}=10$ and $N=350$, my lowest eigenvalue is 1.2499.  This corresponds to a relative error of $1.28 E^{-5}$
 
-In addition, I ca
+In addition, we varied the value of $\omega$ and studied the effect on the wave functions and eigenvalues.  For these calculations, we ran with $\rho_{max}=10$ and $N=150$.  The results for the eigenvalues are shown in the table below and the eigenfunctions are show in the figure.
+
+\begin{center} 
+\begin{tabular}{ |c|c| }
+\hline
+$\omega$ & $\lambda$ \\
+\hline
+0.01 & 0.31164 \\
+0.5 & 2.23006 \\
+1.0 & 4.05761 \\
+5.0 & 17.44201\\
+\hline
+\end{tabular}
+\label{table:test}
+\end{center}
+
+
+\begin{figure}[H]\label{fig:compzoom}
+  \centering
+    \includegraphics[width=1.2\textwidth]{wavefuntions.jpg}
+    \caption{Reduced wave functions for different values of $\omega$}
+\end{figure}
+
+As you can see, as $\omega$ increases, the reduced wave function gets pushed in towards the origin.  This can be interpreted as larger values of $\omega$ corresponding to a stronger oscillator well.  In this case, the Coulomb repulsion is overcome by the potential strength, and the electrons being to move into the center of the well.
 
 \section{Conclusions}
 
+In this project we implemented the Jacobi algorithm to solve an eigenvalue problem that describes interacting and non-interacting electrons in a harmonic oscillator.  We tested our code through the implementation of unit tests an comparing results to known values.  For the non interacting case, we were able to reproduce the lowest eigenvalues to a high level of accuracy.  For the interacting case, we were able to reproduce the lowest eigenvalue which can be found analytically.  By studying the eigenfunction we are able to obtain a physical interpretation of $\omega$ where larger values correspond to a tighter oscillator, while larger values correspond to a wider, weaker oscillator.
 
+We also explored the efficiency of the Jacobi algorithm. Time comparisons to eigenvalue solvers showed that Jacobi's method is not particularly efficient.  This is not surprising because there is not prescribed number iterations necessary to complete the transformation.  Additionally, this algorithm does not explicitly take advantage of the tridiagonal nature of the matrix.
 
 \section{Appendices}
 
@@ -539,10 +563,9 @@ Fall 2009.
 http://www.physics.ucsd.edu/students/courses/fall2009/physics130b/IdentParts.pdf
 
 \bibitem{ClassNotes} 
-Hjorth-Jensen, Mortehn. 
-Introduction to Programming. 
-Computational Physics.
-https://compphysics.github.io/ComputationalPhysicsMSU/doc/pub/languages/pdf/languages-minted.pdf.
+Taut, M.
+Physical Review A, Volume 48, Number 5
+November 1993.
 
 \end{thebibliography}
 

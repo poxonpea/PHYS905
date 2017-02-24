@@ -2,8 +2,8 @@ This folder contains the source code for Project 2.
 
 Jacobi.f90:  This program implements the Jacobi algorithm to solve an eigenvalue problem.  This program has the ability to calculate eigenvectors and eigenvalues for one electron in a harmonic oscillator and two interacting electrons in a well.  Once the program is compiled and run, it will ask you to specify which case to run (test matrix, 1 electron, or two electrons). The user also specifies, rho_max, N, and omega (for the case of two electrons).  
 
-Jacobi.f90 creates tho output files which contain the eigenvalues and the eigenvector for the lowest eigenvalue.  In addition, it prints the lowest eigenvalue, cpu time, and number of iterations to screen.  There is also an option to print the result of a test that ensures the eigenvectors maintain orthogonality.  I advise against this for large matrices because the printing is slow.  Additionally, the program will automatically exit if orthogonality is violated.
+Jacobi.f90 creates the output files which contain the eigenvalues and the eigenvector for the lowest eigenvalue.  In addition, it prints the lowest eigenvalue, cpu time, and number of iterations to screen.  There is also an option to print the result of a test that ensures the eigenvectors maintain orthogonality.  I advise against this for large matrices because the printing is slow.  Additionally, the program will automatically exit if orthogonality is violated.
 
 ___________
 
-LapackEigen.f90: This program solves for the eigenvectors and eigenvalues of one electron in a harmonic oscillator using LAPACK's DSYEV function.  The size of the matrix is specified in the variable declaration of the funtions.  This program must be compiled with the LAPCK and BLAS libraries.
+LapackEigen.f90: This program solves for the eigenvectors and eigenvalues of one electron in a harmonic oscillator using LAPACK's DSYEV subroutine.  The size of the matrix is specified in the variable declaration of the funtions.  This program must be compiled with the LAPCK and BLAS libraries.

@@ -1,7 +1,6 @@
 This folder contains benchmark output files for the Jacobi.dat program.
 
-Eigenvalue_1e.dat:  This file contains all of the eigenvalues produced by running Jacobi.dat for one electron with rho_max=6 and N=200. These
-options are choen by the user at run time.
+Eigenvalue_1e.dat:  This file contains all of the eigenvalues produced by running Jacobi.dat for one electron with rho_max=6 and N=200. These options are chosen by the user at run time.
 
 wf_1e.dat:  This file contains the wave function for the lowest lying state for the case of one electron with rho_max=6 and N=200.  These options are chosen by the user at run time.
 

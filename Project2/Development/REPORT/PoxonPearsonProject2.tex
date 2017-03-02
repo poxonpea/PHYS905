@@ -113,7 +113,7 @@ In this report we implement Jacobi's Algorithm to solve Shroedinger's equation f
 \tableofcontents
  
 \section{Introduction}
-In this project we will be solving Schroedinger's equation for the case of electrons in a 3D harmonic oscillator. First, we will first solve the simpler, non-interacting case with just one electron in the harmonic oscillator potential using Jacobi's method. Next, we will add a second electron with interacts via a repulsive, Coulomb potential.  This will involve a change into center of mass coordinates.  Both problems will be solved for l=0 case.  Additionally, we will explore our calculation's sensitivity to parameters such as the number of mesh points and maximum integration radius.
+In this project we will be solving Schroedinger's equation for the case of electrons in a 3D harmonic oscillator. First, we will first solve the simpler, non-interacting case with just one electron in the harmonic oscillator potential using Jacobi's method. Next, we will add a second electron with interacts via a repulsive, Coulomb potential.  Confined electrons are an important system in condensed matter physics and have many potential applications ranging from quantum computing to the physics of semiconductors.  Switching to this two electron system will involve a change into center of mass coordinates.  Both problems will be solved for l=0 case.  Additionally, we will explore our calculation's sensitivity to parameters such as the number of mesh points and maximum integration radius.
 
 This report will begin with a brief introduction to the physical system we are studying in this project, as well as a description of how these equations are discretized.  Next we will describe the method used to solve this eigenvalue problem.  We will discuss the implementation of this algorithm, including a discussion of sensitivity to various integration variables and tests used to check the code's validity.  Finally, I will present the results of my calculations, followed by some conclusions.
 \section{Methods}
@@ -144,7 +144,7 @@ To simplify the expression, we can make the common substitution $R(r) = (1/r) u(
 \end{equation*}
 % 
 
-We have two boundary conditions to constrain this differential equations.  First, we want the wave function to disappear at the origin, so $u(0)=0$.  Second, the wave function should be localized to the oscillator well, so we want $u(\infty)=0$.  Here, we will only consider $l=0$ states, which eliminates one term of the equation.  Finally, we can introduce a dimensionless variable $\rho = (1/\alpha) r$ and insert  $V(\rho) = (1/2) k \alpha^2\rho^2$, leaving us with
+We have two boundary conditions to constrain this differential equation.  First, we want the wave function to disappear at the origin, so $u(0)=0$.  Second, the wave function should be localized to the oscillator well, so we want $u(\infty)=0$.  Here, we will only consider $l=0$ states, which eliminates one term of the equation.  Finally, we can introduce a dimensionless variable $\rho = (1/\alpha) r$ and insert  $V(\rho) = (1/2) k \alpha^2\rho^2$, leaving us with
 
 \begin{equation*}
   -\frac{\hbar^2}{2 m \alpha^2} \frac{d^2}{d\rho^2} u(\rho) 
@@ -199,7 +199,7 @@ and the value of $\rho$ at a point $i$ is then
     \rho_i= \rho_0 + ih \hspace{1cm} i=1,2,\dots , N.
 \]
 
-$N$ defines the number of grid points. Because this is a radial integral, the define minimum value for $\rho$ is 0 and  $\rho_{\mathrm{max}}=\rho_N$,
+$N$ defines the number of grid points. Because this is a radial integral, the minimum value for $\rho$ is 0 and  $\rho_{\mathrm{max}}=\rho_N$,
 
 Using the compact notation from project one, we can rewrite the Schroedinger equation as
 
@@ -218,13 +218,13 @@ and
    e_i=-\frac{1}{h^2}.
 \end{equation*}
 
-Instead of having some known function $f$ on the right hand side, we instead have $\lambda \cdot u$.  Now, for each point on the wave function $u_i$, we can define the Schroedinger equation takes the following form
+Instead of having some known function $f$ on the right hand side, we instead have $\lambda \cdot u$.  Now, for each point on the wave function $u_i$, the Schroedinger equation takes the following form
 
 \begin{equation*}
-d_iu_i+e_{i-1}u_{i-1}+e_{i+1}u_{i+1}  = \lambda u_i,
+d_iu_i+e_{i-1}u_{i-1}+e_{i+1}u_{i+1}  = \lambda u_i.
 \end{equation*}
 
-This is, of course, the form of an eigenvalue problem and the entire matrix can be written as
+This is the familiar eigenvalue problem and the entire matrix expression can be written as
 \begin{equation}
  \begin{bmatrix} \frac{2}{h^2}+V_1 & -\frac{1}{h^2} & 0   & 0    & \dots  &0     & 0 \\
                                 -\frac{1}{h^2} & \frac{2}{h^2}+V_2 & -\frac{1}{h^2} & 0    & \dots  &0     &0 \\
@@ -243,11 +243,11 @@ This is, of course, the form of an eigenvalue problem and the entire matrix can 
              \end{bmatrix}.  
       \label{eq:sematrix}
 \end{equation}
-Since the values of $u$ at the two endpoints are known via the boundary conditions, we can skip the rows and columns that involve these values.
+Since the values of $u$ at the two endpoints are known via the boundary conditions, we leave these values out of the expression.
 
 \subsection{Jacobi's Rotation Algorithm}
 
-In this project we implement Jacobi's method to solve the eigenvalue problem.  I will briefly explain the method here, but a full explanation of the method can be found in \cite{LectureNotes}.  The method is based on a series of rotations performed on the matrix, eliminating the off diagonal matrix elements.  These rotations are allowable because unitary transformations preserve orthogonality.  For a proof of this property, see \ref{A}.
+In this project we implement Jacobi's algorithm to solve the eigenvalue problem.  I will briefly explain the method here, but a full explanation can be found in \cite{LectureNotes}.  Jacobi's algorithm is based on a series of rotations performed on the matrix, eliminating the off diagonal matrix elements.  These rotations are allowable because unitary transformations preserve orthogonality.  For a proof of this property, see \ref{A}.
 
 Because we want to eliminate off diagonal elements of the array, we search the matrix for the largest off-diagonal element.  Once identified, we need to determine the rotation angle that will bring this element to 0.  For the largest element, $a_{kl}$, we can find this angle through the relation
 

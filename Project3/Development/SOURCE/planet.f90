@@ -1,4 +1,4 @@
-module planet_class
+ module planet_class
   
   type planet
      real(8) :: pmass
@@ -6,18 +6,18 @@ module planet_class
      real(8) :: py
      real(8) :: pvx
      real(8) :: pvy
-!     real(8) :: potential
-!     real(8) :: kinetic
-
      
   contains
     procedure, pass(this) ::setplanet
     procedure ::distance
+    procedure ::GravitationalForce
+    procedure ::Acceleration
+    procedure ::KineticEnergy
 
  end type planet
 
 contains
-  
+
   subroutine setplanet(this,mass,x,y,vx,vy)
     implicit none
     class (planet), intent(inout) :: this
@@ -59,21 +59,25 @@ contains
     return
   end function GravitationalForce
   
-  
-end module planet_class
+  function Acceleration(p1,p2,Gconst)
+    implicit none
+    class(planet),intent(in)::p1,p2
+    real(8)::r,Gconst,Acceleration
+    r=distance(p1,p2)
+    if(r /= 0.0) then
+      Acceleration=GravitationalForce(p1,p2,Gconst)/(p1%pmass)
+    end if
+    return
+  end function Acceleration
 
-program test_ch2601
-   use planet_class
-   implicit none
-   
-   type (planet) :: mars = planet(100,1,2,3,4)
-   type (planet) :: earth = planet(100,2,3,5,6)
-   print *, ' get '
-   print *, mars%pmass
-   print*,mars%px
-   print*,mars%py
-   print*,mars%pvx
-   print*,mars%pvy
-   print*, distance(mars,earth)
-   print*, gravitationalforce(mars,earth,1.d0)
- end program test_ch2601 
+  function KineticEnergy(p1)
+    implicit none
+    class(planet), intent(in)::p1
+    real(8)::KineticEnergy
+    KineticEnergy=0.5*p1%pmass*(p1%pvx*p1%pvx + p1%pvy*p1%pvy)
+    return
+  end function KineticEnergy
+
+  end module planet_class
+
+  

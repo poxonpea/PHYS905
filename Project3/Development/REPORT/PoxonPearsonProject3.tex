@@ -1,0 +1,305 @@
+%%
+%% Automatically generated file from DocOnce source
+%% (https://github.com/hplgit/doconce/)
+%%
+%%
+
+
+%-------------------- begin preamble ----------------------
+
+\documentclass[%
+oneside,                 % oneside: electronic viewing, twoside: printing
+final,                   % draft: marks overfull hboxes, figures with paths
+10pt]{article}
+
+\listfiles               %  print all files needed to compile this document
+\usepackage{mathtools}
+\usepackage{relsize,makeidx,color,setspace,amsmath,amsfonts,amssymb}
+\usepackage[table]{xcolor}
+\usepackage{bm,ltablex,microtype}
+\usepackage{float}
+\usepackage[pdftex]{graphicx}
+\usepackage{epstopdf}
+\usepackage{verbatim}
+
+\usepackage{fancyvrb} % packages needed for verbatim environments
+
+\usepackage[T1]{fontenc}
+%\usepackage[latin1]{inputenc}
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}         % Latin Modern fonts derived from Computer Modern
+
+% Hyperlinks in PDF:
+\definecolor{linkcolor}{rgb}{0,0,0.4}
+\usepackage{hyperref}
+\hypersetup{
+    breaklinks=true,
+    colorlinks=true,
+    linkcolor=linkcolor,
+    urlcolor=linkcolor,
+    citecolor=black,
+    filecolor=black,
+    %filecolor=blue,
+    pdfmenubar=true,
+    pdftoolbar=true,
+    bookmarksdepth=3   % Uncomment (and tweak) for PDF bookmarks with more levels than the TOC
+    }
+%\hyperbaseurl{}   % hyperlinks are relative to this root
+
+\setcounter{tocdepth}{2}  % levels in table of contents
+
+
+
+% prevent orhpans and widows
+\clubpenalty = 10000
+\widowpenalty = 10000
+
+% --- end of standard preamble for documents ---
+
+
+% insert custom LaTeX commands...
+
+\raggedbottom
+\makeindex
+\usepackage[totoc]{idxlayout}   % for index in the toc
+\usepackage[nottoc]{tocbibind}  % for references/bibliography in the toc
+
+%-------------------- end preamble ----------------------
+
+\begin{document}
+
+% matching end for #ifdef PREAMBLE
+
+\newcommand{\exercisesection}[1]{\subsection*{#1}}
+
+
+% ------------------- main content ----------------------
+
+
+
+% ----------------- title -------------------------
+
+\thispagestyle{empty}
+
+\begin{center}
+{\LARGE\bf
+\begin{spacing}{1.25}
+PHYS 905 - Project 3
+\end{spacing}
+}
+\end{center}
+
+% ----------------- author(s) -------------------------
+
+\begin{center}
+{\bf Terri Poxon-Pearson}
+\end{center}
+
+    
+% ----------------- end author(s) -------------------------
+
+% --- begin date ---
+\begin{center}
+March 27, 2017
+\end{center}
+% --- end date ---
+
+\vspace{1cm}
+
+INSERT ABSTRACT HERE
+
+\tableofcontents
+ 
+\section{Introduction}
+
+Differential equations are one of the most important tools that physicists have for expressing physical laws.  From Maxwell's equations to Einstein's field question in general relativity, differential equations are the mathematical language for almost every physical process.  Outside of physics, differential equations can be used describe systems in finance, ecosystems, and medicine.  The ubiquity of these relationships demands that we have efficient and accurate algorithms for solving these problems.
+
+In this project we will focus on one of the earliest differential equations, first expressed by Newton \cite{LectureNotes}.  Newton's Second law is an example of an ordinary differential equation, where ordinary refers to the fact that it is a function of independent variable and its derivatives.  Once the differential equation is solved analytically, initial values must be provided to find the exact solution.  When we solve these problems numerically, we will provide initial values to begin the solver. 
+
+Specifically in this project we will be simulating the motion of the planets in the solar system.  We will explore two different Algorithms for solving initial value ODEs: the Euler Algorithm and the Velocity Verlet Algorithm.  We will begin by looking at the simpler two body, Sun-Earth system and expand this to the Sun-Earth-Jupiter system and, eventually, the entire solar system.  The solar system will be implemented using Object Oriented (OO) programming in order to take advantage of the repetitive structure of the ODEs.  Initial conditions for this system come from data provided by NASA's Jet Propulsion Laboratory.  Finally, we will end with some remarks and conclusions.
+
+\section{Methods}
+
+\subsection{Newton's Equations for the Earth Sun System}
+
+The motion of the planets are dictated by the gravitational force which is given by
+\[
+F_G=\frac{GM_{\odot}M_{\mathrm{Earth}}}{r^2},
+\]
+where $M_{\odot}$ is the mass of the Sun and $M_{\mathrm{Earth}}$ is the mass of the Earth.  $G$ is the universal gravitational constant and $r$ is the distance between the center of mass of the Earth and the Sun.  The Sun's mass is over 300,000 times the mass of the Earth so, for our model, we can safely neglect any motion of the Sun.  Newton's second law states 
+\[
+\frac{d^2x}{dt^2}=\frac{F_{G,x}}{M_{\mathrm{Earth}}},
+\]
+and 
+\[
+\frac{d^2y}{dt^2}=\frac{F_{G,y}}{M_{\mathrm{Earth}}},
+\]
+where $F_{G,x}$ and $F_{G,y}$ are the $x$ and $y$ components of the gravitational force.  There is an analogous equation for z, but the orbit of the earth is, to good approximation, confined to a plane so we will neglect this for now.  If we substitute in the relationship for force and make the substitution that $x=r cos(\theta)$ and $y=r sin(\theta)$, we are left with
+\[
+\frac{d^2x}{dt^2}=-\frac{GM_{\odot}x}{r^3},
+\]
+and 
+\[
+\frac{d^2y}{dt^2}=-\frac{GM_{\odot}y}{r^3},
+\]
+
+where $ r=\sqrt{x^2+y^2} $.  Now we want to rewrite these equations as first order differential equations.  We do this by making the substitution that velocity is the first derivative of position.  This substitution leaves us with four, first order, ODEs:
+
+\[
+\frac{dx}{dt}=v_x
+\]
+\[
+\frac{dy}{dt}=v_y
+\]
+\[
+\frac{dv_x}{dt}=-\frac{GM_{\odot}x}{r^3}
+\]
+\[
+\frac{dv_y}{dt}=-\frac{GM_{\odot}y}{r^3}.
+\]
+
+Finally, we can clean up these equations by our choice of units and a clever substitution.  The natural unit for this system is the Astronomical Unit (AU) which is the average distance between the Sun and Earth.  We will use years as our unit of time.  For circular motion, we know that 
+\[
+F_G= \frac{M_{\mathrm{Earth}}v^2}{r}=\frac{GM_{\odot}M_{\mathrm{Earth}}}{r^2},
+\]
+where $v$ is the velocity of Earth.  If the radius of the Earth's orbit is 1AU, then the velocity of the Earth is $\pi 1AU^2$.  Substitution this in, the equation above can be solved to show that 
+\[
+v^2r=GM_{\odot}=4\pi^2\mathrm{AU}^3/\mathrm{yr}^2.
+\]
+
+Making this final substitution, the ODEs which we must solve are
+
+\[
+\frac{dx}{dt}=v_x
+\]
+\[
+\frac{dy}{dt}=v_y
+\]
+\[
+\frac{dv_x}{dt}=-\frac{4 \pi^2 x}{r^3}
+\]
+\[
+\frac{dv_y}{dt}=-\frac{4 \pi^2 y}{r^3}.
+\]
+
+
+\subsection{Euler's Method}
+
+The first method we will implement for solving the Sun-Earth system is Euler's Method.  This method is derived from a Taylor expansion which can be expressed as 
+
+\[
+f(x+h) = \sum_{i=0}^{\infty} \frac{h^i}{i!}f^{(i)}(x)
+\]
+
+where $f^{(i)}$ is the $i$th derivative and h is a step in the $x$ variable.  If we keep only the first two terms, we are left with
+
+\[
+f(x+h) = f(x) + hf^{(1)} +O(h^2).
+\]
+
+Applying this relationship to our four differential equation, the algorithm for Euler's method is
+
+\[
+x_{i+1} = x_i +v_{xi} + O(h^2)
+\]
+\[
+y_{i+1} = y_i +v_{yi} + O(h^2)
+\]
+\[
+v_{x_i+1} = v_{x_i} -\frac{4 \pi^2}{r_i^3}x_i h + O(h^2)
+\]
+\[
+v_{y_i+1} = v_{y_i} -\frac{4 \pi^2}{r_i^3}y_i h + O(h^2).
+\]
+
+In this case, h is a step in time so $h=\frac{t_{max}-t_{min}}{N}$ where $N$ is the number of time steps used.
+
+\subsection{Velocity Verlet Algorithm}
+
+\subsection{Expanding Equations to Solar System}
+
+\section{Code and Implementation}
+
+All of the programs, results, and benchmarks for this work can be found in my GIT repository ( https://github.com/poxonpea/PHYS905 ).  All codes for this project were written in FORTRAN.
+
+\subsection{Implementing Euler and Verlet Algorithms}
+
+\subsection{Object Oriented Code}
+
+\subsection{Tests of Code}
+
+\section{Results and Discussion}
+
+
+\subsection{Escape Velocity of the Sun-Earth System}
+
+\subsection{The Three Body Problem}
+
+\subsection{Solar System Model}
+
+
+\section{Conclusions}
+
+
+\section{Appendices}
+
+\subsection{Appendix A} \label{A}
+
+
+
+\begin{comment}
+
+\begin{figure}[H]\label{fig:compzoom}
+  \centering
+    \includegraphics[width=1.2\textwidth]{compzoom.eps}
+    \caption{A zoomed in view of the convergence to the exact solution}
+\end{figure}
+
+\begin{center} 
+\begin{tabular}{ |c|c|c|c| }
+\hline
+Size of Matrix ($10^n$) & General & Tailored & LU \\
+\hline
+1& 3.00 E -6 & 3.00 E -6 & 2.40 E -5\\ 
+2 & 4.00 E -6 & 4.00 E -6 & 1.71 E -3 \\ 
+3 & 3.90 E -5 & 1.90 E -5 & 1.93\\ 
+4 & 3.79 E -4 & 2.09 E -4 & N/A\\ 
+5 & 3.38 E -3 & 1.51 E -3  & N/A\\ 
+6 & 2.87 E -2 & 1.53 E -2 & N/A\\ 
+7 & 3.16 E -1 & 1.73 E -1& N/A\\ 
+\hline
+\end{tabular}
+\label{table:test}
+\end{center}
+
+\end{comment}
+
+\begin{thebibliography}{9}
+
+\bibitem{LectureNotes} 
+Hjorth-Jensen, Mortehn. 
+Computational Physics, Lecture Notes Fall 2015. 
+August 2015.
+
+
+\bibitem{Broida}
+Broida, J.
+PHYS 130B, Quantum Mechanics II Class Notes.
+Fall 2009.
+http://www.physics.ucsd.edu/students/courses/fall2009/physics130b/IdentParts.pdf
+
+\bibitem{ClassNotes} 
+Taut, M.
+Physical Review A, Volume 48, Number 5
+November 1993.
+
+\end{thebibliography}
+
+
+
+% ------------------- end of main content ---------------
+
+\end{document}
+

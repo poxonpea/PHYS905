@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.19)  16 MAR 2017 21:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.19)  17 MAR 2017 13:50
 entering extended mode
 **H:/Documents/Computational/PHYS905/PHYS905/Project3/Development/REPORT/PoxonP
 earsonProject3.tex
@@ -750,16 +750,42 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 
 {C:/Users/poxonpea/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2] [3] 
 [4]
-Overfull \hbox (32.22902pt too wide) in paragraph at lines 288--292
-\T1/lmr/m/n/10 (-20) http://www.physics.ucsd.edu/students/courses/fall2009/phys
-ics130b/IdentParts.pdf 
+[5] <EulerCode.png, id=128, 353.82187pt x 162.6075pt>
+File: EulerCode.png Graphic file (type png)
+ <use EulerCode.png>
+Package pdftex.def Info: EulerCode.png used on input line 325.
+(pdftex.def)             Requested size: 276.00105pt x 126.84573pt.
+
+[6] <Euler.jpg, id=135, 794.97pt x 614.295pt>
+File: Euler.jpg Graphic file (type jpg)
+ <use Euler.jpg>
+Package pdftex.def Info: Euler.jpg used on input line 333.
+(pdftex.def)             Requested size: 345.0pt x 266.59752pt.
+ [7 <./EulerCode.png> <./Euler.jpg>] <VelCode.png, id=145, 619.56468pt x 141.52
+875pt>
+File: VelCode.png Graphic file (type png)
+
+<use VelCode.png>
+Package pdftex.def Info: VelCode.png used on input line 341.
+(pdftex.def)             Requested size: 345.0pt x 78.80852pt.
+ <velverearth.jpg, id=146, 794.97pt x 614.295pt>
+File: velverearth.jpg Graphic file (type jpg)
+
+<use velverearth.jpg>
+Package pdftex.def Info: velverearth.jpg used on input line 349.
+(pdftex.def)             Requested size: 345.0pt x 266.59752pt.
+ [8 <./VelCode.png> <./velverearth.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 431--434
+[]\T1/lmr/m/n/10 (+20) Jet Propul-sion Lab-o-ra-tory . HORI-ZONS Web-Interface.
+
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 304.
-[5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 304.
+[9]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 442.
+ [10]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 442.
  (PoxonPearsonProject3.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 304.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 442.
 
 
  *File List*
@@ -869,37 +895,42 @@ PoxonPearsonProject3.out
   mt-msa.cfg    2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
     umsb.fd    2013/01/14 v3.01 AMS symbols B
   mt-msb.cfg    2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+EulerCode.png    Graphic file (type png)
+   Euler.jpg    Graphic file (type jpg)
+ VelCode.png    Graphic file (type png)
+velverearth.jpg    Graphic file (type jpg)
  ***********
 
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 304.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 442.
 Package rerunfilecheck Info: File `PoxonPearsonProject3.out' has not changed.
 (rerunfilecheck)             Checksum: 24D829C79105754ABC80C911A3AB5969;1186.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 304.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 442.
  ) 
 Here is how much of TeX's memory you used:
- 10988 strings out of 493634
- 166900 string characters out of 3141305
- 312921 words of memory out of 3000000
- 14045 multiletter control sequences out of 15000+200000
- 45581 words of font info for 74 fonts, out of 3000000 for 9000
+ 11040 strings out of 493634
+ 167513 string characters out of 3141305
+ 314148 words of memory out of 3000000
+ 14067 multiletter control sequences out of 15000+200000
+ 46245 words of font info for 82 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 42i,6n,38p,1088b,484s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Progr
-am Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathex.enc}{C:/Program Files (x
-86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program Files (x86)/MiKTeX 
-2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/d
+ 42i,10n,38p,1088b,484s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program F
+iles (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program Files (x86)/
+MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathex.enc}{C:/Program Files (x86)/MiKTeX 2.9/
+fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/d
 vips/lm/lm-ec.enc}<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmbx
 10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/
 Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmex10.pfb><C:/Program Fil
 es (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmmi10.pfb><C:/Program Files (x86)/Mi
 KTeX 2.9/fonts/type1/public/lm/lmmi5.pfb><C:/Program Files (x86)/MiKTeX 2.9/fon
 ts/type1/public/lm/lmmi7.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/pub
-lic/lm/lmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr7.
-pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Pro
-gram Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy7.pfb>
-Output written on PoxonPearsonProject3.pdf (5 pages, 168779 bytes).
+lic/lm/lmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr5.
+pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr7.pfb><C:/Progr
+am Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files (x
+86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy7.pfb>
+Output written on PoxonPearsonProject3.pdf (10 pages, 305015 bytes).
 PDF statistics:
- 175 PDF objects out of 1000 (max. 8388607)
- 28 named destinations out of 1000 (max. 500000)
- 11921 words of extra memory for PDF output out of 12000 (max. 10000000)
+ 213 PDF objects out of 1000 (max. 8388607)
+ 36 named destinations out of 1000 (max. 500000)
+ 11941 words of extra memory for PDF output out of 12000 (max. 10000000)
 

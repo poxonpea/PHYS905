@@ -4,16 +4,16 @@
 \contentsline {subsection}{\numberline {2.1}Newton's Equations for the Earth Sun System}{2}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}Euler's Method}{4}{subsection.2.2}
 \contentsline {subsection}{\numberline {2.3}Velocity Verlet Algorithm}{4}{subsection.2.3}
-\contentsline {subsection}{\numberline {2.4}Expanding Equations to Solar System}{4}{subsection.2.4}
-\contentsline {section}{\numberline {3}Code and Implementation}{4}{section.3}
-\contentsline {subsection}{\numberline {3.1}Implementing Euler and Verlet Algorithms}{5}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Object Oriented Code}{5}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Tests of Code}{5}{subsection.3.3}
-\contentsline {section}{\numberline {4}Results and Discussion}{5}{section.4}
-\contentsline {subsection}{\numberline {4.1}Escape Velocity of the Sun-Earth System}{5}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}The Three Body Problem}{5}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Solar System Model}{5}{subsection.4.3}
-\contentsline {section}{\numberline {5}Conclusions}{5}{section.5}
-\contentsline {section}{\numberline {6}Appendices}{5}{section.6}
-\contentsline {subsection}{\numberline {6.1}Appendix A}{5}{subsection.6.1}
-\contentsline {section}{References}{5}{section*.2}
+\contentsline {subsection}{\numberline {2.4}Expanding Equations to Solar System}{5}{subsection.2.4}
+\contentsline {section}{\numberline {3}Code and Implementation}{6}{section.3}
+\contentsline {subsection}{\numberline {3.1}Implementing Euler and Verlet Algorithms}{6}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Object Oriented Code}{9}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Tests of Code}{9}{subsection.3.3}
+\contentsline {section}{\numberline {4}Results and Discussion}{9}{section.4}
+\contentsline {subsection}{\numberline {4.1}Escape Velocity of the Sun-Earth System}{9}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}The Three Body Problem}{9}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Solar System Model}{9}{subsection.4.3}
+\contentsline {section}{\numberline {5}Conclusions}{9}{section.5}
+\contentsline {section}{\numberline {6}Appendices}{9}{section.6}
+\contentsline {subsection}{\numberline {6.1}Appendix A}{9}{subsection.6.1}
+\contentsline {section}{References}{9}{section*.2}

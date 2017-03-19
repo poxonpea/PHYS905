@@ -10,16 +10,20 @@ program Euler
 
   h=Tmax/Num
 
-  x(1)=-0.9864
-  y(1)=0.10218
-  vx(1)=(365.25*(-.0019768))
-  vy(1)=(365.25*(-0.017172))
+!Initial Conditions from JPS at Midnight on 3/16/17
+  
+  x(1)=-0.988251
+  y(1)=0.08499779
+  vx(1)=(365.25*(-.0068024))
+  vy(1)=(365.25*(-0.01719988))
 
+! Euler Method Implementation
+  
   do i=1,Num
-     vx(i+1) = vx(i)-((h*4*PI*PI*x(i))/(r(x(i),y(i))**3.d0))   
      x(i+1) = x(i) + h*vx(i)
-     vy(i+1) = vy(i)-((h*4*PI*PI*y(i))/(r(x(i),y(i))**3.d0))
      y(i+1) = y(i) + h*vy(i)
+     vx(i+1) = vx(i)-((h*4*PI*PI*x(i))/(r(x(i),y(i))**3.d0))
+     vy(i+1) = vy(i)-((h*4*PI*PI*y(i))/(r(x(i),y(i))**3.d0))
 
   end do
   

@@ -24,6 +24,7 @@ program Euler
      y(i+1) = y(i) + h*vy(i)
      vx(i+1) = vx(i)-((h*4*PI*PI*x(i))/(r(x(i),y(i))**3.d0))
      vy(i+1) = vy(i)-((h*4*PI*PI*y(i))/(r(x(i),y(i))**3.d0))
+     print*,r(x(i),y(i))
 
   end do
   

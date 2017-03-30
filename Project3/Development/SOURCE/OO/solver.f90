@@ -25,9 +25,9 @@ contains
     integer::NumBodies
     real(8),dimension(Numbodies,Numbodies,3):: relposition
     
-    do i=2,NumBodies
+    do i=1,NumBodies
        do j =1,NumBodies
-          if (i/=j) then
+          if (i.ne.j) then
              relposition(j,i,1)=system%position(j,1)-system%position(i,1)
 !             print*,'relx',i,j,relposition(j,i,1)
              relposition(j,i,2)=system%position(j,2)-system%position(i,2)
@@ -60,12 +60,12 @@ contains
     end do
     
     
-    do i=2,numbodies
+    do i=1,numbodies
        do j=1,numbodies
           if(j.ne.i) then
              rrr=(relposition(j,i,3)**3.d0)
-             relforce(i,1) =relforce(i,1) - Fourpi2*system%mass(i)*relposition(j,i,1)/rrr
-             relforce(i,2) =relforce(i,2) - Fourpi2*system%mass(i)*relposition(j,i,2)/rrr
+             relforce(i,1) =relforce(i,1) - Fourpi2*system%mass(j)*relposition(j,i,1)/rrr
+             relforce(i,2) =relforce(i,2) - Fourpi2*system%mass(j)*relposition(j,i,2)/rrr
 !             print*,'position and force',i,j,relposition(j,i,2),relforce(i,2)
           end if
        end do
@@ -81,7 +81,7 @@ contains
     real(8),dimension(Numbodies,2)::relforce
     real(8)::h
 
-    do i=2,numbodies
+    do i=1,numbodies
        system%position(i,1)=system%position(i,1)+h*system%velocity(i,1) - (h*h/2.d0)*relforce(i,1)
 !       print*,system%position(i,1),system%velocity(i,1)
        system%position(i,2)=system%position(i,2)+h*system%velocity(i,2) - (h*h/2.d0)*relforce(i,2)
@@ -98,7 +98,7 @@ contains
     real(8),dimension(Numbodies,2)::relforce
     real(8),dimension(Numbodies,2)::updatedforce
 
-    do i=2, numbodies
+    do i=1, numbodies
        system%velocity(i,1)=system%velocity(i,1)-h*0.5*updatedforce(i,1)-h*0.5*relforce(i,1)
        system%velocity(i,2)=system%velocity(i,2)-h*0.5*updatedforce(i,2)-h*0.5*relforce(i,2)
 !       print*,system%velocity(2,1)
@@ -126,16 +126,19 @@ contains
   subroutine potential_energy(system, numbodies,relposition,potential)
     implicit none
     class(solver), intent(in)::system
-    integer::Numbodies,i
+    integer::Numbodies,i,j
     real(8),dimension(numbodies+1)::potential
     real(8),dimension(numbodies,numbodies,3)::relposition
     real(8)::totalpe
 
     totalpe=0
 
-    do i=2,numbodies
-       potential(i)=4*3.14*3.14*system%mass(i)/relposition(1,i,3)
-
+    do i=1,numbodies
+      do j=1,NumBodies
+        if (i .ne.j) then
+          potential(i)=potential(i)+4*3.14*3.14*system%mass(i)*system%mass(j)/relposition(j,i,3)
+        end if
+      end do
        totalpe=totalpe+potential(i)
     end do
 

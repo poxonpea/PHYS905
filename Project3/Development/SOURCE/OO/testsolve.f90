@@ -1,12 +1,12 @@
 program testsolve
-  use planet_class
+!  use planet_class
   use solver_class
 
   implicit none
 
   integer,parameter::bodies=2
-  real(8)::Tmax=100.0,h
-  integer::Num_Steps=10000,m
+  real(8)::Tmax=1.0,h
+  integer::Num_Steps=10,m
   real(8),dimension(2),parameter::masses=(0.d0,1.d0)
   real(8),dimension(2,2),parameter::position(1,1)=0.d0
   real(8),dimension(2,2),parameter::velocity(1,1)=1.d0
@@ -19,16 +19,16 @@ program testsolve
   integer::numbodies
   
   
-  earthsun%mass(1)=0.d0
-  earthsun%mass(2)=1.d0
-!!$  earthsun%position(2,1)=-0.988251
-!!$  earthsun%position(2,2)=0.08499779
-!!$  earthsun%velocity(2,1)=(365.25*(-0.0068024))
-!!$  earthsun%velocity(2,2)=(365.25*(-0.01719988))
-  earthsun%position(2,1)=-1.0
-  earthsun%position(2,2)=0.0
-  earthsun%velocity(2,1)=0
-  earthsun%velocity(2,2)=-2.d0*3.14159265
+  earthsun%mass(1)=1.d0
+  earthsun%mass(2)=3.d-6
+  earthsun%position(2,1)=-0.988251
+  earthsun%position(2,2)=0.08499779
+  earthsun%velocity(2,1)=(365.25*(-0.0068024))
+  earthsun%velocity(2,2)=(365.25*(-0.01719988))
+!  earthsun%position(2,1)=-1.0
+!  earthsun%position(2,2)=0.0
+!  earthsun%velocity(2,1)=0
+!  earthsun%velocity(2,2)=-2.d0*3.14159265
   earthsun%position(1,1)=0.d0
   earthsun%position(1,2)=0.d0
   earthsun%velocity(1,1)=0.d0
@@ -50,17 +50,17 @@ program testsolve
   do m=1,Num_Steps
      
      call relative_position(earthsun,numbodies,relposition)
-!     print*,'exit rel_pos 1'
+!     print*,'exit rel_pos 1',relposition(1,2,1),relposition(1,2,2)
      call forces(earthsun,numbodies,relposition,relforce)
-!     print*,'exit forces 1'
+!     print*,'exit forces 1', relforce(2,1),relforce(2,2)
      call calc_position(earthsun,numbodies,relforce,h)
-!     print*, 'exit calc_pos'
+!     print*, 'exit calc_pos',earthsun%position(2,1),earthsun%position(2,2)
      call relative_position(earthsun,numbodies,updaterel)
-!     print*, 'exit rel_pos 2'
+!     print*, 'exit rel_pos 2',updaterel(1,2,1),updaterel(1,2,2)
      call forces(earthsun,numbodies,updaterel,updatedforce)
 !     print*, 'exit forces 2'
      call calc_velocities(earthsun,numbodies,relforce,updatedforce,h)
-     !     print*, 'exit calc_vel'
+!     print*, 'exit calc_vel'
      call kinetic_energy(earthsun,numbodies,kinetic)
      call potential_energy(earthsun,numbodies,updaterel,potential)
      call angular_momentum(earthsun,numbodies,updaterel,angular)

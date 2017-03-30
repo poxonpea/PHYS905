@@ -1,4 +1,4 @@
-program twobody
+program testsolve
 !  use planet_class
   use solver_class
 
@@ -75,4 +75,4 @@ program twobody
   close(3)
   close(4)
   close(5)
-end program twobody
+end program testsolve

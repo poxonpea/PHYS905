@@ -1,10 +1,10 @@
 module solver_class
   
   type solver
-     integer::Bodies=2
-     real(8),dimension(2) :: mass
-     real(8),dimension(2,2) :: position
-     real(8),dimension(2,2) :: velocity
+     integer::Bodies=10
+     real(8),dimension(10) :: mass
+     real(8),dimension(10,2) :: position
+     real(8),dimension(10,2) :: velocity
   contains
     procedure ::relative_position
     procedure ::forces
@@ -22,7 +22,7 @@ contains
 
     class (solver),intent(in)::system
     integer :: i,j
-    integer::NumBodies
+    integer,intent(in)::NumBodies
     real(8),dimension(Numbodies,Numbodies,3):: relposition
     
     do i=1,NumBodies
@@ -46,44 +46,47 @@ contains
 
     class(solver),intent(in)::system
     integer :: j,i
-    integer:: NumBodies
+    integer,intent(in):: Numbodies
     real(8),dimension(Numbodies,2)::relforce
     real(8),dimension(Numbodies,Numbodies,3):: relposition
     real(8)::rrr,Fourpi2
-
+!    print*,'inside'
     Fourpi2 = 4.d0*3.14*3.14
 
+    
     do i=1,numbodies
-       do j=1,2
+       do j=1,numbodies
           relforce(i,j)=0.d0
        end do
     end do
     
-    
+    print*,'numbodies in',Numbodies
     do i=1,numbodies
        do j=1,numbodies
           if(j.ne.i) then
              rrr=(relposition(j,i,3)**3.d0)
+             print*,i,j,relposition(j,i,3)
              relforce(i,1) =relforce(i,1) - Fourpi2*system%mass(j)*relposition(j,i,1)/rrr
+             print*,'in force',relforce(i,1)
              relforce(i,2) =relforce(i,2) - Fourpi2*system%mass(j)*relposition(j,i,2)/rrr
-!             print*,'position and force',i,j,relposition(j,i,2),relforce(i,2)
           end if
        end do
     end do
-
+  print*,"numbodies 2 in",numbodies
   end subroutine forces
 
 
   subroutine calc_position(system,Numbodies,relforce,h)
     implicit none
     class(solver), intent(inout)::system
-    integer::Numbodies,i,j
+    integer,intent(in)::Numbodies
+    integer::i,j
     real(8),dimension(Numbodies,2)::relforce
     real(8)::h
 
     do i=1,numbodies
        system%position(i,1)=system%position(i,1)+h*system%velocity(i,1) - (h*h/2.d0)*relforce(i,1)
-!       print*,system%position(i,1),system%velocity(i,1)
+!       print*,i,system%position(i,1),system%velocity(i,1)
        system%position(i,2)=system%position(i,2)+h*system%velocity(i,2) - (h*h/2.d0)*relforce(i,2)
 !       print*,"newy",relforce(2,2)
     end do
@@ -93,7 +96,8 @@ contains
   subroutine calc_velocities(system,numbodies,relforce,updatedforce,h)
     implicit none
     class(solver),intent(inout)::system
-    integer::NumBodies,i,j
+    integer,intent(in)::NumBodies
+    integer::i,j
     real(8)::h
     real(8),dimension(Numbodies,2)::relforce
     real(8),dimension(Numbodies,2)::updatedforce
@@ -109,7 +113,8 @@ contains
   subroutine kinetic_energy(system,numbodies,kinetic)
     implicit none
     class(solver), intent(in)::system
-    integer::Numbodies,i
+    integer,intent(in)::Numbodies
+    integer::i
     real(8),dimension(numbodies+1)::kinetic
     real(8)::totalke
 
@@ -126,20 +131,25 @@ contains
   subroutine potential_energy(system, numbodies,relposition,potential)
     implicit none
     class(solver), intent(in)::system
-    integer::Numbodies,i,j
+    integer,intent(in)::Numbodies
+    integer::i,j
     real(8),dimension(numbodies+1)::potential
     real(8),dimension(numbodies,numbodies,3)::relposition
     real(8)::totalpe
 
     totalpe=0
+    do i=1,numbodies+1
+       potential(i)=0.d0
+    end do
+    
 
     do i=1,numbodies
       do j=1,NumBodies
-        if (i .ne.j) then
-          potential(i)=potential(i)+4*3.14*3.14*system%mass(i)*system%mass(j)/relposition(j,i,3)
+         if (i .ne. j ) then
+           potential(i)=potential(i)+(4*3.14*3.14*system%mass(i)*system%mass(j)/relposition(j,i,3))
         end if
       end do
-       totalpe=totalpe+potential(i)
+      totalpe=totalpe+potential(i)
     end do
 
     potential(numbodies+1)=totalpe
@@ -148,16 +158,16 @@ contains
   subroutine angular_momentum(system,numbodies,relposition,angular)
     implicit none
     class(solver),intent(in)::system
-    integer::Numbodies,i
+    integer,intent(in)::Numbodies
+    integer::i,j
     real(8),dimension(numbodies+1)::angular
     real(8),dimension(numbodies,numbodies,3)::relposition
     real(8)::totalang
 
     totalang=0
 
-    do i=2,numbodies
-       angular(i)=system%mass(i)*relposition(1,i,3)*(sqrt(system%velocity(i,1)**2.d0 + system%velocity(i,2)**2.d0))
-
+    do i=1,numbodies
+             angular(i)=system%mass(i)*relposition(1,i,3)*(sqrt(system%velocity(i,1)**2.d0 + system%velocity(i,2)**2.d0))
        totalang=totalang+angular(i)
     end do
 

@@ -350,7 +350,9 @@ The plot below shows the trajectory of the earth over 10 years in 1000 time step
     \caption{The trajectory of the Earth in the Sun-Earth system produced by the Velocity Verlet method}
 \end{figure}
 
-Unlike Euler's method, the Velocity Verlet algorithm produces a stable, almost circular orbit.  We will use this algorithm to extend our code to the Sun-Earth-Jupiter and Solar Stystems.  Because all of the equations for this system follow a similar format, we will switch to an OO structure for our code, which will be discussed in more detail in the following section. 
+Unlike Euler's method, the Velocity Verlet algorithm produces a stable, almost circular orbit.  We can investigate to see how much more computationally expensive the Velocity Verlet method is.  If we examine the algorithm for Euler's method and we precalculate as many factors as possible to decrease the number of FLOPS in the main algorithm, Euler's method in two dimensions needs 16N FLOPS where N is the number of time steps taken.  We we apply a similar analysis to the Velocity Verlet algorithm, we get almost 30N FLOPS in 2 dimensions.  
+
+We can also examine this difference by looking at the time it takes to run the algorithm.  Because both methods are very fast, I ran them for the case of 100 years with 100,000 time steps.  This is well above the necessary precision, but will allow for the clocks to accumulate a longer computation time.  The Euler method took 0.3359 seconds to complete that computation, while the Velocity Verlet method required 0.444 seconds.  This shows that the Velocity Verlet algorithm maintains a good balance of precision and computational speed.  Because of this, we will use the Velocity Verlet algorithm to extend our code to the Sun-Earth-Jupiter and Solar Stystems.  Because all of the equations for this system follow a similar format, we will switch to an OO structure for our code, which will be discussed in more detail in the following section. 
 
 \subsection{Object Oriented Code}
 

@@ -11,9 +11,9 @@
 \contentsline {subsection}{\numberline {3.3}Tests of Code}{9}{subsection.3.3}
 \contentsline {section}{\numberline {4}Results and Discussion}{9}{section.4}
 \contentsline {subsection}{\numberline {4.1}Escape Velocity of the Sun-Earth System}{9}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}The Three Body Problem}{9}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Solar System Model}{9}{subsection.4.3}
-\contentsline {section}{\numberline {5}Conclusions}{9}{section.5}
-\contentsline {section}{\numberline {6}Appendices}{9}{section.6}
-\contentsline {subsection}{\numberline {6.1}Appendix A}{9}{subsection.6.1}
-\contentsline {section}{References}{9}{section*.2}
+\contentsline {subsection}{\numberline {4.2}The Three Body Problem}{10}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Solar System Model}{10}{subsection.4.3}
+\contentsline {section}{\numberline {5}Conclusions}{10}{section.5}
+\contentsline {section}{\numberline {6}Appendices}{10}{section.6}
+\contentsline {subsection}{\numberline {6.1}Appendix A}{10}{subsection.6.1}
+\contentsline {section}{References}{10}{section*.2}

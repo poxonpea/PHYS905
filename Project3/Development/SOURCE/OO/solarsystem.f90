@@ -5,18 +5,18 @@ program solarsystem
   implicit none
 
   integer,parameter::Bodies=10
-  real(8)::Tmax=12.0,h
-  integer::Num_Steps=100,m
-  real(8),dimension(10),parameter::masses(1)=1.d0
-  real(8),dimension(10,2),parameter::position(1,1)=0.d0
-  real(8),dimension(10,2),parameter::velocity(1,1)=1.d0
+  real(8)::Tmax=250.0,h
+  integer::Num_Steps=10000,m
+  real(8),dimension(10)::masses
+  real(8),dimension(10,2)::position
+  real(8),dimension(10,2)::velocity
   real(8),dimension(bodies,bodies,3)::relposition,updaterel
   real(8),dimension(bodies,2)::relforce
   real(8),dimension(bodies,2)::updatedforce
   real(8),dimension(bodies+1)::kinetic,potential,angular
 
-  type(solver)::solar=solver(10,masses,position,velocity)
-  integer::numbodies
+  type(solver)::solar
+  integer,parameter::numbodies=10
   
    
   solar%mass(1)=1.d0
@@ -69,8 +69,6 @@ program solarsystem
   solar%position(10,2)=-3.177864195d1
   solar%velocity(10,1)=365.25*(3.06860367d-3)
   solar%velocity(10,2)=365.25*(2.905788d-4)
-  
-  Numbodies=10
 !  print*,numbodies
 
   open(3,file="Earth.dat")
@@ -88,18 +86,19 @@ program solarsystem
 
   h=Tmax/Num_Steps
   do m=1,Num_Steps
+
      call relative_position(solar,numbodies,relposition)
-     print*,'numbodies out 1',numbodies
+!     print*,'numbodies out 1',numbodies
      call forces(solar,Numbodies,relposition,relforce)
-     print*,'numbodies out 2',numbodies
+!     print*,'numbodies out 2',numbodies
      call calc_position(solar,numbodies,relforce,h)
-     print*,'numbodies out 3',numbodies
+!     print*,'numbodies out 3',numbodies
      call relative_position(solar,numbodies,updaterel)
-     print*,'numbodies out 4',numbodies
+!     print*,'numbodies out 4',numbodies
      call forces(solar,numbodies,updaterel,updatedforce)
-     print*,'numbodies out 5',numbodies
+!     print*,'numbodies out 5',numbodies
      call calc_velocities(solar,numbodies,relforce,updatedforce,h)
-     print*,'numbodies out 6',numbodies
+!     print*,'numbodies out 6',numbodies
      call kinetic_energy(solar,numbodies,kinetic)
      call potential_energy(solar,numbodies,updaterel,potential)
      call angular_momentum(solar,numbodies,updaterel,angular)
@@ -119,6 +118,7 @@ program solarsystem
 
   end do
 
+  
   close(3)
   close(4)
   close(5)
@@ -131,4 +131,3 @@ program solarsystem
   close(13)
   close(14)
 end program solarsystem
-

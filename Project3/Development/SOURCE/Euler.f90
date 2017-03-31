@@ -1,10 +1,10 @@
 program Euler
   implicit none
 
-  real(8) ::Tmax=10
+  real(8) ::Tmax=100
   real(8), parameter :: PI=3.14
-  integer, parameter ::Num=1000
-  real(8) :: h,r
+  integer, parameter ::Num=100000
+  real(8) :: h,r,finish,start
   real(8), dimension(Num+1)::vx,vy,x,y
   integer :: i
 
@@ -18,7 +18,7 @@ program Euler
   vy(1)=(365.25*(-0.01719988))
 
 ! Euler Method Implementation
-  
+  call cpu_time(start)
   do i=1,Num
      x(i+1) = x(i) + h*vx(i)
      y(i+1) = y(i) + h*vy(i)
@@ -27,7 +27,9 @@ program Euler
      print*,r(x(i),y(i))
 
   end do
-  
+  call cpu_time(finish)
+
+  print*,'time',finish-start
   open(1,file="Euler.dat")
   do i=1,Num+1
      write(1,*), x(i), y(i)

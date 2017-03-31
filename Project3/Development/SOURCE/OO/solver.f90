@@ -1,7 +1,7 @@
 module solver_class
   
   type solver
-     integer::Bodies=10
+     integer::Bodies
      real(8),dimension(10) :: mass
      real(8),dimension(10,2) :: position
      real(8),dimension(10,2) :: velocity
@@ -60,19 +60,19 @@ contains
        end do
     end do
     
-    print*,'numbodies in',Numbodies
+!    print*,'numbodies in',Numbodies
     do i=1,numbodies
        do j=1,numbodies
           if(j.ne.i) then
              rrr=(relposition(j,i,3)**3.d0)
-             print*,i,j,relposition(j,i,3)
+!             print*,i,j,relposition(j,i,3)
              relforce(i,1) =relforce(i,1) - Fourpi2*system%mass(j)*relposition(j,i,1)/rrr
-             print*,'in force',relforce(i,1)
+!             print*,'in force',relforce(i,1)
              relforce(i,2) =relforce(i,2) - Fourpi2*system%mass(j)*relposition(j,i,2)/rrr
           end if
        end do
     end do
-  print*,"numbodies 2 in",numbodies
+!  print*,"numbodies 2 in",numbodies
   end subroutine forces
 
 
@@ -146,8 +146,9 @@ contains
     do i=1,numbodies
       do j=1,NumBodies
          if (i .ne. j ) then
-           potential(i)=potential(i)+(4*3.14*3.14*system%mass(i)*system%mass(j)/relposition(j,i,3))
-        end if
+            potential(i)=potential(i)+(4*3.14*3.14*system%mass(i)*system%mass(j)/relposition(j,i,3))
+         end if
+!         print*, potential(i)
       end do
       totalpe=totalpe+potential(i)
     end do
@@ -167,7 +168,7 @@ contains
     totalang=0
 
     do i=1,numbodies
-             angular(i)=system%mass(i)*relposition(1,i,3)*(sqrt(system%velocity(i,1)**2.d0 + system%velocity(i,2)**2.d0))
+       angular(i)=system%mass(i)*relposition(1,i,3)*(sqrt(system%velocity(i,1)**2.d0 + system%velocity(i,2)**2.d0))
        totalang=totalang+angular(i)
     end do
 

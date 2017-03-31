@@ -8,12 +8,12 @@
 \contentsline {section}{\numberline {3}Code and Implementation}{6}{section.3}
 \contentsline {subsection}{\numberline {3.1}Implementing Euler and Verlet Algorithms}{6}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Object Oriented Code}{9}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Tests of Code}{9}{subsection.3.3}
-\contentsline {section}{\numberline {4}Results and Discussion}{9}{section.4}
-\contentsline {subsection}{\numberline {4.1}Escape Velocity of the Sun-Earth System}{9}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}The Three Body Problem}{10}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Solar System Model}{10}{subsection.4.3}
-\contentsline {section}{\numberline {5}Conclusions}{10}{section.5}
-\contentsline {section}{\numberline {6}Appendices}{10}{section.6}
-\contentsline {subsection}{\numberline {6.1}Appendix A}{10}{subsection.6.1}
-\contentsline {section}{References}{10}{section*.2}
+\contentsline {subsection}{\numberline {3.3}Tests of Code}{10}{subsection.3.3}
+\contentsline {section}{\numberline {4}Results and Discussion}{10}{section.4}
+\contentsline {subsection}{\numberline {4.1}Escape Velocity of the Sun-Earth System}{10}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}The Three Body Problem}{11}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Solar System Model}{11}{subsection.4.3}
+\contentsline {section}{\numberline {5}Conclusions}{11}{section.5}
+\contentsline {section}{\numberline {6}Appendices}{11}{section.6}
+\contentsline {subsection}{\numberline {6.1}Appendix A}{11}{subsection.6.1}
+\contentsline {section}{References}{11}{section*.2}

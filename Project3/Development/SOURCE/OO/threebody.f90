@@ -1,23 +1,21 @@
 program threebody
-!  use planet_class
+
   use solver_class
 
   implicit none
 
-  integer,parameter::bodies=3
+  integer,parameter::numbodies=3
   real(8)::Tmax=12.0,h
   integer::Num_Steps=120,m
-  real(8),dimension(bodies),parameter::masses(1)=1.d0
-  real(8),dimension(3,2),parameter::position(1,1)=0.d0
-  real(8),dimension(3,2),parameter::velocity(1,1)=1.d0
-  real(8),dimension(bodies,bodies,3)::relposition,updaterel
-  real(8),dimension(bodies,2)::relforce
-  real(8),dimension(bodies,2)::updatedforce
-  real(8),dimension(bodies+1)::kinetic,potential,angular
+  real(8),dimension(10)::masses
+  real(8),dimension(3,2)::position
+  real(8),dimension(3,2)::velocity
+  real(8),dimension(numbodies,numbodies,3)::relposition,updaterel
+  real(8),dimension(numbodies,2)::relforce
+  real(8),dimension(numbodies,2)::updatedforce
+  real(8),dimension(numbodies+1)::kinetic,potential,angular
 
-  type(solver)::jupiter=solver(3,masses,position,velocity)
-  integer::numbodies
-  
+  type(solver)::jupiter
         
   jupiter%mass(1)=1.d0
   jupiter%mass(2)=3.d-6
@@ -35,7 +33,6 @@ program threebody
   jupiter%velocity(3,1)=365.25*(2.022596d-3)
   jupiter%velocity(3,2)=365.25*(-6.88771645d-3)
   
-  Numbodies=bodies
 
   open(3,file="Earth.dat")
   open(4,file="Jupiter.dat")
@@ -48,17 +45,11 @@ program threebody
   do m=1,Num_Steps
 
      call relative_position(jupiter,numbodies,relposition)
-!     print*,'exit rel_pos 1',relposition(2,3,1),relposition(1,2,1)
      call forces(jupiter,numbodies,relposition,relforce)
-!     print*,'exit forces 1', relforce(2,1),relforce(3,1)
      call calc_position(jupiter,numbodies,relforce,h)
-!     print*, 'exit calc_pos',jupiter%position(2,1),jupiter%position(2,2)
      call relative_position(jupiter,numbodies,updaterel)
-!     print*, 'exit rel_pos 2',updaterel(2,3,1),updaterel(1,2,1)
      call forces(jupiter,numbodies,updaterel,updatedforce)
-!     print*, 'exit forces 2'
      call calc_velocities(jupiter,numbodies,relforce,updatedforce,h)
-!     print*, 'exit calc_vel'
      call kinetic_energy(jupiter,numbodies,kinetic)
      call potential_energy(jupiter,numbodies,updaterel,potential)
      call angular_momentum(jupiter,numbodies,updaterel,angular)

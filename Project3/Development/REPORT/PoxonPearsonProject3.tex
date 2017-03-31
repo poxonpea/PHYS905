@@ -356,6 +356,24 @@ We can also examine this difference by looking at the time it takes to run the a
 
 \subsection{Object Oriented Code}
 
+I delveloped an object oriented version of the Velocity Verlet method to solve the Earth-Sun, Earth-Sun-Jupiter, and Solar systems.  This involved defiining a type, which I called "solver" that contained all of the masses, positions, and velocities of the system that you are solving.  This solver also conatins a series of subroutines that can be used to calculate relative positions, forces, and recalculate a planet's position. amoung other things.  This declaration can be seen below.
+
+\begin{figure}[H]\label{fig:velrplot}
+  \centering
+    \includegraphics[width=0.5\textwidth]{solver.PNG}
+    \caption{Definition of Solver type in OO code.}
+\end{figure}
+
+This module is accompanies by a function which makes calls to the procedures in "solver" to apply the Velocity verlet method.  This program also prints the results to file so they can be plotted.  The heart of this code is shown below.
+
+\begin{figure}[H]\label{fig:velrplot}
+  \centering
+    \includegraphics[width=1.0\textwidth]{twobody.PNG}
+    \caption{Heart of the main function for the OO program.}
+\end{figure}
+
+This portion of the code does not need to be modified at all when the user switches betweem systems.  All that needs to be changed is the size of arrays in "solver" and the additional intial conditions need to be defined.
+
 \subsection{Tests of Code}
 
 \section{Results and Discussion}

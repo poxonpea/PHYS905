@@ -2,9 +2,9 @@ module solver_class
   
   type solver
      integer::Bodies
-     real(8),dimension(10) :: mass
-     real(8),dimension(10,2) :: position
-     real(8),dimension(10,2) :: velocity
+     real(8),dimension(2) :: mass
+     real(8),dimension(2,2) :: position
+     real(8),dimension(2,2) :: velocity
   contains
     procedure ::relative_position
     procedure ::forces
@@ -29,11 +29,8 @@ contains
        do j =1,NumBodies
           if (i.ne.j) then
              relposition(j,i,1)=system%position(j,1)-system%position(i,1)
-!             print*,'relx',i,j,relposition(j,i,1)
              relposition(j,i,2)=system%position(j,2)-system%position(i,2)
-!             print*,'rely',i,j,system%position(j,2),system%position(i,2),relposition(j,i,2)
              relposition(j,i,3)=sqrt(relposition(j,i,1)*relposition(j,i,1)+relposition(j,i,2)*relposition(j,i,2))
-!             print*,"inside",relposition(j,i,2),relposition(j,i,3)
           end if
        end do
     end do
@@ -50,7 +47,7 @@ contains
     real(8),dimension(Numbodies,2)::relforce
     real(8),dimension(Numbodies,Numbodies,3):: relposition
     real(8)::rrr,Fourpi2
-!    print*,'inside'
+
     Fourpi2 = 4.d0*3.14*3.14
 
     
@@ -60,19 +57,15 @@ contains
        end do
     end do
     
-!    print*,'numbodies in',Numbodies
     do i=1,numbodies
        do j=1,numbodies
           if(j.ne.i) then
              rrr=(relposition(j,i,3)**3.d0)
-!             print*,i,j,relposition(j,i,3)
              relforce(i,1) =relforce(i,1) - Fourpi2*system%mass(j)*relposition(j,i,1)/rrr
-!             print*,'in force',relforce(i,1)
              relforce(i,2) =relforce(i,2) - Fourpi2*system%mass(j)*relposition(j,i,2)/rrr
           end if
        end do
     end do
-!  print*,"numbodies 2 in",numbodies
   end subroutine forces
 
 
@@ -86,9 +79,7 @@ contains
 
     do i=1,numbodies
        system%position(i,1)=system%position(i,1)+h*system%velocity(i,1) - (h*h/2.d0)*relforce(i,1)
-!       print*,i,system%position(i,1),system%velocity(i,1)
        system%position(i,2)=system%position(i,2)+h*system%velocity(i,2) - (h*h/2.d0)*relforce(i,2)
-!       print*,"newy",relforce(2,2)
     end do
 
   end subroutine calc_position
@@ -105,7 +96,6 @@ contains
     do i=1, numbodies
        system%velocity(i,1)=system%velocity(i,1)-h*0.5*updatedforce(i,1)-h*0.5*relforce(i,1)
        system%velocity(i,2)=system%velocity(i,2)-h*0.5*updatedforce(i,2)-h*0.5*relforce(i,2)
-!       print*,system%velocity(2,1)
     end do
 
   end subroutine calc_velocities
@@ -148,7 +138,6 @@ contains
          if (i .ne. j ) then
             potential(i)=potential(i)+(4*3.14*3.14*system%mass(i)*system%mass(j)/relposition(j,i,3))
          end if
-!         print*, potential(i)
       end do
       totalpe=totalpe+potential(i)
     end do

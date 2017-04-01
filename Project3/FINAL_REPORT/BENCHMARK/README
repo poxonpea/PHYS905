@@ -1,0 +1,29 @@
+This BENCHMARKS directory has the same structure as the SOURCE directory, but also includes the output files for each code.
+The directions below specify the conditions necessary to reproduce these files.
+
+Euler.f90: This program implements Euler's method to find the trajector of the earth.
+Parameters:Tmax=10, Num=1000, Inital Conditions from March 16,2017
+Output: Euler.dat
+Compiler I Used: gfortan
+
+vel_verl.f90: This program implements the velocity verlet method to find the trajector of the earth.
+Parameters:Tmax=10, Num=1000, Inital Conditions from March 16,2017
+Output: vel_verl.dat
+Compiler I Used: gfortan
+
+solverES.f90/EarthSun.f90: This program implements an object oriented velocity verlet method to find the trajector of the earth.
+Parameters:Tmax=1, Num=100, Inital Conditions: x=-1,y=0,vx=0,vy=-2pi
+Output: energy.dat, momentum.dat, OOVelVer.dat
+Compiler I Used: gfortan
+
+solverESJ.f90/threebody.f90: This program implements an object oriented velocity verlet method to find the trajector of
+the earth and Jupiter
+Parameters:Tmax=12, Num=1200, Inital Conditions from March 16, 2017
+Output:Earth,dat, Jupiter.dat
+Compiler I Used: ifort
+
+solver3d.f90/solarsystem.f90: This program implements an object oriented velocity verlet method to find the trajector of
+the Solar system in 3 dimensions
+Parameters:Tmax=250, Num=10000, Inital Conditions from March 16, 2017
+Output:Earth,dat, Jupiter.dat, Mercury.dat, Venus.dat, Mars.dat, Saturn.dat, Venus.dat, Uranus.dat,Neptune.dat,Pluto.dat
+Compiler I Used: ifort

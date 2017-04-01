@@ -1,0 +1,9 @@
+This directory contains all of the source code for this project.  In this main folder you will find the the non-object
+oriented codes for the Euler and Velocity Verlet algorithms.  For these and all the other codes, step size and final time
+can be adjusted by changing the parameters inside the code in the variable declaration section.
+
+The ObjectOriented directory contains the codes of the EarthSun, EarthSunJupiter, and SolarSystem systems, each in their
+own director.  Each folder contains a file with the appropriate solver module and an accompanying main program.
+Both must be compiled together for the calculation to run.  The EarthSun codes should be compiled in gfortran (I changed
+compilers halfway through) while the rest are compiled using ifort. Each of these programs produce a output file with the
+position evolution of whichever planets are involved.  The EarthSun case also creates an outout file with the energy and momentum.

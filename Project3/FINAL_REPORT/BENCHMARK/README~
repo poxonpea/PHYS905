@@ -1,0 +1,12 @@
+This BENCHMARKS directory has the same structure as the SOURCE directory, but also includes the output files for each code.
+The directions below specify the conditions necessary to reproduce these files.
+
+Euler.f90: This program implements Euler's method to find the trajector of the earth.
+Parameters:Tmax=10, Num=1000, Inital Conditions from March 16,2017
+Output: Euler.dat
+Compiler I Used: gfortan
+
+vel_verl.f90: This program implements the velocity verlet method to find the trajector of the earth.
+Parameters:Tmax=10, Num=1000, Inital Conditions from March 16,2017
+Output: vel_verl.dat
+Compiler I Used: gfortan

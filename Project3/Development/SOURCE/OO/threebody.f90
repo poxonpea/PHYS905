@@ -5,8 +5,8 @@ program threebody
   implicit none
 
   integer,parameter::numbodies=3
-  real(8)::Tmax=12.0,h
-  integer::Num_Steps=120,m
+  real(8)::Tmax=120.0,h
+  integer::Num_Steps=12000,m
   real(8),dimension(10)::masses
   real(8),dimension(3,2)::position
   real(8),dimension(3,2)::velocity

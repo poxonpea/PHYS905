@@ -5,7 +5,7 @@ program solarsystem
 
   integer,parameter::numbodies=10 
   real(8)::Tmax=250,h
-  integer::Num_Steps=25000,m
+  integer::Num_Steps=10000,m
   real(8),dimension(10)::masses
   real(8),dimension(10,3)::position
   real(8),dimension(10,3)::velocity

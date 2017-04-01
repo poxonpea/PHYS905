@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.19)  31 MAR 2017 18:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.19)  31 MAR 2017 21:59
 entering extended mode
 **H:/Documents/Computational/PHYS905/PHYS905/Project3/Development/REPORT/PoxonP
 earsonProject3.tex
@@ -632,6 +632,33 @@ LaTeX Warning: Label `fig:velrplot' multiply defined.
 
 LaTeX Warning: Label `fig:velrplot' multiply defined.
 
+
+LaTeX Warning: Label `fig:velrplot' multiply defined.
+
+
+LaTeX Warning: Label `fig:velrplot' multiply defined.
+
+
+LaTeX Warning: Label `fig:velrplot' multiply defined.
+
+
+LaTeX Warning: Label `fig:velrplot' multiply defined.
+
+
+LaTeX Warning: Label `fig:velrplot' multiply defined.
+
+
+LaTeX Warning: Label `fig:velrplot' multiply defined.
+
+
+LaTeX Warning: Label `fig:velrplot' multiply defined.
+
+
+LaTeX Warning: Label `fig:velrplot' multiply defined.
+
+
+LaTeX Warning: Label `fig:velrplot' multiply defined.
+
 )
 \openout1 = `PoxonPearsonProject3.aux'.
 
@@ -706,34 +733,37 @@ LaTeX Info: Redefining \nameref on input line 71.
 
 ABD: EverySelectfont initializing macros
 LaTeX Info: Redefining \selectfont on input line 71.
- (PoxonPearsonProject3.toc
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 4.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 111.
+
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 4.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 111.
+
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 4.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 111
+.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 4.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 111
+.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 4.
+(Font)              <10> on input line 111.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 4.
+(Font)              <7> on input line 111.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 4.
-LaTeX Font Info:    Try loading font information for U+msa on input line 4.
+(Font)              <5> on input line 111.
+LaTeX Font Info:    Try loading font information for U+msa on input line 111.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -741,68 +771,136 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (C:\Users\poxonpea\Desktop\MikTex\tex\latex\microtype\mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 4.
+LaTeX Font Info:    Try loading font information for U+msb on input line 111.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 (C:\Users\poxonpea\Desktop\MikTex\tex\latex\microtype\mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-))
+)
+(PoxonPearsonProject3.toc)
 \tf@toc=\write6
 \openout6 = `PoxonPearsonProject3.toc'.
 
  [1
 
 {C:/Users/poxonpea/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2] [3] 
-[4]
-[5] <EulerCode.png, id=128, 353.82187pt x 162.6075pt>
+[4] [5]
+<EulerCode.png, id=118, 353.82187pt x 162.6075pt>
 File: EulerCode.png Graphic file (type png)
  <use EulerCode.png>
 Package pdftex.def Info: EulerCode.png used on input line 325.
 (pdftex.def)             Requested size: 276.00105pt x 126.84573pt.
-
-[6] <Euler.jpg, id=135, 794.97pt x 614.295pt>
+ [6]
+<Euler.jpg, id=125, 794.97pt x 614.295pt>
 File: Euler.jpg Graphic file (type jpg)
  <use Euler.jpg>
 Package pdftex.def Info: Euler.jpg used on input line 333.
 (pdftex.def)             Requested size: 345.0pt x 266.59752pt.
- [7 <./EulerCode.png> <./Euler.jpg>] <VelCode.png, id=145, 619.56468pt x 141.52
+ [7 <./EulerCode.png> <./Euler.jpg>] <VelCode.png, id=135, 619.56468pt x 141.52
 875pt>
 File: VelCode.png Graphic file (type png)
 
 <use VelCode.png>
 Package pdftex.def Info: VelCode.png used on input line 341.
 (pdftex.def)             Requested size: 345.0pt x 78.80852pt.
- <velverearth.jpg, id=146, 794.97pt x 614.295pt>
+ <velverearth.jpg, id=136, 794.97pt x 614.295pt>
 File: velverearth.jpg Graphic file (type jpg)
 
 <use velverearth.jpg>
 Package pdftex.def Info: velverearth.jpg used on input line 349.
 (pdftex.def)             Requested size: 345.0pt x 266.59752pt.
  [8 <./VelCode.png> <./velverearth.jpg>]
-<solver.PNG, id=154, 196.48407pt x 160.34906pt>
+<solver.PNG, id=144, 196.48407pt x 160.34906pt>
 File: solver.PNG Graphic file (type png)
  <use solver.PNG>
 Package pdftex.def Info: solver.PNG used on input line 363.
 (pdftex.def)             Requested size: 172.5pt x 140.78464pt.
 
-<twobody.PNG, id=155, 365.86688pt x 191.21437pt>
+<twobody.PNG, id=145, 365.86688pt x 191.21437pt>
 File: twobody.PNG Graphic file (type png)
  <use twobody.PNG>
 Package pdftex.def Info: twobody.PNG used on input line 371.
 (pdftex.def)             Requested size: 345.0pt x 180.31923pt.
- [9 <./solver.PNG>] [10 <./twobody.PNG>]
-Underfull \hbox (badness 10000) in paragraph at lines 451--454
+ [9 <./solver.PNG>] <num.jpg, id=152, 794.97pt x 614.295pt>
+File: num.jpg Graphic file (type jpg)
+ <use num.jpg>
+Package pdftex.def Info: num.jpg used on input line 383.
+(pdftex.def)             Requested size: 345.0pt x 266.59752pt.
+ [10 <./twobody.PNG>] <energy.PNG, id=159, 458.46281pt x 426.09187pt>
+File: energy.PNG Graphic file (type png)
+ <use energy.PNG>
+Package pdftex.def Info: energy.PNG used on input line 391.
+(pdftex.def)             Requested size: 345.0pt x 320.65388pt.
+ [11 <./num.jpg>] <Momentum.PNG, id=165, 150.5625pt x 336.50719pt>
+File: Momentum.PNG Graphic file (type png)
+ <use Momentum.PNG>
+Package pdftex.def Info: Momentum.PNG used on input line 397.
+(pdftex.def)             Requested size: 103.50105pt x 231.3327pt.
+
+[12 <./energy.PNG>] <escape.jpg, id=172, 794.97pt x 614.295pt>
+File: escape.jpg Graphic file (type jpg)
+
+<use escape.jpg>
+Package pdftex.def Info: escape.jpg used on input line 426.
+(pdftex.def)             Requested size: 379.5021pt x 293.2554pt.
+
+Overfull \hbox (34.5021pt too wide) in paragraph at lines 426--427
+ [][] 
+ []
+
+[13 <./Momentum.PNG>] <JESOrbit.jpg, id=182, 794.97pt x 614.295pt>
+File: JESOrbit.jpg Graphic file (type jpg)
+
+<use JESOrbit.jpg>
+Package pdftex.def Info: JESOrbit.jpg used on input line 436.
+(pdftex.def)             Requested size: 379.5021pt x 293.2554pt.
+
+Overfull \hbox (34.5021pt too wide) in paragraph at lines 436--437
+ [][] 
+ []
+
+[14 <./escape.jpg>]
+Overfull \hbox (58.95992pt too wide) in paragraph at lines 443--455
+ [] 
+ []
+
+<tenplot.jpg, id=188, 794.97pt x 614.295pt>
+File: tenplot.jpg Graphic file (type jpg)
+ <use tenplot.jpg>
+Package pdftex.def Info: tenplot.jpg used on input line 461.
+(pdftex.def)             Requested size: 293.2521pt x 226.6107pt.
+ [15 <./JESOrbit.jpg>] <Jupiter100.jpg, id=194, 794.97pt x 614.295pt>
+File: Jupiter100.jpg Graphic file (type jpg)
+ <use Jupiter100.jpg>
+Package pdftex.def Info: Jupiter100.jpg used on input line 467.
+(pdftex.def)             Requested size: 293.2521pt x 226.6107pt.
+
+[16 <./tenplot.jpg> <./Jupiter100.jpg>]
+<solarsystem.png, id=202, 481.8pt x 361.35pt>
+File: solarsystem.png Graphic file (type png)
+ <use solarsystem.png>
+Package pdftex.def Info: solarsystem.png used on input line 477.
+(pdftex.def)             Requested size: 293.2521pt x 219.94348pt.
+
+<innersolarsystem.png, id=203, 481.8pt x 361.35pt>
+File: innersolarsystem.png Graphic file (type png)
+ <use innersolarsystem.png>
+Package pdftex.def Info: innersolarsystem.png used on input line 484.
+(pdftex.def)             Requested size: 293.2521pt x 219.94348pt.
+
+[17 <./solarsystem.png>] [18 <./innersolarsystem.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 531--534
 []\T1/lmr/m/n/10 (+20) Jet Propul-sion Lab-o-ra-tory . HORI-ZONS Web-Interface.
 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 462.
-[11]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 462.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 542.
+[19]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 542.
  (PoxonPearsonProject3.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 462.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 542.
 
 
  *File List*
@@ -918,24 +1016,33 @@ EulerCode.png    Graphic file (type png)
 velverearth.jpg    Graphic file (type jpg)
   solver.PNG    Graphic file (type png)
  twobody.PNG    Graphic file (type png)
+     num.jpg    Graphic file (type jpg)
+  energy.PNG    Graphic file (type png)
+Momentum.PNG    Graphic file (type png)
+  escape.jpg    Graphic file (type jpg)
+JESOrbit.jpg    Graphic file (type jpg)
+ tenplot.jpg    Graphic file (type jpg)
+Jupiter100.jpg    Graphic file (type jpg)
+solarsystem.png    Graphic file (type png)
+innersolarsystem.png    Graphic file (type png)
  ***********
 
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 462.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 542.
 Package rerunfilecheck Info: File `PoxonPearsonProject3.out' has not changed.
-(rerunfilecheck)             Checksum: 24D829C79105754ABC80C911A3AB5969;1186.
+(rerunfilecheck)             Checksum: 614CF67BFC225491930D7572896D32C0;1078.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 462.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 542.
  ) 
 Here is how much of TeX's memory you used:
- 11060 strings out of 493634
- 167747 string characters out of 3141305
- 314169 words of memory out of 3000000
- 14075 multiletter control sequences out of 15000+200000
- 46494 words of font info for 85 fonts, out of 3000000 for 9000
+ 11129 strings out of 493634
+ 168695 string characters out of 3141305
+ 314175 words of memory out of 3000000
+ 14109 multiletter control sequences out of 15000+200000
+ 46992 words of font info for 91 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 42i,10n,38p,1088b,484s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,10n,38p,1088b,371s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program F
 iles (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program Files (x86)/
 MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathex.enc}{C:/Program Files (x86)/MiKTeX 2.9/
@@ -950,9 +1057,9 @@ lic/lm/lmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr5.
 pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr7.pfb><C:/Progr
 am Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files (x
 86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy7.pfb>
-Output written on PoxonPearsonProject3.pdf (11 pages, 328343 bytes).
+Output written on PoxonPearsonProject3.pdf (19 pages, 684780 bytes).
 PDF statistics:
- 226 PDF objects out of 1000 (max. 8388607)
- 39 named destinations out of 1000 (max. 500000)
- 11951 words of extra memory for PDF output out of 12000 (max. 10000000)
+ 276 PDF objects out of 1000 (max. 8388607)
+ 54 named destinations out of 1000 (max. 500000)
+ 11980 words of extra memory for PDF output out of 12000 (max. 10000000)
 

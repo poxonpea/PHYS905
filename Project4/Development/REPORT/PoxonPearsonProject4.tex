@@ -1,0 +1,209 @@
+%%
+%% Automatically generated file from DocOnce source
+%% (https://github.com/hplgit/doconce/)
+%%
+%%
+
+
+%-------------------- begin preamble ----------------------
+
+\documentclass[%
+oneside,                 % oneside: electronic viewing, twoside: printing
+final,                   % draft: marks overfull hboxes, figures with paths
+10pt]{article}
+
+\listfiles               %  print all files needed to compile this document
+\usepackage{mathtools}
+\usepackage{relsize,makeidx,color,setspace,amsmath,amsfonts,amssymb}
+\usepackage[table]{xcolor}
+\usepackage{bm,ltablex,microtype}
+\usepackage{float}
+\usepackage[pdftex]{graphicx}
+\usepackage{epstopdf}
+\usepackage{verbatim}
+
+\usepackage{fancyvrb} % packages needed for verbatim environments
+
+\usepackage[T1]{fontenc}
+%\usepackage[latin1]{inputenc}
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}         % Latin Modern fonts derived from Computer Modern
+
+% Hyperlinks in PDF:
+\definecolor{linkcolor}{rgb}{0,0,0.4}
+\usepackage{hyperref}
+\hypersetup{
+    breaklinks=true,
+    colorlinks=true,
+    linkcolor=linkcolor,
+    urlcolor=linkcolor,
+    citecolor=black,
+    filecolor=black,
+    %filecolor=blue,
+    pdfmenubar=true,
+    pdftoolbar=true,
+    bookmarksdepth=3   % Uncomment (and tweak) for PDF bookmarks with more levels than the TOC
+    }
+%\hyperbaseurl{}   % hyperlinks are relative to this root
+
+\setcounter{tocdepth}{2}  % levels in table of contents
+
+
+
+% prevent orhpans and widows
+\clubpenalty = 10000
+\widowpenalty = 10000
+
+% --- end of standard preamble for documents ---
+
+
+% insert custom LaTeX commands...
+
+\raggedbottom
+\makeindex
+\usepackage[totoc]{idxlayout}   % for index in the toc
+\usepackage[nottoc]{tocbibind}  % for references/bibliography in the toc
+
+%-------------------- end preamble ----------------------
+
+\begin{document}
+
+% matching end for #ifdef PREAMBLE
+
+\newcommand{\exercisesection}[1]{\subsection*{#1}}
+
+
+% ------------------- main content ----------------------
+
+
+
+% ----------------- title -------------------------
+
+\thispagestyle{empty}
+
+\begin{center}
+{\LARGE\bf
+\begin{spacing}{1.25}
+PHYS 905 - Project 3
+\end{spacing}
+}
+\end{center}
+
+% ----------------- author(s) -------------------------
+
+\begin{center}
+{\bf Terri Poxon-Pearson}
+\end{center}
+
+    
+% ----------------- end author(s) -------------------------
+
+% --- begin date ---
+\begin{center}
+April 30, 2017
+\end{center}
+% --- end date ---
+
+\vspace{1cm}
+
+PUT ABSTRACT HERE
+
+\tableofcontents
+ 
+\section{Introduction}
+
+Certain materials exhibit a behavior where the spins of unpaired electrons in the material align in some region of the material.  This is called a domain and had a "macroscopic" spacial extent on the order of mm \cite{LectureNotes}.  This behavior is called Ferromagnetism and Iron, Nickel, and Cobalt are the most common elements which display this behavior.  When an external magnetic field is applied, the domains which are already in aligned with the field grow, taking over the misaligned domains.  Ferromagnetic materials can remain magnetized, even after that external field is removed.
+
+At the same time, these alignments are fighting against thermal excitations which tend to randomize any ordering at the atomic level.  However, at the Curie temperature, magnetic materials undergo a sharp change in their magnetic properties.  This is the temperature at which random thermal nudges overcome the domain's order and spins are forced out of alignment \cite{Curie}.  This temperature can vary from well below room temperature for rare earth metals like Dysprosium, all the way to almost 1400 K for Cobalt.
+
+In this project we are going to study one of the simplest and most common models for ferromagnetic materials, the Ising model.  We will us the Ising model in two dimensions to explore properties of a materials phase transition from a magnetic to a nonmagnetic material.  We will employ a Monte Carlo method in this study and, eventually, extract the Curie temperature which can be compared to exact results.
+
+This report will begin with an introduction to the Ising model, beginning with the simple case of a 2 by 2 lattice.  We will explain the model and use it to derive important quantities relevant for statistical mechanics.  Then we will implement this system using Monte Carlo methods.  We will then expand the lattice to a larger size and explore aspects of the Monte Carlo simulation, as well as the phase transition.  Finally, we will extract the critical, Curie temperature from our study and compare it with exact results.
+
+\section{Methods}
+
+\subsection{Introduction to the Ising Model}
+
+The Ising model in two dimensions has a simple expression for the energy between two neighboring spins which can be expressed as
+
+\begin{equation*}
+E=-J \sum_{\langle k l \rangle}^N s_k s_l.
+\end{equation*}
+
+In this expression, $N$ is the total number of spins, $s_k = \pm$ corresponding to electrons that are spin up or spin down, and the symbol $ \langle kl \rangle$ implies that the sum only runs over nearest neighbors.  This sum does not include spins which are diagonal from one another.  In this framework, J is taken to be a positive value and it is taken as the coupling constant expressing the strength of the spin interaction.
+
+In this work, we will not apply an an external field to the system, although that is a simple extension of the energy expression which gives us
+
+\begin{equation*}
+E=-J \sum_{\langle k l \rangle}^N s_k s_l - \mathcal{B} \sum_k^N s_k
+\end{equation*}
+
+where $\mathcal{B}$ is the strength of the external magnetic field.  Now we can use this energy to develop expressions for relevant quantities from statistical mechanics.
+
+\subsection{The Ising Model on a 2 by 2 Lattice}
+
+We will begin this development by studying the case of a 2 by 2 lattice (4 spins) where each spin can be either up for down.  If we enumerate all possible configurations, there are 16, pictured below.
+
+\begin{equation*}
+\begin{matrix} +&+ // +&- \end{matrix}
+\end{equation*}
+
+\section{Code and Implementation}
+
+All of the programs, results, and benchmarks for this work can be found in my GIT repository ( https://github.com/poxonpea/PHYS905 ).  All codes for this project were written in FORTRAN.
+
+\section{Results and Discussion}
+
+
+\section{Conclusions}
+
+
+\begin{comment}
+
+\begin{figure}[H]\label{fig:compzoom}
+  \centering
+    \includegraphics[width=1.2\textwidth]{compzoom.eps}
+    \caption{A zoomed in view of the convergence to the exact solution}
+\end{figure}
+
+\begin{center} 
+\begin{tabular}{ |c|c|c|c| }
+\hline
+Size of Matrix ($10^n$) & General & Tailored & LU \\
+\hline
+1& 3.00 E -6 & 3.00 E -6 & 2.40 E -5\\ 
+2 & 4.00 E -6 & 4.00 E -6 & 1.71 E -3 \\ 
+3 & 3.90 E -5 & 1.90 E -5 & 1.93\\ 
+4 & 3.79 E -4 & 2.09 E -4 & N/A\\ 
+5 & 3.38 E -3 & 1.51 E -3  & N/A\\ 
+6 & 2.87 E -2 & 1.53 E -2 & N/A\\ 
+7 & 3.16 E -1 & 1.73 E -1& N/A\\ 
+\hline
+\end{tabular}
+\label{table:test}
+\end{center}
+
+\end{comment}
+
+\begin{thebibliography}{9}
+
+\bibitem{LectureNotes} 
+Hjorth-Jensen, Mortehn. 
+Computational Physics, Lecture Notes Fall 2015. 
+August 2015.
+
+\bibitem{Curie}
+McGlohon et. al.
+Curie Temperature, 2012.
+https://www.nhn.ou.edu/~johnson/Education/Juniorlab/Magnetism/2013F-CuriePoint.pdf
+
+\end{thebibliography}
+
+
+
+% ------------------- end of main content ---------------
+
+\end{document}
+

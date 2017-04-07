@@ -118,7 +118,7 @@ Certain materials exhibit a behavior where the spins of unpaired electrons in th
 
 At the same time, these alignments are fighting against thermal excitations which tend to randomize any ordering at the atomic level.  However, at the Curie temperature, magnetic materials undergo a sharp change in their magnetic properties.  This is the temperature at which random thermal nudges overcome the domain's order and spins are forced out of alignment \cite{Curie}.  This temperature can vary from well below room temperature for rare earth metals like Dysprosium, all the way to almost 1400 K for Cobalt.
 
-In this project we are going to study one of the simplest and most common models for ferromagnetic materials, the Ising model.  We will us the Ising model in two dimensions to explore properties of a materials phase transition from a magnetic to a nonmagnetic material.  We will employ a Monte Carlo method in this study and, eventually, extract the Curie temperature which can be compared to exact results.
+In this project we are going to study one of the simplest and most common models for ferromagnetic materials, the Ising model.  This model, although very basic, has proven very useful in understanding, not only ferromagnetic materials, but also antiferromanetic materials, where neighboring spins antialign with one another, leading to no overal mangetization.  The Ising model has even been applied outside of the physical scienes to model a wide variety of situations.  Some of these include modeling people's opinions about the future of the economy, urban segregation, and how languages change over time \cite{otherising}.  We will us the Ising model in two dimensions to explore properties of a materials phase transition from a magnetic to a nonmagnetic material.  We will employ a Monte Carlo method in this study and, eventually, extract the Curie temperature which can be compared to exact results.
 
 This report will begin with an introduction to the Ising model, beginning with the simple case of a 2 by 2 lattice.  We will explain the model and use it to derive important quantities relevant for statistical mechanics.  Then we will implement this system using Monte Carlo methods.  We will then expand the lattice to a larger size and explore aspects of the Monte Carlo simulation, as well as the phase transition.  Finally, we will extract the critical, Curie temperature from our study and compare it with exact results.
 
@@ -147,8 +147,68 @@ where $\mathcal{B}$ is the strength of the external magnetic field.  Now we can 
 We will begin this development by studying the case of a 2 by 2 lattice (4 spins) where each spin can be either up for down.  If we enumerate all possible configurations, there are 16, pictured below.
 
 \begin{equation*}
-\begin{matrix} +&+ // +&- \end{matrix}
+\begin{split}
+&\begin{smallmatrix} -&-\\ -&- \end{smallmatrix}
+\qquad
+\begin{smallmatrix} +&-\\ -&- \end{smallmatrix}
+\qquad
+\begin{smallmatrix} -&-\\ -&+ \end{smallmatrix}
+\qquad
+\begin{smallmatrix} +&+\\ -&- \end{smallmatrix}
+\qquad
+\begin{smallmatrix} +&-\\ +&- \end{smallmatrix}
+\qquad
+\begin{smallmatrix} +&-\\ -&+ \end{smallmatrix}
+\qquad
+\begin{smallmatrix} +&+\\ +&- \end{smallmatrix}
+\qquad
+\begin{smallmatrix} +&-\\ +&+ \end{smallmatrix} \\ 
+\\
+\\
+&\begin{smallmatrix} +&+\\ +&+ \end{smallmatrix}
+\qquad
+\begin{smallmatrix} -&+\\ -&- \end{smallmatrix}
+\qquad
+\begin{smallmatrix} -&-\\ +&- \end{smallmatrix}
+\qquad
+\begin{smallmatrix} -&-\\ +&+ \end{smallmatrix}
+\qquad
+\begin{smallmatrix} -&+\\ -&+ \end{smallmatrix}
+\qquad
+\begin{smallmatrix} -&+\\+-&- \end{smallmatrix}
+\qquad
+\begin{smallmatrix} +&+\\ -&+ \end{smallmatrix}
+\qquad
+\begin{smallmatrix} -&+\\ +&+\end{smallmatrix} 
+\end{split}
 \end{equation*}
+
+We can enumerate the energy and the magnetization for each of these configurations where the energy is defined above and the magnetization is defined as 
+
+\begin{equation}
+\mathcal{M}_i = \sum_{j=1}^N s_j
+\end{equation}
+
+where the sum runs over all spins for a given configuration $i$.  These equanties are in the table below.
+
+\begin{center} 
+\begin{tabular}{ |c|c|c|c| }
+\hline
+Number of Spin Ups & Number of Configurationsl & Energy & Magnetization \\
+\hline
+0 & 1 & -8J  & -4\\ 
+1& 4  & 0  & -2\\ 
+2 & 4 & 0  & 0\\ 
+2 & 2 & 8J & 0 \\
+3 & 4 & 0  & 2\\ 
+4 & 1 & -8J  & 4\\ 
+\hline
+\end{tabular}
+\label{table:test}
+\end{center}
+
+Note that there are two kinds of configurations with 2 spin ups.  This configuration results in 0 energy if the spin up points are ajacent to one another, but has a positve energy if they are diagonal from one another.
+
 
 \section{Code and Implementation}
 
@@ -190,7 +250,7 @@ Size of Matrix ($10^n$) & General & Tailored & LU \\
 \begin{thebibliography}{9}
 
 \bibitem{LectureNotes} 
-Hjorth-Jensen, Mortehn. 
+Hjorth-Jensen, Morten. 
 Computational Physics, Lecture Notes Fall 2015. 
 August 2015.
 
@@ -198,6 +258,11 @@ August 2015.
 McGlohon et. al.
 Curie Temperature, 2012.
 https://www.nhn.ou.edu/~johnson/Education/Juniorlab/Magnetism/2013F-CuriePoint.pdf
+
+\bibitem{otherising}
+Stauffer, D.
+Social Applications of two-dimensional Ising models.
+arXiv:0706.3983.
 
 \end{thebibliography}
 

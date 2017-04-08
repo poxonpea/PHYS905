@@ -3,7 +3,8 @@
 \contentsline {section}{\numberline {2}Methods}{2}{section.2}
 \contentsline {subsection}{\numberline {2.1}Introduction to the Ising Model}{2}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}The Ising Model on a 2 by 2 Lattice}{3}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}The Metropolis Algorithm and Detailed Balance}{5}{subsection.2.3}
 \contentsline {section}{\numberline {3}Code and Implementation}{5}{section.3}
-\contentsline {section}{\numberline {4}Results and Discussion}{5}{section.4}
-\contentsline {section}{\numberline {5}Conclusions}{5}{section.5}
-\contentsline {section}{References}{5}{section*.2}
+\contentsline {section}{\numberline {4}Results and Discussion}{6}{section.4}
+\contentsline {section}{\numberline {5}Conclusions}{6}{section.5}
+\contentsline {section}{References}{6}{section*.2}

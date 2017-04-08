@@ -304,6 +304,23 @@ so the susceptibility can be written as
 \end{split}
 \end{equation*}
 
+\subsection{The Metropolis Algorithm and Detailed Balance}
+
+In order to perform our calculations, we need the partition function that describes the physical situation.  For the case of the 2 by 2 lattice, it is simple to write this function explicitly, but as the size of the grid grows to large values, the partition function becomes intractable to write explicitly.  This is true in almost every physical application. Therefore, we need some methodology which avoids calculating the partition function explicitly.  This is where the Metropolis algorithm and detailed balance come in.
+
+Suppose we have some PDF, $w(t)$ that evolves via a transition probability $W$ such that 
+
+\begin{equation*}
+w_i(t=\epsilon)=W(j \rightarrow i) w_j(t=0),
+\end{equation*}
+
+then we can write the action of $W$ as 
+
+\begin{equation*}
+w_i(t+1) = \sum_j W_{ij}w_j(t).
+\end{equation*}
+
+In the case of the Ising model, $w$ depends on the partition function, which we often cannot write explicitly, additionally, we do not have an analytic form for the transition probability, W.  First, we model the transition probability as the product of two probabilities, one that accepts the proposed move from state j to j (Aand one that makes the transition to i from j.  
 
 \section{Code and Implementation}
 

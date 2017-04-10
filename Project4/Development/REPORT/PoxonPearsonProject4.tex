@@ -377,9 +377,31 @@ such that, at equilibrium, we have
 Finally, in terms of $A$ and $T$, this gives is
 
 \begin{equation*}
-\frac{T_{j \rightarrow i}A_{j \rightarrow i}}{T_{i \rightarrow j}T_{i \rightarrow j}}=\frac{w_i}{w_j}.
+\frac{T_{j \rightarrow i}A_{j \rightarrow i}}{T_{i \rightarrow j}A_{i \rightarrow j}}=\frac{w_i}{w_j}.
 \end{equation*}
 
+$w_i$ and $w_j$ both take the form of a Boltzmann distribution, with the partition function, $Z$, in their denominators so this proportion can be calculated, independent of Z. This can be rearranged to read
+
+\begin{equation*}
+\frac{A_{j \rightarrow i}}{A_{i \rightarrow j}}=\frac{T_{i \rightarrow j}w_i}{ T_{j \rightarrow i}w_j}.
+\end{equation*}
+
+Detailed balance asumes that $T_{i \rightarrow j}=T_{j \rightarrow i}$, causing a cancelation.  If we insert the expression for the Boltzmann distribution for $w$, we now have
+
+\begin{equation*}
+\frac{A(j \rightarrow i)}{A(i \rightarrow j)}=e^{-\beta (E_i-E_j)}.
+\end{equation*}
+
+If we think about an application to a system with many different energy states, we know that the physical system will tend towards the lowest energy state, but our system must also be ergodic, meaning that it must be possible for the system to reach any possible state from any starting position.  This means that our aglorithm must encode transitions to lower energies after many transitions, but also allow for many paths which include midpoints that reach higher energy states.  One way to encode this is
+
+\begin{equation*}
+A(j \rightarrow i) = \begin{cases}
+e^{-\beta(E_i-E_j)} & \text{if} \ E_i-E_j > 0 \\
+1 & \text{else}
+\end{cases}
+\end{equation*}
+
+where a transtition to a lower energy state is always accepted, but a transition to a higher energy state is accepted with some probability depending on the energy difference.  This is the algorithm we will us in our calculation.
 
 \section{Code and Implementation}
 

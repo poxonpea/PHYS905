@@ -320,7 +320,66 @@ then we can write the action of $W$ as
 w_i(t+1) = \sum_j W_{ij}w_j(t).
 \end{equation*}
 
-In the case of the Ising model, $w$ depends on the partition function, which we often cannot write explicitly, additionally, we do not have an analytic form for the transition probability, W.  First, we model the transition probability as the product of two probabilities, one that accepts the proposed move from state j to j (Aand one that makes the transition to i from j.  
+In the case of the Ising model, $w$ depends on the partition function, which we often cannot write explicitly, additionally, we do not have an analytic form for the transition probability, W.  Therefore, we can choose to model the transition probability as the product of two probabilities, one probability for accepting a move from i to j (A) and one that makes the transition to i from j (T).  We can now express the prbability as
+
+\begin{equation*}
+W(j \rightarrow i) = T( j \rightarrow i) A(j \rightarrow i).
+\end{equation*}
+
+$W$, $w$, $A$, and $T$ are all probabilities and, therefore, must be between 0 and 1 and their sums over all states must be normalized.  Now we can define the probability of being in state $i$ after some time in terms of our newly defined transition probability.
+
+\begin{equation*}
+w_i(t+1)=\sum_j \lbrack w_j(t)T_{j \rightarrow i}A_{j \rightarrow i} + w_i(t)T_{i \rightarrow j} (1-A_{i \rightarrow j}) \rbrack
+\end{equation*}
+
+Then we can apply the condition that $\sum_j T_{i \rightarrow j}=1$, leaving us with
+
+\begin{equation*}
+w_i(t+1)= w_i(t) +\sum_j \lbrack w_j(t)T_{j \rightarrow i}A_{j \rightarrow i} - w_i(t)T_{i \rightarrow j}A_{i \rightarrow j} \rbrack.
+\end{equation*}
+
+We can rearrange this expression as
+
+\begin{equation*}
+w_i(t+1)- w_i(t) = \sum_j \lbrack w_j(t)T_{j \rightarrow i}A_{j \rightarrow i} - w_i(t)T_{i \rightarrow j}A_{i \rightarrow j} \rbrack.
+\end{equation*}
+
+This is very similar to the Master equation given by
+
+\begin{equation*}
+\frac{dw_i(t)}{dt}=\sum_j \lbrack W(j \rightarrow i) w_j - W(i \rightarrow j) w_i \rbrack.
+\end{equation*}
+
+This equation states that the rate that a system moves from state $j$ to state $i$ is balanced by the rate at which the system transtitions from $j$ to $i$.  In equilibrium, this should be equal to 0.  That allows us to write
+
+\begin{equation*}
+\sum_j w_j T_{j \rightarrow i}A_{j \rightarrow i} = \sum_j w_i T_{i \rightarrow j}A_{i \rightarrow j}
+\end{equation*}
+
+We recongnize the product of the transition probabilities on the right side as $W_{ij}$ and we know that this probability is normalized when we sum over all final states, j.  This allows us to rewrite the expression as
+
+\begin{equation*}
+w_i=\sum_j w_j W_{j \rightarrow i}.
+\end{equation*}
+
+This condition, however, is not sufficient to guarantee that we arrive at the correct distribution in the system.  We just apply the additional condition of detailed balance, which can be written
+
+\begin{equation*}
+W(j \rightarrow i)w_j = W(i \rightarrow j) w_i
+\end{equation*}
+
+such that, at equilibrium, we have
+
+\begin{equation*}
+\frac{W(j \rightarrow i)}{W(i \rightarrow j)}=\frac{w_i}{w_j}.
+\end{equation*}
+
+Finally, in terms of $A$ and $T$, this gives is
+
+\begin{equation*}
+\frac{T_{j \rightarrow i}A_{j \rightarrow i}}{T_{i \rightarrow j}T_{i \rightarrow j}}=\frac{w_i}{w_j}.
+\end{equation*}
+
 
 \section{Code and Implementation}
 

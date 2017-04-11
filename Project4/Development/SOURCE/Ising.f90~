@@ -1,0 +1,16 @@
+program Ising
+  implicit none
+
+  integer:: NumSpins,TempStep
+  integer, dimension(:,:),Allocatable:: SpinMatrix
+  real(8), dimension(17)::w
+  real(8), dimension(5)::average
+  real(8):: InTemp,FinTemp,E,M,MCS
+
+  ! Ask the user for information
+  print*, "How large (N) is the spin matrix? (Form N by N)"
+  read (*,*) NumSpins
+  print*, "What is the initial and final temp? How many temp steps? (initial final steps)"
+  read (*,*) InTemp, FinTemp, TempStep
+  
+end program Ising

@@ -1,11 +1,10 @@
 program Ising
   implicit none
 
-  integer:: NumSpins,NumTemp,MCS,i,j,idum
+  integer:: NumSpins,NumTemp,MCS,i,j,idum,orientation
   integer, dimension(:,:),Allocatable:: SpinMatrix
   real(8)::w(-8:8),average(5)
-!  real(8), dimension(5)::average
-  real(8):: InTemp,FinTemp,E,M,TempStep,Temp
+  real(8):: InTemp,FinTemp,E,M,TempStep,Temp,random
 
   ! Ask the user for information
   print*, "How large (N) is the spin matrix? (Form N by N)"
@@ -14,14 +13,31 @@ program Ising
   read (*,*) InTemp, FinTemp, NumTemp
   print*, "How many Monte Carlo cycles do you want to run?"
   read (*,*) MCS
+  print*, "Should I start with an ordered (1) or random (2) orientation?"
+  read (*,*) Orientation
 
   Allocate(SpinMatrix(NumSpins,NumSpins))
 
   TempStep = (FinTemp-InTemp)/NumTemp
   idum=-1
   Temp=intemp
-  SpinMatrix = 1
 
+  call init_random_seed()
+  if (orientation ==1) then
+     SpinMatrix = 1
+  else if (orientation ==2) then
+     do i=1,numspins
+        do j=1, numspins
+           if (rand() .ge. 0.5) then
+              SpinMatrix(j,i)=1
+           else
+              SpinMatrix(j,i)=-1
+           end if
+        end do
+     end do
+  end if
+  
+  
   open(Unit=1,file="MonteCarloResults.txt")
   do i=1, NumTemp
      Temp = Temp + TempStep
@@ -49,8 +65,9 @@ program Ising
         average(3)=average(3)+M
         average(4)=average(4)+(M*M)
         average(5)=average(5)+abs(M)
+        call output(NumSpins,j,temp,average)
      end do
-     call output(NumSpins,MCS,temp,average)
+
   end do
   
   
@@ -69,7 +86,7 @@ subroutine  initialize(numspins, temperature, spinmatrix, E, M)
 
   ! setup initial energy and magnetization
   do y =1, numspins
-     DO x= 1, numspins
+     do x= 1, numspins
         right = x+1
         if (x == numspins  ) then
            right = 1
@@ -79,7 +96,7 @@ subroutine  initialize(numspins, temperature, spinmatrix, E, M)
            left = numspins 
         end if        
         up = y+1
-        if(y == numspins  ) then
+        if(y == numspins ) then
            up = 1
         end if
         down = y-1
@@ -103,37 +120,35 @@ subroutine Metropolis(NumSpins, idum, SpinMatrix, E, M, w)
   integer::NumSpins,x,y,ix,iy,deltaE,right,left,up,down,idum
   integer, dimension(NumSpins,NumSpins)::SpinMatrix
   real(8)::E,M
-  real(8),dimension(17)::w
+  real(8)::w(-8:8)
   do y=1,NumSpins
      do x=1,NumSpins
-        ix=int(rand(idum)*NumSpins)+1
-        iy=int(rand(idum)*NumSpins)+1
+        ix=int(rand()*NumSpins)+1
+        iy=int(rand()*NumSpins)+1
         right = ix+1
-        if (ix == numspins  ) then
+        if (ix == numspins) then
            right = 1
         end if        
         left = ix-1
-        if (ix == 1  )then
+        if (ix == 1)then
            left = numspins
         end if
         up = iy+1
-        if (iy == numspins  ) then
+        if (iy == numspins) then
            up = 1
         end if
         down = iy-1
-        if (iy == 1  ) then
+        if (iy == 1) then
            down = numspins
         end if
         
         deltae = 2*spinmatrix(ix,iy)*(spinmatrix(right,iy)+&
              spinmatrix(left,iy)+spinmatrix(ix,up)+ &
              spinmatrix(ix,down) )
-
-        if ( rand(idum) <= w(deltae) ) then
+        if ( rand() <= w(deltae) ) then
            spinmatrix(ix,iy) = -spinmatrix(ix,iy)  !flip one spin and accept new spin config
            M = M+2*spinmatrix(ix,iy)
-           E = E+deltaE
-           
+           E = E+deltaE           
         end if
      end do
   end do
@@ -157,7 +172,24 @@ subroutine output(numspins, mcs, temperature, average)
   Evariance = (E2average- Eaverage*Eaverage)/numspins/numspins
   Mvariance = (M2average - Mabsaverage*Mabsaverage)/numspins/numspins
 
-  write(1,*)temperature, Eaverage/numspins/numspins, Evariance/temperature/temperature, &
+  write(1,*)temperature, mcs,Eaverage/numspins/numspins, Evariance/temperature/temperature, &
        Maverage/numspins/numspins, Mvariance/temperature, Mabsaverage/numspins/numspins
 
 end subroutine output
+
+
+ subroutine init_random_seed()
+      integer i,n,clock
+      integer, dimension(:), allocatable :: seed
+ 
+      call random_seed(size = n)
+      allocate(seed(n))
+ 
+      call system_clock(count=clock)
+ 
+      seed = clock + 37 *(/ (i-1, i=1, n) /)
+      call random_seed(put=seed)
+ 
+      deallocate(seed)
+ 
+end subroutine

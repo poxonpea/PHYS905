@@ -19,7 +19,10 @@ PROGRAM ising2dim
   ! spins are ordered. These spins are then updated with the latest value
   ! for every temperature in the loop over temperatures. The next temp step
   ! receives as input the previous spin matrix
-  spin_matrix = 1
+  spin_matrix(1,1) = 1
+  spin_matrix(2,1)=1
+  spin_matrix(2,2)=-1
+  spin_matrix(1,2)=1
   ! Find temperature step
   tstep = INT((final_temp-initial_temp)/temp_step); temperature = initial_temp
   ! random starting point

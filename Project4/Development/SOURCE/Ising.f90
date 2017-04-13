@@ -140,19 +140,17 @@ subroutine Metropolis(NumSpins, idum, SpinMatrix, E, M, w)
         down = iy-1
         if (iy == 1) then
            down = numspins
-        end if
-        
+        end if    
         deltae = 2*spinmatrix(ix,iy)*(spinmatrix(right,iy)+&
              spinmatrix(left,iy)+spinmatrix(ix,up)+ &
              spinmatrix(ix,down) )
         if ( rand() <= w(deltae) ) then
-           spinmatrix(ix,iy) = -spinmatrix(ix,iy)  !flip one spin and accept new spin config
+           spinmatrix(ix,iy) = -spinmatrix(ix,iy)  
            M = M+2*spinmatrix(ix,iy)
            E = E+deltaE           
         end if
      end do
-  end do
-  
+  end do  
 end subroutine Metropolis
 
 subroutine output(numspins, mcs, temperature, average)

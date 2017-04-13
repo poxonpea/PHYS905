@@ -242,7 +242,7 @@ Using this, the expectation value of the energy is
 \begin{equation*}
 \begin{split}
 \langle E \rangle & = \frac{-8J e^{8 J \beta}+8J e^{-8 J \beta} -8J e^{8 J \beta} + 8J e^{-8 J \beta}}{12+2e^{-8 J \beta} + 2e^{8 J \beta}} \\
-& = \frac{8 J sinh(8 \beta J)}{3 + cosh(8 \beta J)}.
+& = \frac{-8 J sinh(8 \beta J)}{3 + cosh(8 \beta J)}.
 \end{split}
 \end{equation*}
 
@@ -392,7 +392,7 @@ Detailed balance asumes that $T_{i \rightarrow j}=T_{j \rightarrow i}$, causing 
 \frac{A(j \rightarrow i)}{A(i \rightarrow j)}=e^{-\beta (E_i-E_j)}.
 \end{equation*}
 
-If we think about an application to a system with many different energy states, we know that the physical system will tend towards the lowest energy state, but our system must also be ergodic, meaning that it must be possible for the system to reach any possible state from any starting position.  This means that our aglorithm must encode transitions to lower energies after many transitions, but also allow for many paths which include midpoints that reach higher energy states.  One way to encode this is
+If we think about an application to a system with many different energy states, we know that the physical system will tend towards the lowest energy state, but our system must also be ergodic, meaning that it must be possible for the system to reach any possible state from any starting position.  This means that our algorithm must encode transitions to lower energies after many transitions, but also allow for many paths which include midpoints that reach higher energy states.  One way to encode this is
 
 \begin{equation*}
 A(j \rightarrow i) = \begin{cases}
@@ -401,14 +401,92 @@ e^{-\beta(E_i-E_j)} & \text{if} \ E_i-E_j > 0 \\
 \end{cases}
 \end{equation*}
 
-where a transtition to a lower energy state is always accepted, but a transition to a higher energy state is accepted with some probability depending on the energy difference.  This is the algorithm we will us in our calculation.
+where a transition to a lower energy state is always accepted, but a transition to a higher energy state is accepted with some probability depending on the energy difference.  This is the heart of the Metropolis algorithm we will use in our calculation.
+
+\subsection{Phase Transitions in the Ising Model}
+
+Near the critical temperature, many physical properties are modeled using a simple power law.  For example, the magnetization, heat capacity, and susceptibility are modeled as 
+\[
+  \langle M(T) \rangle \sim \left(T-T_C\right)^{\beta},
+\]
+
+\[
+  C_V(T) \sim \left|T_C-T\right|^{\alpha},
+\]
+
+\[
+  \chi(T) \sim \left|T_C-T\right|^{\gamma},
+\]
+
+with the critical exponents $\beta=1/8$, $\alpha = 0$, and $\gamma = 7/4$, respectively.
+
+We can also think about the correlation length of a system undergoing phase transition.  When a material is high above the critical temperature, we expect the correlation length to be on the order of lattice spacing.  As the temperature decreases and approaches $T_C$, we expect the correlation length to increase. This behavior can be modeled as 
+
+\[
+  \xi(T) \sim \left|T_C-T\right|^{-\nu}.
+\]
+
+where $\nu=1$.
+
+A second-order phase transition is characterized by a
+correlation length which is on the order of the size of the system.
+Since our model is confined to a finite lattice, $\xi$ will
+be proportional with the size of the lattice.  it is possible to relate the behavior at finite lattices with the results for an infinitely large lattice.
+That relation is
+
+\begin{equation}
+ T_C(L)-T_C(L=\infty) = aL^{-1/\nu},
+\end{equation}
+where $a$ a constant and  $\nu$ was defined above.
+At $T=T_C$, we can use this relationship to define the mean magnetization, heat capacity and susceptibility as
+
+\[
+  \langle {\cal M}(T) \rangle \sim \left(T-T_C\right)^{\beta}
+  \rightarrow L^{-\beta/\nu},
+\]
+
+\[
+  C_V(T) \sim \left|T_C-T\right|^{-\gamma} \rightarrow L^{\alpha/\nu},
+\]
+
+\[
+  \chi(T) \sim \left|T_C-T\right|^{-\alpha} \rightarrow L^{\gamma/\nu}.
+\]
+
 
 \section{Code and Implementation}
 
 All of the programs, results, and benchmarks for this work can be found in my GIT repository ( https://github.com/poxonpea/PHYS905 ).  All codes for this project were written in FORTRAN.
 
+\subsection{General Algorithm for Code}
+
+Below is a general overview of the algorithm for our Monte Carlo code for solving the Ising model
+
+\begin{enumerate}
+\item Using a random number generator, choose a random position on the lattice and compute the energy of that state.
+\item Flip only one spin in that configuration and compute the new energy of the state.
+\item Calculate the energy difference between these two state.
+\item If the energy difference is less than 0, we accept the transition.
+\item If the energy difference is greater than 0, we calculate $w=e^{-\beta \Delta E}$
+\item We generate a random number between 0 and 1.  If that number is less that $w$, we accept the change.  If not, we keep the old configuration.
+\item Update expectation values for various quantities.
+\item Repeat these steps for each desired Monte Carlo iteration at every desired energy.
+\end{enumerate}
+
+The heart of this process is in the Metropolis algorithm which is shown in figure \ref{fig:metropolis}
+
+\begin{figure}\label{fig:metropolis}
+  \centering
+    \includegraphics[width=1.0 \textwidth]{Metropolis}
+    \caption{The implementation of the Metropolis algorithm used in the Monte Carlo simulation of the Ising Model}
+\end{figure}
+
+
 \section{Results and Discussion}
 
+\subsection{Comparing Results to Analytic 2 by 2 System}
+
+The first test of our code is to compare our results from our Monte Carlo simulations to the analytic results we achieved for the 2 by 2 case.  All results for our code will be normalized to the size of lattice so that we can compare across calculations.  Therefore, all of the results we obtained before should be divided by four.  In this comparison, we will study the behavior at T=1.0 in units of $kT/J$.  All our or calculations started with a configuration where all spins are aligned, which is the configuration that we expect at low temperature.
 
 \section{Conclusions}
 

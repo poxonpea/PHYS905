@@ -62,12 +62,14 @@ program Ising
         call Metropolis(NumSpins, idum, SpinMatrix, E,M,w)
         average(1)=average(1)+E
         average(2)=average(2)+(E*E)
+!        print*,average(1)/j*average(1)/j
+!        print*,average(2)/j
         average(3)=average(3)+M
         average(4)=average(4)+(M*M)
         average(5)=average(5)+abs(M)
-        call output(NumSpins,j,temp,average)
-     end do
 
+     end do
+        call output(NumSpins,j,temp,average)
   end do
   
   

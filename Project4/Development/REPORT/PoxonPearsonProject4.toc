@@ -9,5 +9,5 @@
 \contentsline {subsection}{\numberline {3.1}General Algorithm for Code}{8}{subsection.3.1}
 \contentsline {section}{\numberline {4}Results and Discussion}{9}{section.4}
 \contentsline {subsection}{\numberline {4.1}Comparing Results to Analytic 2 by 2 System}{9}{subsection.4.1}
-\contentsline {section}{\numberline {5}Conclusions}{9}{section.5}
-\contentsline {section}{References}{9}{section*.2}
+\contentsline {section}{\numberline {5}Conclusions}{11}{section.5}
+\contentsline {section}{References}{11}{section*.2}

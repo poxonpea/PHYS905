@@ -490,6 +490,31 @@ The first test of our code is to compare our results from our Monte Carlo simula
 
 The table below gives the results of the calculations, including the relative error when comparing to the analytical values.  For $T=1$, the exact results yield $\langle E \rangle = -1.99598$, $\langle |M| \rangle = 0.998661$ ,$C_V = 0.0320823 $, and $ \chi = 0.00401074$.
 
+\begin{center} 
+\begin{tabular}{ |c|c|c|c|c|c|c|c|c| }
+\hline
+Cycles & $E/N$ & $\epsilon$ & $|M|/N$ & $\epsilon$ &  $C_V/N$ & $\epsilon$ & $\chi/N$ & $\epsilon$ \\
+\hline
+10 & -1.8182 & 0.0891 & 0.9091 & 0.0869 & 1.3223 & 40.2163 & 0.3306 & 81.4232 \\
+50 & -1.9608 & 0.0176 & 0.9894 & 0.0183 & 0.3076 & 8.5870 & 0.0769 & 18.1719 \\
+100 & -1.9208 & 0.0377 & 0.9703 &  0.0284 & 0.6086 & 17.9689 & 0.0955 & 22.8063 \\
+500 & -1.9521 & 0.0290 & 0.9820 & 0.0166 & 0.3741 & 10.6592 & 0.0586 & 13.6080 \\
+1000 & -1.9740 & 0.0110 & 0.9905 & 0.0082 & 0.2051 & 5.3927 & 0.3061 & 6.6317 \\
+5000 & -1.9908 & 2.5953E-3 & 0.9966 & 2.0625E-2 & 0.0732 & 1.2831 & 0.0112 & 1.7804 \\
+10000 & -1.9928 & 1.5939E-3 & 0.9974 & 1.3123E-3 & 0.0574 & 0.7887 & 8.6711E-3&1.1620 \\
+50000 &-1.9945 & 7.5256E-4 & 0.9981& 5.8151E-4& 0.0440 & 0.3726 & 5.9893E-3&0.4923 \\
+100000 & -1.9955 & 2.6162E-4 & 0.9985 & 2.0301E-4& 0.0363 & 0.1305 & 4.721E-3&0.17697\\
+500000 & -1.9961 & 7.9066E-5 & 0.9987 & 4.9233E-5&0.0308&0.0393&3.8735E-3& 0.0342 \\
+1000000&-1.9961 &4.9031E-5 & 0.9987 & 2.4270E-5&0.0313&0.0244&3.9692E-3&0.01036 \\
+\hline
+\end{tabular}
+
+\label{table:test}
+\end{center}
+
+From this table, we can see that we can reach good agreement for the energy and magnetism very quickly, although this is not surprising because we began the simulation in a configuration that is highly favored at low temperature.  It took much longer, however, to reach good agreement with the heat capicity and susceptibility.  In fact, it took about a million Monte Carly cycles to reach agreement on the order of a couple percent.
+
+
 \section{Conclusions}
 
 

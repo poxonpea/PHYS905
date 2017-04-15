@@ -1,7 +1,7 @@
 program Ising
   implicit none
 
-  integer:: NumSpins,NumTemp,MCS,i,j,idum,orientation
+  integer:: NumSpins,NumTemp,MCS,i,j,idum,orientation,accept,acceptance
   integer, dimension(:,:),Allocatable:: SpinMatrix
   real(8)::w(-8:8),average(5)
   real(8):: InTemp,FinTemp,E,M,TempStep,Temp,random
@@ -21,7 +21,8 @@ program Ising
   TempStep = (FinTemp-InTemp)/NumTemp
   idum=-1
   Temp=intemp
-
+  accept = 0
+  
   call init_random_seed()
   if (orientation ==1) then
      SpinMatrix = 1
@@ -59,17 +60,16 @@ program Ising
      call initialize(NumSpins,Temp,SpinMatrix,E,M)
 
      do j=1, MCS
-        call Metropolis(NumSpins, idum, SpinMatrix, E,M,w)
+        call Metropolis(NumSpins, idum, SpinMatrix, E,M,w,accept)
         average(1)=average(1)+E
         average(2)=average(2)+(E*E)
-!        print*,average(1)/j*average(1)/j
-!        print*,average(2)/j
         average(3)=average(3)+M
         average(4)=average(4)+(M*M)
         average(5)=average(5)+abs(M)
-
+        acceptance = acceptance + accept
+        call output(NumSpins,j,temp,average,acceptance)
      end do
-        call output(NumSpins,j,temp,average)
+!       call output(NumSpins,MCS,temp,average)
   end do
   
   
@@ -116,13 +116,14 @@ subroutine  initialize(numspins, temperature, spinmatrix, E, M)
 
 end subroutine  initialize
 
-subroutine Metropolis(NumSpins, idum, SpinMatrix, E, M, w)
+subroutine Metropolis(NumSpins, idum, SpinMatrix, E, M, w,accept)
   implicit none
 
-  integer::NumSpins,x,y,ix,iy,deltaE,right,left,up,down,idum
+  integer::NumSpins,x,y,ix,iy,deltaE,right,left,up,down,idum,accept
   integer, dimension(NumSpins,NumSpins)::SpinMatrix
   real(8)::E,M
   real(8)::w(-8:8)
+  accept=0
   do y=1,NumSpins
      do x=1,NumSpins
         ix=int(rand()*NumSpins)+1
@@ -147,6 +148,7 @@ subroutine Metropolis(NumSpins, idum, SpinMatrix, E, M, w)
              spinmatrix(left,iy)+spinmatrix(ix,up)+ &
              spinmatrix(ix,down) )
         if ( rand() <= w(deltae) ) then
+           accept=accept+1
            spinmatrix(ix,iy) = -spinmatrix(ix,iy)  
            M = M+2*spinmatrix(ix,iy)
            E = E+deltaE           
@@ -155,9 +157,9 @@ subroutine Metropolis(NumSpins, idum, SpinMatrix, E, M, w)
   end do  
 end subroutine Metropolis
 
-subroutine output(numspins, mcs, temperature, average)
+subroutine output(numspins, mcs, temperature, average,accept)
   implicit none
-  integer :: numspins, mcs
+  integer :: numspins, mcs,accept
   real(8) :: temperature, average(5)
   real(8) :: norm, Eaverage, E2average, Maverage, M2average, Mabsaverage
   real(8) ::Evariance, Mvariance
@@ -173,7 +175,7 @@ subroutine output(numspins, mcs, temperature, average)
   Mvariance = (M2average - Mabsaverage*Mabsaverage)/numspins/numspins
 
   write(1,*)temperature, mcs,Eaverage/numspins/numspins, Evariance/temperature/temperature, &
-       Maverage/numspins/numspins, Mvariance/temperature, Mabsaverage/numspins/numspins
+       Maverage/numspins/numspins, Mvariance/temperature, Mabsaverage/numspins/numspins,accept
 
 end subroutine output
 

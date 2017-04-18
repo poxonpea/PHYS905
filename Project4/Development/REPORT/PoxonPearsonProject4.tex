@@ -460,6 +460,14 @@ All of the programs, results, and benchmarks for this work can be found in my GI
 
 \subsection{General Algorithm for Code}
 
+The heart of this process is in the Metropolis algorithm which is shown in Figure \ref{fig:metropolis}
+
+\begin{figure}[H]\label{fig:metropolis}
+  \centering
+    \includegraphics[width=1.0 \textwidth]{Metropolis}
+    \caption{The implementation of the Metropolis algorithm used in the Monte Carlo simulation of the Ising Model}
+\end{figure}
+
 Below is a general overview of the algorithm for our Monte Carlo code for solving the Ising model
 
 \begin{enumerate}
@@ -473,13 +481,7 @@ Below is a general overview of the algorithm for our Monte Carlo code for solvin
 \item Repeat these steps for each desired Monte Carlo iteration at every desired energy.
 \end{enumerate}
 
-The heart of this process is in the Metropolis algorithm which is shown in figure \ref{fig:metropolis}
 
-\begin{figure}\label{fig:metropolis}
-  \centering
-    \includegraphics[width=1.0 \textwidth]{Metropolis}
-    \caption{The implementation of the Metropolis algorithm used in the Monte Carlo simulation of the Ising Model}
-\end{figure}
 
 
 \section{Results and Discussion}
@@ -514,6 +516,56 @@ Cycles & $E/N$ & $\epsilon$ & $|M|/N$ & $\epsilon$ &  $C_V/N$ & $\epsilon$ & $\c
 
 From this table, we can see that we can reach good agreement for the energy and magnetism very quickly, although this is not surprising because we began the simulation in a configuration that is highly favored at low temperature.  It took much longer, however, to reach good agreement with the heat capicity and susceptibility.  In fact, it took about a million Monte Carly cycles to reach agreement on the order of a couple percent.
 
+\subsection{Equilibrium Time}
+
+We can ask ourselves how long it takes for our spin system to settle on its most likely state.  In a sense, the number of Monte Carlo cycles represents the passing of time, so we can examine how many cycles it takes for the calculation to reach equilibrium.  Here we studied this by looking at both the energy and the magnetization as a function of the number of Monte Carlo cycles (time).  We performed this calculation at two different temperature, T=1 and T=2.4.  For both cases we began the calculation from two different orientations: an ordered, spin up configuration, and a random configuration.  Those results are shown below.
+
+\begin{figure}[H]\label{fig:MCEnergy}
+  \centering
+    \includegraphics[width=1.1 \textwidth]{MCEnergy.jpg}
+    \caption{The mean energy of the 20 by 20 system as a function of the number of Monte Carlo Cycles.  The calculation is repeated at T=1 and T=2.4.  For each case, the calculation is performed with an initial spin configuration that is random and an initial spin configuration that is ordered, with all spins pointing up.}
+\end{figure}
+
+For all four cases, the energy levels out, indicating the system seems to come to equilibrium, by about 1,000 Monte Carlo cycles.  Conservatively, waiting until 10,000 cycles eliminates almost all further variation.  It is worth noting that the case of T=1 with an ordered configuration comes to equilibrium much faster, but this is because the beginning configuration is already very close to the equilibrium state.
+
+\begin{figure}[H]\label{fig:MCMag}
+  \centering
+    \includegraphics[width=1.1 \textwidth]{MCMag.jpg}
+    \caption{The mean magnetization of the 20 by 20 system as a function of the number of Monte Carlo Cycles.  The calculation is repeated at T=1 and T=2.4.  For each case, the calculation is performed with an initial spin configuration that is random and an initial spin configuration that is ordered, with all spins pointing up.}
+\end{figure}
+
+For all four cases, the magnetization levels out, indicating the system seems to come to equilibrium, by about 10,000 Monte Carlo cycles.  Again, the case of T=1 with an ordered configuration comes to equilibrium much faster, but this is because the beginning configuration is already very close to the equilibrium state.  This test seems to indicate that about 10,000 cycles are necessary to get reliable values for $\langle E \rangle$ and $\langle |M| \rangle$.
+
+Finally, we can look at the behavior of the number accepted configuration as a function of the time.  The plot below demonstrates this behavior for the 20 by 20 system at three different temperature, T=1,3,and 5.
+
+\begin{figure}[H]\label{fig:acceptplot}
+  \centering
+    \includegraphics[width=1.1 \textwidth]{acceptplot.jpg}
+    \caption{The number of accepted configurations as a function of the number of Monte Carlo Cycles at t=1,3, and 5.l}
+\end{figure}
+
+The plot is in log-log scale, indicating a strong linear behavior, with the slope increasing with temperature.  This makes sense because as the temperature increases, more possible configurations are open to the system, allowing for a higher acceptance rate.  As T increase, we expect the slope to approach the total number of configurations.
+
+\subsection{Probability Distributions}
+
+We can also examine the energy probability distribution created by our calculation.  To do this, we performed the same 20 by 20 calculation at T=1 and T=2.4.  Once the system has reached equilibrium, we can histogram the number of times a particular energy is produced by the Monte Carlo cycle.  To ensure that equilibrium was reached, and to make the amount of date tractable, the following plots show the energy results for every 10th calculation between 200,000 and 1,000,000 Monte Carlo cycles.  These plots are shown in Figures \ref{fig:pe1} and \ref{fig:pe2} for T=1.0 and T=2.4, respectively.
+
+To make the comparison between the two cases transparent, the x axis of both plots cover the same energy difference (0.01) and there are 1000 energy bins in each histogram.  It is clear that the P(E) for the T=1.0 case is much sharper and narrower.  This makes sense because, well below the critical temperature, the spins are going to prefer a low energy, aligned spin configuration.
+
+For T=2.4, the distribution becomes much wider.  This is because at higher temperatures, more states become energetically accessible.  This effect can be understood in terms of the energy variance, which is proportional to the heat capacity.  The heat capacities for T=1 and T=2.4 are about 0.023 and 1.41, respectively.  This means the heat capacity for the T=2.4 case is about 60 times greater than for the T=1 case.  If we take a close look at the P(E)s and zoom in the on energy axis, we can see that the T=2.4 case is about 50 times wider than its T=1 counterpart.  This is consistent with the picture of higher temperature leading to a wider energy distribution and larger energy variance. 
+
+\begin{figure}[H]\label{fig:pe1}
+  \centering
+    \includegraphics[width=1.1 \textwidth]{pe1.jpg}
+    \caption{P(E) for the 20 by 20 lattice with T=1.0}
+\end{figure}
+
+
+\begin{figure}[H]\label{fig:pe2}
+  \centering
+    \includegraphics[width=1.1 \textwidth]{p2.jpg}
+    \caption{P(E) for the 20 by 20 lattice with T=2.4}
+\end{figure}
 
 \section{Conclusions}
 
@@ -553,7 +605,7 @@ Computational Physics, Lecture Notes Fall 2015.
 August 2015.
 
 \bibitem{Curie}
-McGlohon et. al.
+McGlohon et. al.xm
 Curie Temperature, 2012.
 https://www.nhn.ou.edu/~johnson/Education/Juniorlab/Magnetism/2013F-CuriePoint.pdf
 

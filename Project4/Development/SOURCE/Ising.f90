@@ -66,10 +66,12 @@ program Ising
         average(3)=average(3)+M
         average(4)=average(4)+(M*M)
         average(5)=average(5)+abs(M)
-        acceptance = acceptance + accept
-        call output(NumSpins,j,temp,average,acceptance)
+        !        acceptance = acceptance + accept
+!       if (j .ge. 200000 .and. mod(j,10)==0) then
+!          call output(NumSpins,j,temp,average,acceptance)
+!        end if
      end do
-!       call output(NumSpins,MCS,temp,average)
+       call output(NumSpins,MCS,temp,average,acceptance)
   end do
   
   
@@ -175,7 +177,7 @@ subroutine output(numspins, mcs, temperature, average,accept)
   Mvariance = (M2average - Mabsaverage*Mabsaverage)/numspins/numspins
 
   write(1,*)temperature, mcs,Eaverage/numspins/numspins, Evariance/temperature/temperature, &
-       Maverage/numspins/numspins, Mvariance/temperature, Mabsaverage/numspins/numspins,accept
+       Maverage/numspins/numspins, Mvariance/temperature, Mabsaverage/numspins/numspins
 
 end subroutine output
 

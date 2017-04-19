@@ -1,0 +1,20 @@
+
+This project only utilized one code, Ising.for
+
+Ising.for computes average energy, magnetization, heat capacity, and susceptibility in the 2D ising model.
+Calculations can be run over a range of temperatures and lattice sizes.
+The results given here run with the following inputs, prompted by the command line:
+
+- Size of an N by N the lattice (N) - N=20
+- Beginning temperature - T=1
+- Ending temperature - T=3
+- Number of temperature steps.  The code will increment in (Tf-Ti)/(Number of steps) - Num=10
+- Number of Monte Carlo cycles for each Temp -  MSC=100000
+- Beginning orientation, random or alligned - Ordered (1)
+
+After the run, all results will appear in the MonteCarloResults.txt file in the following order:
+
+Temp, #Monte Carlo Cycles, Average E, Heat Capacity, Average Mag, Susceptibility, Abs. Mag
+
+
+The code was compiled with the gfortran compiler.

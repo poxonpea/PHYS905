@@ -108,17 +108,17 @@ April 30, 2017
 
 \vspace{1cm}
 
-PUT ABSTRACT HERE
+In this report, we study the 2D Ising model using a Monte Carlo simulation that employs the Metropolis Algorithm for its sampling rule.  The code is able to reproduce exact results for the case of a 2 by 2 lattice. We conducted a series of investigations of the average energy, average magnetization, susceptibility, and heat capacity,  exploring the second order phase transition as a function of lattice size and temperature.  As the lattice size increases, we approach the physical limit where the lattice is infinite.  We deduced a critical temperature of 2.242 which differs from the exact solution of 2.269 by about 1$\%$ relative error.
 
 \tableofcontents
  
 \section{Introduction}
 
-Certain materials exhibit a behavior where the spins of unpaired electrons in the material align in some region of the material.  This is called a domain and had a "macroscopic" spacial extent on the order of mm \cite{LectureNotes}.  This behavior is called Ferromagnetism and Iron, Nickel, and Cobalt are the most common elements which display this behavior.  When an external magnetic field is applied, the domains which are already in aligned with the field grow, taking over the misaligned domains.  Ferromagnetic materials can remain magnetized, even after that external field is removed.
+Certain materials exhibit a behavior where the spins of unpaired electrons in the material align in some region of the material.  This is called a domain and it has a "macroscopic" spacial extent on the order of mm \cite{LectureNotes}.  This phenomenon is called ferromagnetism and Iron, Nickel, and Cobalt are the most common elements which display this behavior.  When an external magnetic field is applied, the domains which are already aligned with the field grow, taking over the misaligned domains.  Ferromagnetic materials can remain magnetized, even after that external field is removed.
 
-At the same time, these alignments are fighting against thermal excitations which tend to randomize any ordering at the atomic level.  However, at the Curie temperature, magnetic materials undergo a sharp change in their magnetic properties.  This is the temperature at which random thermal nudges overcome the domain's order and spins are forced out of alignment \cite{Curie}.  This temperature can vary from well below room temperature for rare earth metals like Dysprosium, all the way to almost 1400 K for Cobalt.
+At the same time, these alignments are fighting against thermal excitations which tend to randomize any ordering at the atomic level.  However, at the Curie temperature, magnetic materials undergo a sharp change in their magnetic properties.  This is the temperature at which random thermal nudges overcome the domain's order and spins are forced out of alignment \cite{Curie}.  This critical temperature can vary from well below room temperature for rare earth metals like Dysprosium, all the way to almost 1400 K for Cobalt.
 
-In this project we are going to study one of the simplest and most common models for ferromagnetic materials, the Ising model.  This model, although very basic, has proven very useful in understanding, not only ferromagnetic materials, but also antiferromagnetic materials, where neighboring spins anti align with one another, leading to no overall magnetization.  The Ising model has even been applied outside of the physical sciences to model a wide variety of situations.  Some of these include modeling people's opinions about the future of the economy, urban segregation, and how languages change over time \cite{otherising}.  We will us the Ising model in two dimensions to explore properties of a materials phase transition from a magnetic to a nonmagnetic material.  We will employ a Monte Carlo method in this study and, eventually, extract the Curie temperature which can be compared to exact results.
+In this project we are going to study one of the simplest and most common models for ferromagnetic materials, the Ising model.  This model, although very basic, has proven very useful in understanding, not only ferromagnetic materials, but also antiferromagnetic materials, where neighboring spins anti align with one another, leading to no overall magnetization.  The Ising model has even been applied outside of the physical sciences to model a wide variety of situations.  Some of these include modeling people's opinions about the future of the economy, urban segregation, and how languages change over time \cite{otherising}.  We will us the Ising model in two dimensions to explore properties of a material's phase transition from a magnetic to a nonmagnetic material.  We will employ a Monte Carlo method in this study and, eventually, extract the Curie temperature which can be compared to exact results.
 
 This report will begin with an introduction to the Ising model, beginning with the simple case of a 2 by 2 lattice.  We will explain the model and use it to derive important quantities relevant for statistical mechanics.  Then we will implement this system using Monte Carlo methods.  We will then expand the lattice to a larger size and explore aspects of the Monte Carlo simulation, as well as the phase transition.  Finally, we will extract the critical, Curie temperature from our study and compare it with exact results.
 
@@ -140,7 +140,7 @@ In this work, we will not apply an an external field to the system, although tha
 E=-J \sum_{\langle k l \rangle}^N s_k s_l - \mathcal{B} \sum_k^N s_k
 \end{equation*}
 
-where $\mathcal{B}$ is the strength of the external magnetic field.  Now we can use this energy to develop expressions for relevant quantities from statistical mechanics.
+where $\mathcal{B}$ is the strength of the external magnetic field. We can use this energy to develop expressions for relevant quantities from statistical mechanics.
 
 \subsection{The Ising Model on a 2 by 2 Lattice}
 
@@ -189,7 +189,7 @@ We can enumerate the energy and the magnetization for each of these configuratio
 \mathcal{M}_i = \sum_{j=1}^N s_j
 \end{equation*}
 
-where the sum runs over all spins for a given configuration $i$.  These quantites are in the table below.
+where the sum runs over all spins for a given configuration $i$.  These quantities are in the table below.
 
 \begin{center} 
 \begin{tabular}{ |c|c|c|c| }
@@ -207,7 +207,7 @@ Number of Spin Ups & Number of Configurations & Energy & Magnetization \\
 \label{table:test}
 \end{center}
 
-Note that there are two kinds of configurations with 2 spin ups.  This configuration results in 0 energy if the spin up points are adjacent to one another, but has a positive energy if they are diagonal from one another.
+Note that there are two kinds of configurations with 2 spins up.  This configuration results in 0 energy if the spin up points are adjacent to one another, but has a positive energy if they are diagonal from one another.
 
 Now we have the energies, we can compute the partition function, which is defined as
 
@@ -215,7 +215,7 @@ Now we have the energies, we can compute the partition function, which is define
 Z=\sum_{i=1}^M e^{-\beta E_i}
 \end{equation*}
 
-where the sum is over all microstates $M$ and $\beta = 1/(kT)$. In the case of the two dimensional lattice, Z is equal to
+where the sum is over all micro states $M$ and $\beta = 1/(kT)$. In the case of the two dimensional lattice, Z is equal to
 
 \begin{equation*}
 \begin{split}
@@ -233,9 +233,9 @@ P_i(\beta)= \frac{e^{i \beta E_i}}{Z}
 
 And the mean value of some quantity of interest is 
 
-\begin{equation*}
+\begin{equation}\label{eq:1}
 \langle X \rangle = \sum_{i=1}^M X_i P_i.
-\end{equation*}
+\end{equation}
 
 Using this, the expectation value of the energy is 
 
@@ -246,7 +246,7 @@ Using this, the expectation value of the energy is
 \end{split}
 \end{equation*}
 
-The mean magnetization is
+The mean absolute value of magnetization is
 
 \begin{equation*}
 \begin{split}
@@ -262,7 +262,7 @@ The specific heat can be defined as
 C_V=\frac{1}{T^2} (\langle E^2 \rangle - \langle E \rangle ^2).
 \end{equation*}
 
-We can easily find $\langle E^2 \rangle$ in the same way as before, giving us
+We can easily find $\langle E^2 \rangle$ by substituting $X=E^2$ in Equation \ref{eq:1} giving us.
 
 \begin{equation*}
 \begin{split}
@@ -306,7 +306,7 @@ so the susceptibility can be written as
 
 \subsection{The Metropolis Algorithm and Detailed Balance}
 
-In order to perform our calculations, we need the partition function that describes the physical situation.  For the case of the 2 by 2 lattice, it is simple to write this function explicitly, but as the size of the grid grows to large values, the partition function becomes intractable to write explicitly.  This is true in almost every physical application. Therefore, we need some methodology which avoids calculating the partition function explicitly.  This is where the Metropolis algorithm and detailed balance come in.
+In order to perform our calculations, we need the partition function that describes the physical situation.  For the case of the 2 by 2 lattice, it is simple to write this function explicitly, but as the size of the grid grows to large values, the partition function becomes intractable to write explicitly.  This is true in almost every physical application. Therefore, we need some methodology which avoids calculating the partition function explicitly. Monte Carlo methods are useful in situations, such as these, where the physical process cannot be easily described analytically.  Monte Carlo methods require a a sampling rule to decide whether or not to accept a simulated move.  Here we will use the Metropolis algorithm, which depends on the condition of detailed balance. 
 
 Suppose we have some PDF, $w(t)$ that evolves via a transition probability $W$ such that 
 
@@ -320,7 +320,7 @@ then we can write the action of $W$ as
 w_i(t+1) = \sum_j W_{ij}w_j(t).
 \end{equation*}
 
-In the case of the Ising model, $w$ depends on the partition function, which we often cannot write explicitly, additionally, we do not have an analytic form for the transition probability, W.  Therefore, we can choose to model the transition probability as the product of two probabilities, one probability for accepting a move from i to j (A) and one that makes the transition to i from j (T).  We can now express the prbability as
+In the case of the Ising model, $w$ depends on the partition function, which we often cannot write explicitly, additionally, we do not have an analytic form for the transition probability, W.  Therefore, we can choose to model the transition probability as the product of two probabilities, one probability for accepting a move from i to j (A) and one that makes the transition to i from j (T).  We can now express the probability as
 
 \begin{equation*}
 W(j \rightarrow i) = T( j \rightarrow i) A(j \rightarrow i).
@@ -350,19 +350,19 @@ This is very similar to the Master equation given by
 \frac{dw_i(t)}{dt}=\sum_j \lbrack W(j \rightarrow i) w_j - W(i \rightarrow j) w_i \rbrack.
 \end{equation*}
 
-This equation states that the rate that a system moves from state $j$ to state $i$ is balanced by the rate at which the system transtitions from $j$ to $i$.  In equilibrium, this should be equal to 0.  That allows us to write
+This equation states that the rate that a system moves from state $j$ to state $i$ is balanced by the rate at which the system transitions from $j$ to $i$.  In equilibrium, this should be equal to 0.  That allows us to write
 
 \begin{equation*}
 \sum_j w_j T_{j \rightarrow i}A_{j \rightarrow i} = \sum_j w_i T_{i \rightarrow j}A_{i \rightarrow j}
 \end{equation*}
 
-We recongnize the product of the transition probabilities on the right side as $W_{ij}$ and we know that this probability is normalized when we sum over all final states, j.  This allows us to rewrite the expression as
+We recognize the product of the transition probabilities on the right side as $W_{ij}$ and we know that this probability is normalized when we sum over all final states, j.  This allows us to rewrite the expression as
 
 \begin{equation*}
 w_i=\sum_j w_j W_{j \rightarrow i}.
 \end{equation*}
 
-This condition, however, is not sufficient to guarantee that we arrive at the correct distribution in the system.  We just apply the additional condition of detailed balance, which can be written
+This condition, however, is not sufficient to guarantee that we arrive at the correct distribution in the system.  We need to apply the additional condition of detailed balance, which can be written
 
 \begin{equation*}
 W(j \rightarrow i)w_j = W(i \rightarrow j) w_i
@@ -386,13 +386,13 @@ $w_i$ and $w_j$ both take the form of a Boltzmann distribution, with the partiti
 \frac{A_{j \rightarrow i}}{A_{i \rightarrow j}}=\frac{T_{i \rightarrow j}w_i}{ T_{j \rightarrow i}w_j}.
 \end{equation*}
 
-Detailed balance asumes that $T_{i \rightarrow j}=T_{j \rightarrow i}$, causing a cancelation.  If we insert the expression for the Boltzmann distribution for $w$, we now have
+Detailed balance asumes that $T_{i \rightarrow j}=T_{j \rightarrow i}$, causing a cancellation.  If we insert the expression for the Boltzmann distribution for $w$, we now have
 
 \begin{equation*}
 \frac{A(j \rightarrow i)}{A(i \rightarrow j)}=e^{-\beta (E_i-E_j)}.
 \end{equation*}
 
-If we think about an application to a system with many different energy states, we know that the physical system will tend towards the lowest energy state, but our system must also be ergodic, meaning that it must be possible for the system to reach any possible state from any starting position.  This means that our algorithm must encode transitions to lower energies after many transitions, but also allow for many paths which include midpoints that reach higher energy states.  One way to encode this is
+If we think about an application to a system with many different energy states, we know that the physical system will tend towards the lowest energy state, but our system must also be ergodic, meaning that it must be possible for the system to reach any possible state from any starting position.  This means that our algorithm must encode transitions to lower energies after many transitions, but also allow for many paths which include higher energy states.  One way to encode this is
 
 \begin{equation*}
 A(j \rightarrow i) = \begin{cases}
@@ -401,7 +401,7 @@ e^{-\beta(E_i-E_j)} & \text{if} \ E_i-E_j > 0 \\
 \end{cases}
 \end{equation*}
 
-where a transition to a lower energy state is always accepted, but a transition to a higher energy state is accepted with some probability depending on the energy difference.  This is the heart of the Metropolis algorithm we will use in our calculation.
+where a transition to a lower energy state is always accepted, but a transition to a higher energy state is accepted with some probability depending on the energy difference.  This sampling rule is the Metropolis algorithm and we will use it in our calculations.
 
 \subsection{Phase Transitions in the Ising Model}
 
@@ -460,7 +460,7 @@ All of the programs, results, and benchmarks for this work can be found in my GI
 
 \subsection{General Algorithm for Code}
 
-The heart of this process is in the Metropolis algorithm which is shown in Figure \ref{fig:metropolis}
+The heart of this process is the Metropolis algorithm which is shown in Figure \ref{fig:metropolis}
 
 \begin{figure}[H]\label{fig:metropolis}
   \centering
@@ -488,9 +488,9 @@ Below is a general overview of the algorithm for our Monte Carlo code for solvin
 
 \subsection{Comparing Results to Analytic 2 by 2 System}
 
-The first test of our code is to compare our results from our Monte Carlo simulations to the analytic results we achieved for the 2 by 2 case.  All results for our code will be normalized to the size of lattice so that we can compare across calculations.  Therefore, all of the results we obtained before should be divided by four.  In this comparison, we will study the behavior at T=1.0 in units of $kT/J$.  All our or calculations started with a configuration where all spins are aligned, which is the configuration that we expect at low temperature.
+The first test of our code is to compare our results from our Monte Carlo simulations to the analytic results we achieved for the 2 by 2 case.  All results for our code will be normalized to the size of lattice so that we can compare across calculations.  Therefore, all of the results we obtained before should be divided by four.  In this comparison, we will study the behavior at T=1.0 in units of $kT/J$.  Here, our or calculations started with a configuration where all spins are aligned, which is the configuration that we expect at low temperature.
 
-The table below gives the results of the calculations, including the relative error when comparing to the analytical values.  For $T=1$, the exact results yield $\langle E \rangle = -1.99598$, $\langle |M| \rangle = 0.998661$ ,$C_V = 0.0320823 $, and $ \chi = 0.00401074$.
+The table below gives the results of the calculations, including the relative error when comparing to the analytical values.  For $T=1$, the exact results yield $\langle E \rangle = -1.99598$, $\langle |M| \rangle = 0.998661$ ,$C_V = 0.0320823 $, and $ \chi = 0.00401074$ respectively.
 
 \begin{center} 
 \begin{tabular}{ |c|c|c|c|c|c|c|c|c| }
@@ -514,11 +514,11 @@ Cycles & $E/N$ & $\epsilon$ & $|M|/N$ & $\epsilon$ &  $C_V/N$ & $\epsilon$ & $\c
 \label{table:test}
 \end{center}
 
-From this table, we can see that we can reach good agreement for the energy and magnetism very quickly, although this is not surprising because we began the simulation in a configuration that is highly favored at low temperature.  It took much longer, however, to reach good agreement with the heat capicity and susceptibility.  In fact, it took about a million Monte Carly cycles to reach agreement on the order of a couple percent.
+From this table, we can see that we can reach good agreement for the energy and magnetism very quickly, although this is not surprising because we began the simulation in a configuration that is highly favored at low temperature.  It took much longer, however, to reach good agreement with the heat capacity and susceptibility.  It took about a million Monte Carly cycles to reach agreement on the order of a couple percent.
 
 \subsection{Equilibrium Time}
 
-We can ask ourselves how long it takes for our spin system to settle on its most likely state.  In a sense, the number of Monte Carlo cycles represents the passing of time, so we can examine how many cycles it takes for the calculation to reach equilibrium.  Here we studied this by looking at both the energy and the magnetization as a function of the number of Monte Carlo cycles (time).  We performed this calculation at two different temperature, T=1 and T=2.4.  For both cases we began the calculation from two different orientations: an ordered, spin up configuration, and a random configuration.  Those results are shown below.
+We can ask ourselves how long it takes for our spin system to settle on its most likely state.  In a sense, the number of Monte Carlo cycles represents the passing of time, so we can examine how many cycles it takes for the calculation to reach equilibrium.  Here we studied this by looking at both the energy and the magnetization as a function of the number of Monte Carlo cycles (time).  We performed this calculation on a 20 by 20 lattice at two different temperature, T=1 and T=2.4.  For both cases we began the calculation from two different orientations: an ordered, spin up configuration, and a random configuration.  Those results are shown below.
 
 \begin{figure}[H]\label{fig:MCEnergy}
   \centering
@@ -541,7 +541,7 @@ Finally, we can look at the behavior of the number accepted configuration as a f
 \begin{figure}[H]\label{fig:acceptplot}
   \centering
     \includegraphics[width=1.1 \textwidth]{acceptplot.jpg}
-    \caption{The number of accepted configurations as a function of the number of Monte Carlo Cycles at t=1,3, and 5.l}
+    \caption{The number of accepted configurations as a function of the number of Monte Carlo Cycles at T=1,3, and 5}
 \end{figure}
 
 The plot is in log-log scale, indicating a strong linear behavior, with the slope increasing with temperature.  This makes sense because as the temperature increases, more possible configurations are open to the system, allowing for a higher acceptance rate.  As T increase, we expect the slope to approach the total number of configurations.
@@ -552,7 +552,7 @@ We can also examine the energy probability distribution created by our calculati
 
 To make the comparison between the two cases transparent, the x axis of both plots cover the same energy difference (0.01) and there are 1000 energy bins in each histogram.  It is clear that the P(E) for the T=1.0 case is much sharper and narrower.  This makes sense because, well below the critical temperature, the spins are going to prefer a low energy, aligned spin configuration.
 
-For T=2.4, the distribution becomes much wider.  This is because at higher temperatures, more states become energetically accessible.  This effect can be understood in terms of the energy variance, which is proportional to the heat capacity.  The heat capacities for T=1 and T=2.4 are about 0.023 and 1.41, respectively.  This means the heat capacity for the T=2.4 case is about 60 times greater than for the T=1 case.  If we take a close look at the P(E)s and zoom in the on energy axis, we can see that the T=2.4 case is about 50 times wider than its T=1 counterpart.  This is consistent with the picture of higher temperature leading to a wider energy distribution and larger energy variance. 
+For T=2.4, the distribution becomes much wider.  This is because at higher temperatures, more states become energetically accessible.  This effect can be understood in terms of the energy variance, which is proportional to the heat capacity.  The heat capacities for T=1 and T=2.4 are about 0.023 and 1.41, respectively.  This means the heat capacity for the T=2.4 case is about 60 times greater than for the T=1 case.  If we take a close look at the P(E)s and zoom in on the energy axis, we can see that the T=2.4 case is about 50 times wider than its T=1 counterpart.  This is consistent with the picture of higher temperature leading to a wider energy distribution and larger energy variance. 
 
 \begin{figure}[H]\label{fig:pe1}
   \centering
@@ -567,8 +567,78 @@ For T=2.4, the distribution becomes much wider.  This is because at higher tempe
     \caption{P(E) for the 20 by 20 lattice with T=2.4}
 \end{figure}
 
+\subsection{Numerical Studies of the Phase Transition}
+
+The Ising model displays a second order phase transition where the material looses its magnetic properties at some critical temperature.  In these types of transitions, we expect to see a smooth variation in energy when crossing the critical temperature, but a divergence in the heat capacity.  To study this effect, we ran Monte Carlo calculations for a range of temperatures that span the phase transition for a number of lattice sizes.  As the lattice increases, we begin to approach the more physical approximation of an infinite lattice and these transition effects will approach a physical limit.  To get a rough idea of where the critical temperature is, we ran on my calculation for temperatures between 2.1 and 2.6, in steps of 0.03.  For each temperature value, we ran 100,000 Monte Carlo cycles.  The results showing $\langle E \rangle$, $\langle |M| \rangle$, $C_V$, and $\chi$ are shown below.
+
+\begin{figure}[H]\label{fig:looseE}
+  \centering
+    \includegraphics[width=0.85 \textwidth]{20energyloose.jpg}
+    \caption{Average energy per particle as a function of temperature}
+\end{figure}
+
+As expected, the energy transition is continuous across the critical temperature, with the rise in energy becoming more pronounced for larger lattices.  
+
+\begin{figure}[H]\label{fig:looseM}
+  \centering
+    \includegraphics[width=0.85 \textwidth]{magloose.jpg}
+    \caption{Average magnetization per particle as a function of temperature}
+\end{figure}
+
+The magnetism per particle also exhibits the expected behavior of a phase transition.  At low temperature, the magnetism is some positive quantity because the spins tend to be in an aligned orientation.  As the temperature increases, more and more spin configurations are allowed until they are, essentially, random.  At this critical temperature, the magnetism of all of the spins cancel out, giving an overall 0 magnetism.  This is signified by the steep drop to 0 magnetization at the critical temperature.  As the lattice size increase, this drop becomes sharper.
+
+\begin{figure}[H]\label{fig:looseC}
+  \centering
+    \includegraphics[width=1.1 \textwidth]{capacityloose.jpg}
+    \caption{Average heat capacity per particle as a function of temperature}
+\end{figure}
+
+The heat capacity demonstrates a discontinuity at the the critical temperature.  Because we are working on a finite lattice, our results will always be finite, but show a clear bump that increases in strength as we move towards a larger, more physical lattice.
+
+\begin{figure}[H]\label{fig:looseX}
+  \centering
+    \includegraphics[width=1.1 \textwidth]{susceptloose.jpg}
+    \caption{Average magnetic susceptibility per particle as a function of temperature}
+\end{figure}
+
+Additionally, the susceptibility demonstrates a strong discontinuity at the critical temperature, which behaves very similarly to the heat capacity.  We can use this very sharp peak to extract the critical temperature.
+
+Now we have a general idea of where the phase transition occurs, we can zoom in on that region and do a finer search in energy.  The plot below shows one such search looking at heat capacity as a function of temperature.  We used temperature steps of 0.005 and performed 100,000 Monte Carlo cycles per temperature. 
+
+\begin{figure}[H]\label{fig:fineheat}
+  \centering
+    \includegraphics[width=1.1 \textwidth]{fineheat.jpg}
+    \caption{Average heat capacity per particle as a function of temperature on a finer grid.}
+\end{figure} 
+
+We can use this result to extract the critical temperature.  We recall from before that the critical temperature scales with lattice size as 
+
+\[
+T_C(L)-T_C(L=\infty)=a L^{1/\nu}
+\]
+ where $\nu=1$.  Here, we assume $a$ to be 1.  We can find $T_C$ for each lattice size by reading the peaks off of Figure \ref{fig:fineheat} and multiplying by $1-\frac{1}{L}$.  This can be compared to the exact solution of $2/ln(1+\sqrt{2}) \approx 2.269$.  The results for different lattice sizes and their relative errors are shown below.
+
+\begin{center} 
+\begin{tabular}{ |c|c|c| }
+\hline
+L & $T_C$ & $\epsilon$ \\
+\hline
+20 & 2.195 & 0.033 \\
+40 & 2.233 & 0.016 \\
+60 & 2.237 &  0.014\\
+80 & 2.242 & 0.012 \\
+\hline
+\end{tabular}
+\label{table:test}
+\end{center}
+
+As expected, as $L$ increases, the $T_C$ approaches the value on an infinite lattice.
+
 \section{Conclusions}
 
+In this project, we modeled magnetic phase transitions using the 2 dimensional Ising model.  Our code employs Monte Carlo methods, using the Metropolis Algorithm as the sampling rule.  We tested this code by comparing to the exact solutions of the tractable, 2 by 2 lattice.  Our code was able to reproduce these results with good accuracy.  We explored many aspects of this model, including exploring the energy probability distribution at high and low temperatures, finding that at low temperatures, the system is confined to an aligned spin configuration, but at higher temperatures, the system can access a larger array of spin configurations.
+
+Finally, we conducted a series of investigations exploring the second order phase transition as a function of lattice size and temperature.  As the lattice size increases, we approach the physical limit where the lattice is infinite.  We deduced a critical temperature of 2.242 which differs from the exact solution of 2.269 by about 1$\%$ relative error.
 
 \begin{comment}
 

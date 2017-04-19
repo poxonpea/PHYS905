@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.19)  18 APR 2017 10:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9) (preloaded format=pdflatex 2016.1.19)  19 APR 2017 17:51
 entering extended mode
 **H:/Documents/Computational/PHYS905/PHYS905/Project4/Development/REPORT/PoxonP
 earsonProject4.tex
@@ -629,6 +629,9 @@ Package: everysel 2011/10/28 v1.2 EverySelectfont Package (MS)
 
 LaTeX Warning: Label `table:test' multiply defined.
 
+
+LaTeX Warning: Label `table:test' multiply defined.
+
 )
 \openout1 = `PoxonPearsonProject4.aux'.
 
@@ -703,34 +706,37 @@ LaTeX Info: Redefining \nameref on input line 71.
 
 ABD: EverySelectfont initializing macros
 LaTeX Info: Redefining \selectfont on input line 71.
- (PoxonPearsonProject4.toc
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 4.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 111.
+
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 4.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 111.
+
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 4.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 111
+.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 4.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 111
+.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 4.
+(Font)              <10> on input line 111.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 4.
+(Font)              <7> on input line 111.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 4.
-LaTeX Font Info:    Try loading font information for U+msa on input line 4.
+(Font)              <5> on input line 111.
+LaTeX Font Info:    Try loading font information for U+msa on input line 111.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -738,14 +744,15 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (C:\Users\poxonpea\Desktop\MikTex\tex\latex\microtype\mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 4.
+LaTeX Font Info:    Try loading font information for U+msb on input line 111.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 (C:\Users\poxonpea\Desktop\MikTex\tex\latex\microtype\mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-))
+)
+(PoxonPearsonProject4.toc)
 \tf@toc=\write6
 \openout6 = `PoxonPearsonProject4.toc'.
 
@@ -756,7 +763,7 @@ Overfull \hbox (2.30473pt too wide) in paragraph at lines 195--208
  [] 
  []
 
-[3] [4] [5] [6] [7] <Metropolis.png, id=122, 636.3775pt x 729.72626pt>
+[3] [4] [5] [6] [7] <Metropolis.png, id=129, 636.3775pt x 729.72626pt>
 File: Metropolis.png Graphic file (type png)
 
 <use Metropolis.png>
@@ -767,7 +774,7 @@ Overfull \hbox (85.11069pt too wide) in paragraph at lines 496--513
  [] 
  []
 
-[10] <MCEnergy.jpg, id=147, 794.97pt x 614.295pt>
+[10] <MCEnergy.jpg, id=154, 794.97pt x 614.295pt>
 File: MCEnergy.jpg Graphic file (type jpg)
  <use MCEnergy.jpg>
 Package pdftex.def Info: MCEnergy.jpg used on input line 525.
@@ -777,10 +784,9 @@ Overfull \hbox (34.5021pt too wide) in paragraph at lines 525--526
  [][] 
  []
 
-[11 <./MCEnergy.jpg>] <MCMag.jpg, id=153, 794.97pt x 614.295pt>
+[11] <MCMag.jpg, id=159, 794.97pt x 614.295pt>
 File: MCMag.jpg Graphic file (type jpg)
-
-<use MCMag.jpg>
+ <use MCMag.jpg>
 Package pdftex.def Info: MCMag.jpg used on input line 533.
 (pdftex.def)             Requested size: 379.5021pt x 293.2554pt.
 
@@ -788,9 +794,10 @@ Overfull \hbox (34.5021pt too wide) in paragraph at lines 533--534
  [][] 
  []
 
-<acceptplot.jpg, id=154, 794.97pt x 614.295pt>
+[12 <./MCEnergy.jpg>] <acceptplot.jpg, id=165, 794.97pt x 614.295pt>
 File: acceptplot.jpg Graphic file (type jpg)
- <use acceptplot.jpg>
+
+<use acceptplot.jpg>
 Package pdftex.def Info: acceptplot.jpg used on input line 543.
 (pdftex.def)             Requested size: 379.5021pt x 293.2554pt.
 
@@ -798,8 +805,8 @@ Overfull \hbox (34.5021pt too wide) in paragraph at lines 543--544
  [][] 
  []
 
-[12 <./MCMag.jpg>] [13 <./acceptplot.jpg>]
-<pe1.jpg, id=169, 794.97pt x 614.295pt>
+[13 <./MCMag.jpg>] [14 <./acceptplot.jpg>]
+<pe1.jpg, id=180, 794.97pt x 614.295pt>
 File: pe1.jpg Graphic file (type jpg)
  <use pe1.jpg>
 Package pdftex.def Info: pe1.jpg used on input line 559.
@@ -809,7 +816,7 @@ Overfull \hbox (34.5021pt too wide) in paragraph at lines 559--560
  [][] 
  []
 
-<p2.jpg, id=170, 794.97pt x 614.295pt>
+<p2.jpg, id=181, 794.97pt x 614.295pt>
 File: p2.jpg Graphic file (type jpg)
  <use p2.jpg>
 Package pdftex.def Info: p2.jpg used on input line 566.
@@ -819,22 +826,67 @@ Overfull \hbox (34.5021pt too wide) in paragraph at lines 566--567
  [][] 
  []
 
-[14 <./pe1.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 608--611
+[15 <./pe1.jpg>] <20energyloose.jpg, id=186, 794.97pt x 614.295pt>
+File: 20energyloose.jpg Graphic file (type jpg)
+
+<use 20energyloose.jpg>
+Package pdftex.def Info: 20energyloose.jpg used on input line 576.
+(pdftex.def)             Requested size: 293.2521pt x 226.6107pt.
+ [16 <./p2.jpg>]
+<magloose.jpg, id=192, 794.97pt x 614.295pt>
+File: magloose.jpg Graphic file (type jpg)
+ <use magloose.jpg>
+Package pdftex.def Info: magloose.jpg used on input line 584.
+(pdftex.def)             Requested size: 293.2521pt x 226.6107pt.
+ [17 <./20energyloose.jpg> <./magloose.jpg>] <capacityloose.jpg, id=199, 794.97
+pt x 614.295pt>
+File: capacityloose.jpg Graphic file (type jpg)
+
+<use capacityloose.jpg>
+Package pdftex.def Info: capacityloose.jpg used on input line 592.
+(pdftex.def)             Requested size: 379.5021pt x 293.2554pt.
+
+Overfull \hbox (34.5021pt too wide) in paragraph at lines 592--593
+ [][] 
+ []
+
+<susceptloose.jpg, id=200, 794.97pt x 614.295pt>
+File: susceptloose.jpg Graphic file (type jpg)
+ <use susceptloose.jpg>
+Package pdftex.def Info: susceptloose.jpg used on input line 600.
+(pdftex.def)             Requested size: 379.5021pt x 293.2554pt.
+
+Overfull \hbox (34.5021pt too wide) in paragraph at lines 600--601
+ [][] 
+ []
+
+[18 <./capacityloose.jpg>] <fineheat.jpg, id=206, 794.97pt x 614.295pt>
+File: fineheat.jpg Graphic file (type jpg)
+
+<use fineheat.jpg>
+Package pdftex.def Info: fineheat.jpg used on input line 610.
+(pdftex.def)             Requested size: 379.5021pt x 293.2554pt.
+
+Overfull \hbox (34.5021pt too wide) in paragraph at lines 610--611
+ [][] 
+ []
+
+[19 <./susceptloose.jpg>] [20 <./fineheat.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 678--681
 []\T1/lmr/m/n/10 (+20) McGlohon et. al.xm Curie Tem-per-a-ture, 2012.
  []
 
 
-Underfull \hbox (badness 4242) in paragraph at lines 613--616
+Underfull \hbox (badness 4242) in paragraph at lines 683--686
 []\T1/lmr/m/n/10 (+20) Stauffer, D. So-cial Ap-pli-ca-tions of two-dimensional 
 Ising mod-els.
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 623.
-[15 <./p2.jpg>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 623.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 693.
+[21]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 693.
  (PoxonPearsonProject4.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 623.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 693.
 
 
  *File List*
@@ -950,22 +1002,27 @@ MCEnergy.jpg    Graphic file (type jpg)
 acceptplot.jpg    Graphic file (type jpg)
      pe1.jpg    Graphic file (type jpg)
       p2.jpg    Graphic file (type jpg)
+20energyloose.jpg    Graphic file (type jpg)
+magloose.jpg    Graphic file (type jpg)
+capacityloose.jpg    Graphic file (type jpg)
+susceptloose.jpg    Graphic file (type jpg)
+fineheat.jpg    Graphic file (type jpg)
  ***********
 
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 623.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 693.
 Package rerunfilecheck Info: File `PoxonPearsonProject4.out' has not changed.
-(rerunfilecheck)             Checksum: 1F1D9441926C662BB4ADB3B75866F4EF;964.
+(rerunfilecheck)             Checksum: C5BD2809B7F65284F4C5FACA95B302B3;1056.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 623.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 693.
  ) 
 Here is how much of TeX's memory you used:
- 11094 strings out of 493634
- 168048 string characters out of 3141305
- 320284 words of memory out of 3000000
- 14082 multiletter control sequences out of 15000+200000
- 53131 words of font info for 95 fonts, out of 3000000 for 9000
+ 11137 strings out of 493634
+ 168683 string characters out of 3141305
+ 320675 words of memory out of 3000000
+ 14109 multiletter control sequences out of 15000+200000
+ 53048 words of font info for 94 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
  42i,19n,38p,1088b,427s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Progr
@@ -981,9 +1038,9 @@ ts/type1/public/lm/lmmi7.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/pub
 lic/lm/lmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmr7.
 pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Pro
 gram Files (x86)/MiKTeX 2.9/fonts/type1/public/lm/lmsy7.pfb>
-Output written on PoxonPearsonProject4.pdf (15 pages, 484890 bytes).
+Output written on PoxonPearsonProject4.pdf (21 pages, 728634 bytes).
 PDF statistics:
- 232 PDF objects out of 1000 (max. 8388607)
- 49 named destinations out of 1000 (max. 500000)
- 12943 words of extra memory for PDF output out of 14400 (max. 10000000)
+ 277 PDF objects out of 1000 (max. 8388607)
+ 62 named destinations out of 1000 (max. 500000)
+ 12976 words of extra memory for PDF output out of 14400 (max. 10000000)
 

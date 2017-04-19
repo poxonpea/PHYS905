@@ -71,9 +71,9 @@ program Ising
 !          call output(NumSpins,j,temp,average,acceptance)
 !        end if
      end do
+     print*, i
        call output(NumSpins,MCS,temp,average,acceptance)
-       print*,i
-    end do
+  end do
   
   
   Deallocate(SpinMatrix)
